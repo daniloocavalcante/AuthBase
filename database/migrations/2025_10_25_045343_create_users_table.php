@@ -20,16 +20,14 @@ return new class extends Migration
             $table->date('birth')->nullable(); // birth DATE
             $table->string('gender', 15)->nullable(); // gender VARCHAR(15)
             $table->string('email', 255)->unique(); // email VARCHAR(255) UNIQUE NOT NULL
-            $table->string('password'); 
+            $table->string('password');             
             $table->boolean('is_active')->default(true); // is_active BOOLEAN DEFAULT TRUE
+            $table->unsignedBigInteger('photo_id')->default(0);  
             
             // Chave estrangeira para privileges
             $table->unsignedBigInteger('privilege_id'); // privilege_id BIGINT NOT NULL
-            $table->foreign('privilege_id')->references('id')->on('privileges');
-            
-            // --- Colunas de Relacionamento (Chaves Estrangeiras) ---
-            $table->unsignedBigInteger('photo_id')->nullable(); // photo_id BIGINT
-            $table->foreign('photo_id')->references('id')->on('photos_users');
+            $table->foreign('privilege_id')->references('id')->on('privileges');           
+                  
 
             // --- Colunas de Controle/Framework  --- 
             $table->timestamp('email_verified_at')->nullable(); // Para verificação de e-mail
