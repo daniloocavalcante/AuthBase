@@ -12,14 +12,31 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+
+            // Colunas de dados...
+            $table->id(); // id BIGINT PRIMARY KEY AUTO_INCREMENT
+            $table->string('name', 100); // name VARCHAR(100) NOT NULL
+            $table->string('surname', 100)->nullable(); // surname VARCHAR(100)
+            $table->date('birth')->nullable(); // birth DATE
+            $table->string('gender', 15)->nullable(); // gender VARCHAR(15)
+            $table->string('email', 255)->unique(); // email VARCHAR(255) UNIQUE NOT NULL
+            $table->string('password'); 
+            $table->boolean('is_active')->default(true); // is_active BOOLEAN DEFAULT TRUE
+            
+            // Chave estrangeira para privileges
+            $table->unsignedBigInteger('privilege_id'); // privilege_id BIGINT NOT NULL
+            $table->foreign('privilege_id')->references('id')->on('privileges');
+            
+            // --- Colunas de Relacionamento (Chaves Estrangeiras) ---
+            $table->unsignedBigInteger('photo_id')->nullable(); // photo_id BIGINT
+            $table->foreign('photo_id')->references('id')->on('photos_users');
+
+            // --- Colunas de Controle/Framework  --- 
+            $table->timestamp('email_verified_at')->nullable(); // Para verificação de e-mail
+            $table->rememberToken(); // Para o "Lembrar de mim" no login
+            $table->timestamps(); // created_at e updated_at
         });
+
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
