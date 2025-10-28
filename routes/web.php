@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
+// Rota 1: Para a URL raiz
+Route::view('/', 'index');
+// Rota 1: Para a URL raiz
+Route::view('/index', 'index');
 
-Route::get('/index', function () {
-    return view('index');
-});
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

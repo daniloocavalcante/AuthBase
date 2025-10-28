@@ -22,10 +22,10 @@ return new class extends Migration
             $table->string('email', 255)->unique(); // email VARCHAR(255) UNIQUE NOT NULL
             $table->string('password');             
             $table->boolean('is_active')->default(true); // is_active BOOLEAN DEFAULT TRUE
-            $table->unsignedBigInteger('photo_id')->default(0);  
+            $table->unsignedBigInteger('photo_id')->default(1);  
             
             // Chave estrangeira para privileges
-            $table->unsignedBigInteger('privilege_id'); // privilege_id BIGINT NOT NULL
+            $table->unsignedBigInteger('privilege_id')->default(1); // privilege_id BIGINT NOT NULL
             $table->foreign('privilege_id')->references('id')->on('privileges');           
                   
 

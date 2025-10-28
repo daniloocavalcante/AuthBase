@@ -1,14 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Minha Aplicação</title>
+@extends('layouts.app')
 
-    @vite(['resources/sass/app.scss', 'resources/js/app.js']) 
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Dashboard') }}</div>
 
-</head>
-<body>
-    <div class="container">
-    <h1> Meu primeiro Site</h1>
+                <div class="card-body">
+                    <h1>Meu Primeiro Site</h1>
+
+                </div>
+            </div>
+        </div>
     </div>
-    </body>
-</html>
+</div>
+@endsection
