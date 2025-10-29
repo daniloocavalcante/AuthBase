@@ -1,7 +1,9 @@
 # AuthBase
 
 Projeto base para **controle de acesso e gerenciamento de usuários** usando Laravel. Este repositório contém a estrutura mínima para iniciar um sistema com autenticação, migrations e configuração básica.
+
 ---
+
 ## Requisitos
 
 - PHP 8.0+ (verifique a versão compatível com sua versão do Laravel)
@@ -9,7 +11,9 @@ Projeto base para **controle de acesso e gerenciamento de usuários** usando Lar
 - MySQL / MariaDB (ou outro banco suportado pelo Laravel)
 - Node.js + npm (se for compilar assets/front)
 - Git
+
 ---
+
 ## Clonar o repositório
 
 ```bash
@@ -18,6 +22,7 @@ git clone <URL_DO_SEU_REPOSITORIO>
 cd nome-do-repositorio
 ```
 ---
+
 ## Instalação (passo-a-passo)
 
 1. **Instalar dependências PHP via Composer**
@@ -70,6 +75,7 @@ npm run build    # para produção
 php artisan serve     # por padrão roda em http://127.0.0.1:8000
 ```
 - Em produção, configure um virtual host no Apache / Nginx apontando para a pasta `public/`.
+
 ---
 
 ## Comandos Git úteis (para publicar mudanças)
