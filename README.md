@@ -1,61 +1,166 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# AuthBase
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Projeto base para **controle de acesso e gerenciamento de usuários** usando Laravel. Este repositório contém a estrutura mínima para iniciar um sistema com autenticação, migrations e configuração básica.
 
-## About Laravel
+---
+## Requisitos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- PHP 8.0+ (verifique a versão compatível com sua versão do Laravel)
+- Composer
+- MySQL / MariaDB (ou outro banco suportado pelo Laravel)
+- Node.js + npm (se for compilar assets/front)
+- Git
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Clonar o repositório
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```bash
+# clone o repositório (cole a URL do seu repo)
+git clone <URL_DO_SEU_REPOSITORIO>
+cd nome-do-repositorio
+```
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Instalação (passo-a-passo)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. **Instalar dependências PHP via Composer**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+composer install
+```
 
-## Laravel Sponsors
+2. **Renomear o arquivo de exemplo `.env.example` para `.env`**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- No Linux / macOS:
 
-### Premium Partners
+```bash
+cp .env.example .env
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- No Windows (PowerShell):
 
-## Contributing
+```powershell
+Copy-Item .env.example .env
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+> **Importante:** o arquivo `.env` contém suas credenciais e não deve ser comitado para o repositório.
 
-## Code of Conduct
+3. **Gerar a chave da aplicação (Laravel)**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+php artisan key:generate
+```
 
-## Security Vulnerabilities
+Esse comando preenche `APP_KEY` no `.env` — a aplicação precisa dessa chave para criptografia e sessões.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. **Criar o banco de dados**
 
-## License
+Crie um banco de dados no seu SGBD (por exemplo MySQL). Exemplo usando MySQL:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```sql
+CREATE DATABASE authbase CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+```
+
+5. **Editar o `.env` com as credenciais do banco de dados**
+
+Abra `.env` e ajuste as variáveis:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nome_do_banco
+DB_USERNAME=usuario
+DB_PASSWORD=senha
+```
+
+6. **Executar migrations (criar tabelas)**
+
+```bash
+php artisan migrate --seed
+```
+
+Para atualizar:
+```bash
+php artisan migrate:refresh --seed
+```
+
+7. **Instalar dependências JavaScript (opcional, se houver assets)**
+
+```bash
+npm install 
+npm run dev      # para desenvolvimento
+npm run build    # para produção
+```
+
+8. **Ajustar permissões (Linux)**
+
+```bash
+sudo chown -R $USER:www-data storage bootstrap/cache
+sudo chmod -R 775 storage bootstrap/cache
+```
+Isso evita problemas de escrita em uploads e cache.
+
+10. **Executar a aplicação**
+- Usando o servidor embutido do Laravel (apenas para desenvolvimento):
+
+```bash
+php artisan serve     # por padrão roda em http://127.0.0.1:8000
+```
+- Em produção, configure um virtual host no Apache / Nginx apontando para a pasta `public/`.
+
+---
+
+## Boas práticas e observações
+
+- **Não** comite o arquivo `.env` nem chaves/senhas.
+- Se houver um arquivo `.env.example`, mantenha-o atualizado com as variáveis necessárias (sem valores sensíveis).
+- Se o repositório remoto já tiver um `README.md`, este arquivo pode complementar ou substituir o existente.
+- Caso o repositório remoto já contenha commits/README/README inicial criado no GitHub, antes de enviar suas alterações localmente rode:
+
+```bash
+git pull origin main --rebase
+```
+
+para evitar conflitos.
+
+---
+
+## Comandos Git úteis (para publicar mudanças)
+
+```bash
+git status                                   # ver status
+
+git add .                                    # adicionar alterações
+
+git commit -m "Descrição das alterações"     # commit com mensagem
+
+git push origin main                         # enviar para o branch principal (main)
+```
+
+Se ainda não configurou o remoto:
+
+```bash
+git remote add origin <URL_DO_SEU_REPOSITORIO>
+git push -u origin main
+```
+---
+
+## Para desenvolver funcionalidades de acesso/usuários
+
+- Verifique se o projeto já inclui migrations para `users`, `roles`, `permissions` e seeders.
+- Caso queira um scaffolding de autenticação rápido, use (dependendo da versão do Laravel):
+
+```bash
+# Laravel Breeze (simples, minimal)
+composer require laravel/breeze --dev
+php artisan breeze:install
+npm install && npm run dev
+php artisan migrate
+```
+
+ou usar Laravel Jetstream se precisar de features mais completas (teams, sessions, etc.).
+
+---
+
+
