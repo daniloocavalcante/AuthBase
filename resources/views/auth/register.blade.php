@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row justify-content-center align-items-center" style="min-height:70vh">
 
-        <div class="col-lg-7 col-md-9">
+        <div class="col-lg-6 col-md-6">
 
             <div class="card shadow-lg border-0">
 
@@ -101,15 +101,22 @@
 
                             <label class="form-label fw-semibold">E-mail</label>
 
-                            <input
-                                id="email"
-                                type="email"
-                                class="form-control form-control-md"
-                                name="email"
-                                required
-                                placeholder="Digite seu e-mail"
-                                value="{{ old('email') }}"
-                            >
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </span>
+
+                                <input
+                                    id="email"
+                                    type="email"
+                                    class="form-control"
+                                    name="email"
+                                    placeholder="Digite seu e-mail"
+                                    value="{{ old('email') }}"
+                                    required>
+
+                            </div>
 
                         </div>
 
@@ -162,9 +169,10 @@
                             </div>
 
                         </div>
+ 
 
                         <!-- Botões -->
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
 
                             <button class="btn btn-outline-secondary px-4" type="reset">
                                 Limpar
@@ -175,6 +183,21 @@
                             </button>
 
                         </div>
+
+                            @if (Route::has('login'))
+                            <div class="text-center">
+
+                                <span class="text-muted">
+                                    Já possui uma conta?
+                                </span>
+
+                                <a href="{{ route('login') }}"
+                                   class="fw-semibold text-decoration-none ms-1">
+                                    Entrar
+                                </a>
+
+                            </div>
+                        @endif
 
                     </form>
 
