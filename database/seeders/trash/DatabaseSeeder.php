@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
         PrivilegesTableSeeder::class,
         UserTableSeeder::class,
+        PhotosUserTableSeeder::class,       
+
     ]);
 
     }

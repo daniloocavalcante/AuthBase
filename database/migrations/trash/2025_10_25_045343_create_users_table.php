@@ -21,12 +21,14 @@ return new class extends Migration
             $table->string('gender', 30)->nullable(); // gender VARCHAR(15)
             $table->string('email', 255)->unique(); // email VARCHAR(255) UNIQUE NOT NULL
             $table->string('password');             
-            $table->timestamp('last_login')->nullable();
+            $table->boolean('is_active')->default(true); // is_active BOOLEAN DEFAULT TRUE
+            $table->unsignedBigInteger('photo_id')->default(1);  
             
             // Chave estrangeira para privileges
             $table->unsignedBigInteger('privilege_id')->default(1); // privilege_id BIGINT NOT NULL
-            $table->foreign('privilege_id')->references('id')->on('privileges'); 
-            
+            $table->foreign('privilege_id')->references('id')->on('privileges');           
+                  
+
             // --- Colunas de Controle/Framework  --- 
             $table->timestamp('email_verified_at')->nullable(); // Para verificação de e-mail
             $table->rememberToken(); // Para o "Lembrar de mim" no login

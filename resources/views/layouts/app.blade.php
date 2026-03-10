@@ -14,14 +14,14 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/auth.js'])
 
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand fs-3" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -40,26 +40,53 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link " href="{{ route('login') }}">
+                                        <i class="fa-solid fa-right-to-bracket me-1"></i> {{ __('Login') }}
+                                    </a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">
+                                        <i class="fa-solid fa-user-plus me-1"></i> {{ __('Register') }}
+                                    </a>
                                 </li>
                             @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <i class="fa-regular fa-user"></i> {{ ucfirst(Auth::user()->name) }} {{ ucfirst(Auth::user()->surname) }}
+                                    <i class="fa-regular fa-user me-1"></i> {{ ucfirst(Auth::user()->name) }} {{ ucfirst(Auth::user()->surname) }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <!-- Dashboard -->
+                                    <a class="dropdown-item" href="{{ route('dashboard') }}">
+                                        <i class="fa-solid fa-compass me-1"></i> Dashboard
+                                    </a>
+
+                                    <!-- Visualizar perfil -->
+                                    <a class="dropdown-item" href="{{ route('dashboard.profile') }}">
+                                        <i class="fa-solid fa-user me-1"></i> Perfil
+                                    </a> 
+
+                                    <!-- Alterar senha -->
+                                    <a class="dropdown-item" href="{{ route('dashboard.change-password') }}">
+                                        <i class="fa-solid fa-key me-1"></i> Alterar senha
+                                    </a>
+
+                                    <!-- Tabela de usuários -->
+                                    <a class="dropdown-item" href="{{ route('dashboard.users') }}">
+                                        <i class="fa-solid fa-table me-1"></i> Usuários
+                                    </a>
+
+                                    <div class="dropdown-divider"></div>
+
+                                    <!-- Logout -->
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                    onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                        <i class="fa-solid fa-right-from-bracket me-1"></i> {{ __('Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -97,7 +124,6 @@
         </ul> 
     </footer> 
 </div>
-
 
 </body>
 </html>

@@ -19,8 +19,8 @@ class PhotosUserTableSeeder extends Seeder
             [
                 'filename' => 'dafault.jpeg',
                 'mime_type' => 'image/jpeg',
-                'path' => 'storage/photos_users/default.jpeg',
-                'size' => 16265,
+                'path' => 'storage/photos_users/default.png',
+                'size' => 4096,
                 'uploader_user_id' => 1,
                 'created_at' => Carbon::now(), 
                 'updated_at' => Carbon::now(), 

@@ -6,68 +6,132 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
 
-                <div class="card-body">
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="min-height:70vh">
+
+        <div class="col-lg-5 col-md-7">
+
+            <div class="card shadow-lg border-0">
+
+                <div class="card-body p-4">
+
+                    <!-- Título -->
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold">Entrar no Sistema</h2>
+                        <p class="text-muted">
+                            Acesse sua conta para continuar
+                        </p>
+                    </div>
+
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <div class="row">      
-                            <div class="col">
-                                @include('layouts.validations-forms') 
-                            </div> 
+                        @include('layouts.validations-forms')
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">
+                                E-mail
+                            </label>
+
+                            <input id="email"
+                                   type="email"
+                                   class="form-control form-control-md @error('email') is-invalid @enderror"
+                                   name="email"
+                                   value="{{ old('email') }}"
+                                   required
+                                   autofocus
+                                   placeholder="Digite seu e-mail">
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">E-mail</label>
+                        <!-- Senha -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">
+                                Senha
+                            </label>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('password') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Insira sua senha">
-                            </div>
-                        </div>
+                                <div class="input-group">
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">Senha</label>
+                                    <input
+                                        id="password"
+                                        type="password"
+                                        class="form-control"
+                                        name="password"
+                                        placeholder="Digite sua senha"
+                                        required>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Insira seu e-mail">
-                            </div>
-                        </div>
+                                    <button class="btn btn-outline-secondary"
+                                            type="button"
+                                            id="eyeButton"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            title="Mostrar senha"
+                                            aria-label="Mostrar senha">
+                                        <i id="eyeIcon" class="fa-solid fa-eye"></i>
 
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                    </button>
 
-                                    <label class="form-check-label" for="remember">
-                                        Manter-me conectado
-                                    </label>
                                 </div>
-                            </div>
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
+                        <!-- lembrar -->
+                        <div class="d-flex justify-content-between align-items-center mb-4">
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-outline-dark" href="{{ route('password.request') }}">
-                                        Esqueci minha senha
-                                    </a>
-                                @endif
+                            <div class="form-check">
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       name="remember"
+                                       id="remember"
+                                       {{ old('remember') ? 'checked' : '' }}>
 
-                                <button type="submit" class="btn btn-dark px-5 mx-4">
-                                    Entrar
-                                </button>
+                                <label class="form-check-label" for="remember">
+                                    Manter-me conectado
+                                </label>
+                            </div>
+
+                            @if (Route::has('password.request'))
+                                <a href="{{ route('password.request') }}"
+                                   class="text-decoration-none small">
+                                    Esqueci minha senha
+                                </a>
+                            @endif
+
+                        </div>
+
+                        <!-- Botão -->
+                        <div class="d-grid mb-4">
+                            <button type="submit" class="btn btn-dark btn-lg">
+                                Entrar
+                            </button>
+                        </div>
+
+                        <!-- registrar -->
+                        @if (Route::has('register'))
+                            <div class="text-center">
+
+                                <span class="text-muted">
+                                    Ainda não possui conta?
+                                </span>
+
+                                <a href="{{ route('register') }}"
+                                   class="fw-semibold text-decoration-none ms-1">
+                                    Criar conta
+                                </a>
 
                             </div>
-                        </div>
+                        @endif
+
                     </form>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+</div>
+    
 </div>
 @endsection

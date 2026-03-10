@@ -1,13 +1,52 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\DashboardController;
 
 
-// Rota 1: Para a URL raiz
-Route::view('/', 'index');
-// Rota 1: Para a URL raiz
-Route::view('/index', 'index');
+Route::view('/', 'index')->name('index');
+Route::view('/about', 'about')->name('about');
 
-Auth::routes();
+/*
+|--------------------------------------------------------------------------
+| Rotas de Autenticação
+|--------------------------------------------------------------------------
+*/
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// ---------------------- LOGIN ----------------------
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+// ---------------------- REGISTRO ----------------------
+Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('register', [RegisterController::class, 'register']);
+
+// ---------------------- RECUPERAÇÃO DE SENHA ----------------------
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+
+// ---------------------- DASHBOARD ----------------------
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/profile', [DashboardController::class, 'profile'])->name('dashboard.profile');
+
+    // Alterar senha
+    Route::get('/dashboard/change-password', [DashboardController::class, 'showChangePasswordForm'])->name('dashboard.change-password');
+    Route::post('/dashboard/change-password', [DashboardController::class, 'changePassword'])->name('dashboard.update-password');
+
+    Route::get('/dashboard/users', [DashboardController::class, 'users'])->name('dashboard.users');
+
+    // Tabela de usuários (somente para admin ou teste)
+    //Route::get('/dashboard/users', [UserController::class, 'index'])->name('dashboard.users');
+
+});
+
