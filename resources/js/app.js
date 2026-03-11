@@ -5,10 +5,19 @@
  */
 
 import './bootstrap';
+
+
 import { createApp } from 'vue';
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+import { Tooltip } from 'bootstrap';
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+        new Tooltip(el);
+    });
+});
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin

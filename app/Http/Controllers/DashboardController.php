@@ -25,6 +25,16 @@ class DashboardController extends Controller
         return view('dashboard.profile', compact('user'));
     }
 
+    public function edit(){        
+        $user = Auth::user();
+        return view('dashboard.edit', compact('user'));
+    }
+
+    public function update(){        
+        //PUT
+
+    }
+
     public function showChangePasswordForm(){        
         $user = Auth::user();
         return view('dashboard.change_password', compact('user'));
@@ -32,6 +42,19 @@ class DashboardController extends Controller
 
     public function changePassword(){
         //POST
+    }
+
+    public function destroy(Request $request)
+    {
+        $user = Auth::user();
+        // opcional: deslogar antes de deletar
+        Auth::logout();
+
+        // deletar usuário
+        $user->delete();
+
+        // redirecionar para a página inicial com mensagem
+        return redirect('/')->with('warning', 'Conta excluída com sucesso.');
     }
 
     public function users(){  

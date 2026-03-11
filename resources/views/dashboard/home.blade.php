@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center g-3">
         <div class="col-md-7">
 
             <!-- Alert de login -->
@@ -68,7 +68,7 @@
 
                     <div class="list-group">
 
-                        <a href="{{ route('dashboard.profile') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
+                        <a href="{{ route('profile') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
                             <i class="fa-solid fa-user me-3 mt-1"></i>
                             <div>
                                 <strong>Visualizar perfil</strong><br>

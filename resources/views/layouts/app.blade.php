@@ -66,7 +66,7 @@
                                     </a>
 
                                     <!-- Visualizar perfil -->
-                                    <a class="dropdown-item" href="{{ route('dashboard.profile') }}">
+                                    <a class="dropdown-item" href="{{ route('profile') }}">
                                         <i class="fa-solid fa-user me-1"></i> Perfil
                                     </a> 
 

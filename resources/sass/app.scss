@@ -8,4 +8,7 @@
 @import 'bootstrap/scss/bootstrap';
 
 
-
+.breadcrumb-item + .breadcrumb-item::before {
+    content: " > " !important;
+    color: white;
+}

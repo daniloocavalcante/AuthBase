@@ -37,11 +37,18 @@ Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard/profile', [DashboardController::class, 'profile'])->name('dashboard.profile');
+    Route::get('/dashboard/profile', [DashboardController::class, 'profile'])->name('profile');
+
+    // Editar Usuário
+    Route::get('/dashboard/edit/profile', [DashboardController::class, 'edit'])->name('profile.edit');
+    Route::put('/dashboard/update/profile', [DashboardController::class, 'update'])->name('profile.update');
+
+    // Deletar Conta
+    Route::delete('/profile', [DashboardController::class, 'destroy'])->name('profile.destroy');
 
     // Alterar senha
     Route::get('/dashboard/change-password', [DashboardController::class, 'showChangePasswordForm'])->name('dashboard.change-password');
-    Route::post('/dashboard/change-password', [DashboardController::class, 'changePassword'])->name('dashboard.update-password');
+    Route::post('/dashboard/change-password', [DashboardController::class, 'changePassword'])->name('profile.password.update');
 
     Route::get('/dashboard/users', [DashboardController::class, 'users'])->name('dashboard.users');
 

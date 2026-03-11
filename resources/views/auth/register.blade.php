@@ -128,7 +128,6 @@
                                 <label class="form-label fw-semibold">Senha</label>
 
                                 <div class="input-group">
-
                                     <input
                                         id="password"
                                         type="password"
@@ -147,7 +146,6 @@
                                         <i id="eyeIcon" class="fa-solid fa-eye"></i>
 
                                     </button>
-
                                 </div>
 
                             </div>
@@ -157,14 +155,26 @@
 
                                 <label class="form-label fw-semibold">Confirmar senha</label>
 
-                                <input
-                                    id="password-confirm"
-                                    type="password"
-                                    class="form-control form-control-md"
-                                    name="password_confirmation"
-                                    required
-                                    placeholder="Repita sua senha"
-                                >
+                                <div class="input-group">
+                                    <input
+                                        id="passwordConfirmation"
+                                        type="password"
+                                        class="form-control"
+                                        name="password_confirmation"
+                                        placeholder="Repita sua senha"
+                                        required>
+
+                                    <button class="btn btn-outline-secondary"
+                                            type="button"
+                                            id="eyeButtonConfirmation"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            title="Mostrar senha"
+                                            aria-label="Mostrar senha">
+                                        <i id="eyeIconConfirmation" class="fa-solid fa-eye"></i>
+
+                                    </button>
+                                </div>
 
                             </div>
 
