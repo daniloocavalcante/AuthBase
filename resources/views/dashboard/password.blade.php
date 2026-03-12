@@ -289,6 +289,7 @@
 
 
 <!-- Modal de confirmação -->
+
 <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

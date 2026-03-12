@@ -62,11 +62,10 @@ Route::controller(VerificationController::class)->group(function () {
 */
 
 Route::middleware('auth')
-    ->prefix('dashboard')
     ->name('dashboard.')
     ->group(function () {
 
-        Route::get('/', [DashboardController::class, 'index'])->name('index');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
 
         // Perfil
         Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
@@ -80,6 +79,8 @@ Route::middleware('auth')
         Route::put('/password', [DashboardController::class, 'changePassword'])->name('password.update');
 
         // Usuários
-        Route::get('/users', [DashboardController::class, 'users'])->name('users');
+        Route::get('/table/users', [DashboardController::class, 'users'])->name('users');
+        Route::get('/table/users/exportar', [DashboardController::class, 'export'])->name('users.export');
+
 
 });

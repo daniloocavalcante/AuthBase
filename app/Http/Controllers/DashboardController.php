@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\Auth; 
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
 
 use App\Models\User;       // <— Importa o modelo User
 use App\Models\Privilege;  // <— Importa o modelo Privilege
@@ -36,7 +36,6 @@ class DashboardController extends Controller
     {
         return $this->viewWithUser('dashboard.edit');
     }
-
 
 
     public function update(Request $request)
@@ -95,6 +94,9 @@ class DashboardController extends Controller
 
         return back()->with('error', 'Não foi possível atualizar o perfil. Tente novamente.');
     }
+
+
+
 
     public function showChangePasswordForm(){        
         $user = Auth::user();
@@ -189,5 +191,45 @@ class DashboardController extends Controller
         return view('dashboard.users', compact('users', 'usersCount', 'adminsCount', 'todayUsers'));  
 
     }
+
+
+    public function export(){
+
+        $fileName = 'table_users_' . now()->format('Y-m-d_H-i-s') . '.csv';
+
+        // Cabeçalhos do CSV
+        $headers = ['ID', 'Nome', 'Sobrenome', 'Email', 'Criado em'];
+
+        // Obter usuários
+        $users = \App\Models\User::all();
+
+        // Criar conteúdo CSV
+        $callback = function() use ($users, $headers) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $headers);
+
+            foreach ($users as $user) {
+                fputcsv($file, [
+                    $user->id,
+                    $user->name,
+                    $user->surname,
+                    $user->email,
+                    $user->created_at->format('d/m/Y H:i')
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        // Retornar CSV como download
+        return Response::stream($callback, 200, [
+            "Content-Type" => "text/csv",
+            "Content-Disposition" => "attachment; filename={$fileName}",
+        ]);
+    }
+
+
+
+
 }
 

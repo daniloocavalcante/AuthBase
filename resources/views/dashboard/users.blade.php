@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-{{ config('app.name', 'Laravel') }} || {{ __('Profile') }}
+{{ config('app.name', 'Laravel') }} || Tabela de Usuários
 @endsection
 
 @section('content')
@@ -29,7 +29,7 @@
 
 
         <!-- Card -->
-        <div class="card shadow-lg border-0">
+        <div class="card shadow-lg border-0 printable" id="card-users">
             
                 <!-- HEADER -->
             <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
@@ -52,43 +52,61 @@
                     </div>
                 </div>
 
-                <!-- BUSCA -->
-                <form method="GET" class="d-flex" style="flex:1; max-width:300px;">
-
-                    <div class="input-group input-group w-100">
-
-                        <!-- Ícone de lupa -->
-                        <span class="input-group-text bg-white border-end-0">
-                            <i class="fa-solid fa-search text-muted"></i>
-                        </span>
-
-                        <!-- Input de busca -->
-                        <input 
-                            type="text"
-                            name="search"
-                            class="form-control border-start-0"
-                            placeholder="Buscar por nome ou e-mail..."
-                            value="{{ request('search') }}"
-                        >
-
-                        <!-- Botão limpar -->
-                        <a href="{{ route('dashboard.users') }}" 
-                        class="btn btn-outline-secondary"
-                        style="border-top-left-radius:0; border-bottom-left-radius:0;">
-                        <i class="fa-solid fa-xmark"></i>
-                        </a>
-
-                    </div>
-
-                </form>
 
             </div>
 
             <div class="card-body pt-0">
 
                 <!-- TOOLBAR -->
-                <div class="d-flex justify-content-between align-items-center py-3">
+                <div class="d-flex justify-content-between align-items-center py-3" id="toolbar-users">
 
+                    <!-- Botões -->
+                    <div class="d-flex gap-2">
+                        <!-- Adicionar Usuário -->
+                        <a href="{{ route('dashboard.users') }}" class="btn btn-sm btn-primary">
+                            <i class="fa-solid fa-plus me-1"></i> Adicionar Usuário
+                        </a>
+
+                        <!-- Exportar -->
+                        <a class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exportCsvModal">
+                            <i class="fa-solid fa-download me-1"></i> Exportar
+                        </a>
+
+                        <!-- Imprimir -->
+                        <button onclick="window.print()" class="btn btn-sm btn-outline-dark">
+                            <i class="fa-solid fa-print me-1"></i> Imprimir
+                        </button>
+                    </div>
+                    
+                <!-- BUSCA -->
+                    <form method="GET" class="d-flex" style="flex:1; max-width:300px;">
+
+                        <div class="input-group input-group w-100">
+
+                            <!-- Ícone de lupa -->
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="fa-solid fa-search text-muted"></i>
+                            </span>
+
+                            <!-- Input de busca -->
+                            <input 
+                                type="text"
+                                name="search"
+                                class="form-control border-start-0"
+                                placeholder="Buscar por nome ou e-mail..."
+                                value="{{ request('search') }}"
+                            >
+
+                            <!-- Botão limpar -->
+                            <a href="{{ route('dashboard.users') }}" 
+                            class="btn btn-outline-secondary"
+                            style="border-top-left-radius:0; border-bottom-left-radius:0;">
+                            <i class="fa-solid fa-xmark"></i>
+                            </a>
+
+                        </div>
+
+                    </form>
 
 
                 </div>
@@ -108,33 +126,52 @@
                             <th>
                                 <a href="{{ request()->fullUrlWithQuery([
                                     'sort' => 'name',
-                                    'direction' => request('direction') == 'asc' ? 'desc' : 'asc'
-                                ]) }}" class="text-dark text-decoration-none">
+                                    'direction' => request('direction') == 'asc' ? 'desc' : 'asc',
+                                    'page' => null,
+                                ]) }}" class="text-dark text-decoration-none d-flex align-items-center">
 
                                     <i class="fa-solid fa-user me-1 text-muted"></i>
-                                    Nome
+                                    <span class="me-1">Nome</span>
+
+                                    <span class="sort-icons ms-1">
+                                        <span class="sort-up {{ request('sort') == 'name' && request('direction') == 'asc' ? 'active' : '' }}">▲</span>
+                                        <span class="sort-down {{ request('sort') == 'name' && request('direction') == 'desc' ? 'active' : '' }}">▼</span>
+                                    </span>
                                 </a>
                             </th>
 
                             <th>
                                 <a href="{{ request()->fullUrlWithQuery([
                                     'sort' => 'email',
-                                    'direction' => request('direction') == 'asc' ? 'desc' : 'asc'
-                                ]) }}" class="text-dark text-decoration-none">
+                                    'direction' => request('direction') == 'asc' ? 'desc' : 'asc',
+                                    'page' => null,
+                                ]) }}" class="text-dark text-decoration-none d-flex align-items-center">
 
                                     <i class="fa-solid fa-envelope me-1 text-muted"></i>
-                                    Email
+                                    <span class="me-1">Email</span>
+
+                                    <span class="sort-icons ms-1">
+                                        <span class="sort-up {{ request('sort') == 'email' && request('direction') == 'asc' ? 'active' : '' }}">▲</span>
+                                        <span class="sort-down {{ request('sort') == 'email' && request('direction') == 'desc' ? 'active' : '' }}">▼</span>
+                                    </span>
                                 </a>
                             </th>
 
                             <th>
                                 <a href="{{ request()->fullUrlWithQuery([
                                     'sort' => 'created_at',
-                                    'direction' => request('direction') == 'asc' ? 'desc' : 'asc'
-                                ]) }}" class="text-dark text-decoration-none">
+                                    'direction' => request('direction') == 'asc' ? 'desc' : 'asc',
+                                    'page' => null,
+                                ]) }}" class="text-dark text-decoration-none d-flex align-items-center">
 
                                     <i class="fa-solid fa-calendar me-1 text-muted"></i>
-                                    Criado
+                                    <span class="me-1">Criado</span>
+
+                                    <span class="sort-icons ms-1">
+                                        <span class="sort-up {{ request('sort') == 'created_at' && request('direction') == 'asc' ? 'active' : '' }}">▲</span>
+                                        <span class="sort-down {{ request('sort') == 'created_at' && request('direction') == 'desc' ? 'active' : '' }}">▼</span>
+                                    </span>
+                                    
                                 </a>
                             </th>
 
@@ -176,9 +213,7 @@
 
                             <td>
 
-                                <span class="badge bg-light text-dark border">
-                                    {{ $user->email }}
-                                </span>
+                                <span class="text-dark">{{ $user->email }}</span>
 
                             </td>
 
@@ -357,9 +392,35 @@
 
     </div>
 
-
-
-
     </div>
 </div>
+
+
+
+
+<!-- Modal de confirmação -->
+<div class="modal fade" id="exportCsvModal" tabindex="-1" aria-labelledby="exportCsvModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exportCsvModalLabel">Confirmar Exportação</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+
+      <div class="modal-body">
+        Você tem certeza que deseja exportar os dados dos usuários para CSV?
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <a href="{{ route('dashboard.users.export') }}" id="confirmExportBtn"  class="btn btn-primary">Confirmar Exportar</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
 @endsection

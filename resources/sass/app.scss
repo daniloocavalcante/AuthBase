@@ -18,3 +18,41 @@
     content: " > " !important;
     color: white;
 }
+
+// Icons users
+.sort-icons {
+    display: flex;
+    flex-direction: column;   /* coloca uma em cima da outra */
+    font-size: 0.6rem;        /* tamanho pequeno */
+    line-height: 0.6rem;
+    color: #adb5bd;           /* cinza claro */
+}
+
+.sort-icons .active {
+    color: #495057;           /* cinza escuro quando ativo */
+}
+
+
+// Print
+@media print {
+    body * {
+        visibility: hidden;  /* Esconde tudo */
+    }
+    
+    .printable, .printable * {
+        visibility: visible; /* Mostra apenas a tabela */
+    }
+
+    .printable {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        left: 30px;
+
+    }
+
+    #toolbar-users {
+        display: none !important;
+        visibility: hidden !important;
+    }
+}
