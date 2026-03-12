@@ -23,10 +23,10 @@
                 <div class="card-body">
                     <h5 class="card-title">Olá, <strong>{{ ucfirst(Auth::user()->name)}} {{ucfirst(Auth::user()->surname) }}</strong>!</h5>
                     <p class="card-text">Aqui você pode gerenciar seu perfil, alterar sua senha e visualizar a tabela de usuários.</p>
-                    <a href="/dashboard/profile" class="btn btn-success me-2">
+                    <a href="{{ route('dashboard.profile.edit') }}" class="btn btn-success me-2">
                         <i class="fa-solid fa-user me-1"></i> Editar perfil
                     </a>
-                    <a href="/dashboard/users" class="btn btn-info">
+                    <a href="{{ route('dashboard.users') }}" class="btn btn-info">
                         <i class="fa-solid fa-table me-1"></i> Tabela de usuários
                     </a>
                 </div>
@@ -68,7 +68,15 @@
 
                     <div class="list-group">
 
-                        <a href="{{ route('profile') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
+                        <a href="{{ route('dashboard.index') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
+                            <i class="fa-solid fa-gauge me-3 mt-1"></i>
+                            <div>
+                                <strong>Dashboard</strong><br>
+                                <small class="text-muted">Volte para a página principal do painel.</small>
+                            </div>
+                        </a>
+
+                        <a href="{{ route('dashboard.profile') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
                             <i class="fa-solid fa-user me-3 mt-1"></i>
                             <div>
                                 <strong>Visualizar perfil</strong><br>
@@ -76,7 +84,15 @@
                             </div>
                         </a>
 
-                        <a href="{{ route('dashboard.change-password') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
+                        <a href="{{ route('dashboard.profile.edit') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
+                            <i class="fa-solid fa-user-pen me-3 mt-1"></i>
+                            <div>
+                                <strong>Editar perfil</strong><br>
+                                <small class="text-muted">Atualize seus dados pessoais.</small>
+                            </div>
+                        </a>
+
+                        <a href="{{ route('dashboard.password.edit') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
                             <i class="fa-solid fa-key me-3 mt-1"></i>
                             <div>
                                 <strong>Alterar senha</strong><br>
@@ -89,14 +105,6 @@
                             <div>
                                 <strong>Tabela de usuários</strong><br>
                                 <small class="text-muted">Visualize todos os usuários cadastrados.</small>
-                            </div>
-                        </a>
-
-                        <a href="/dashboard/help" class="list-group-item list-group-item-action d-flex align-items-start py-3">
-                            <i class="fa-solid fa-question-circle me-3 mt-1"></i>
-                            <div>
-                                <strong>Ajuda / FAQ</strong><br>
-                                <small class="text-muted">Tire dúvidas sobre o uso do sistema.</small>
                             </div>
                         </a>
 

@@ -7,6 +7,12 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
+// Fontawesome-free
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+// Datatables
+@import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
+
 
 .breadcrumb-item + .breadcrumb-item::before {
     content: " > " !important;

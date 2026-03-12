@@ -59,40 +59,36 @@
                                     <i class="fa-regular fa-user me-1"></i> {{ ucfirst(Auth::user()->name) }} {{ ucfirst(Auth::user()->surname) }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <!-- Dashboard -->
-                                    <a class="dropdown-item" href="{{ route('dashboard') }}">
-                                        <i class="fa-solid fa-compass me-1"></i> Dashboard
-                                    </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                                    <!-- Visualizar perfil -->
-                                    <a class="dropdown-item" href="{{ route('profile') }}">
-                                        <i class="fa-solid fa-user me-1"></i> Perfil
-                                    </a> 
+                                <!-- Dashboard -->
+                                <a class="dropdown-item" href="{{ route('dashboard.index') }}">
+                                    <i class="fa-solid fa-compass me-2"></i> Dashboard
+                                </a>
 
-                                    <!-- Alterar senha -->
-                                    <a class="dropdown-item" href="{{ route('dashboard.change-password') }}">
-                                        <i class="fa-solid fa-key me-1"></i> Alterar senha
-                                    </a>
+                                <!-- Perfil -->
+                                <a class="dropdown-item" href="{{ route('dashboard.profile') }}">
+                                    <i class="fa-solid fa-user me-2"></i> Perfil
+                                </a> 
 
-                                    <!-- Tabela de usuários -->
-                                    <a class="dropdown-item" href="{{ route('dashboard.users') }}">
-                                        <i class="fa-solid fa-table me-1"></i> Usuários
-                                    </a>
+                                <!-- Alterar senha -->
+                                <a class="dropdown-item" href="{{ route('dashboard.password.edit') }}">
+                                    <i class="fa-solid fa-key me-2"></i> Alterar senha
+                                </a>
 
-                                    <div class="dropdown-divider"></div>
+                                <!-- Usuários -->
+                                <a class="dropdown-item" href="{{ route('dashboard.users') }}">
+                                    <i class="fa-solid fa-table me-2"></i> Usuários
+                                </a>
 
-                                    <!-- Logout -->
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
-                                        <i class="fa-solid fa-right-from-bracket me-1"></i> {{ __('Logout') }}
-                                    </a>
+                                <div class="dropdown-divider"></div>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
+                                <!-- Logout -->
+                                <a href="#" class="dropdown-item text-black" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                                    <i class="fa-solid fa-right-from-bracket me-2"></i> Sair
+                                </a>
+
+                            </div>
                             </li>
                         @endguest
                     </ul>
@@ -123,6 +119,42 @@
             </li> 
         </ul> 
     </footer> 
+</div>
+
+
+
+<!-- Modal de Logout -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Cabeçalho -->
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="logoutModalLabel">
+            <i class="fa-solid fa-right-from-bracket me-2"></i>
+            Confirmar Logout
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+
+      <!-- Corpo -->
+      <div class="modal-body">
+        Tem certeza que deseja sair da sua conta? <br>
+        Você poderá entrar novamente a qualquer momento.
+      </div>
+
+      <!-- Rodapé -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-primary">Sair</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 </body>

@@ -1,50 +1,39 @@
 // auth.js
 document.addEventListener('DOMContentLoaded', () => {
-    
-    const passwordInput = document.getElementById('password');
-    const eyeIcon = document.getElementById('eyeIcon');
 
-    // Só executa se os elementos existirem na página
-    if(passwordInput && eyeIcon) {
+    function togglePassword(inputId, buttonId, iconId) {
 
-        document.getElementById('eyeButton').addEventListener('click', () => {
+        const input = document.getElementById(inputId);
+        const button = document.getElementById(buttonId);
+        const icon = document.getElementById(iconId);
 
-            if(passwordInput.type === "password") {
-                passwordInput.type = "text";
-                eyeIcon.classList.remove("fa-eye");
-                eyeIcon.classList.add("fa-eye-slash");
-                document.getElementById('eyeButton').setAttribute('aria-label', 'Esconder senha');
-            } else {
-                passwordInput.type = "password";
-                eyeIcon.classList.remove("fa-eye-slash");
-                eyeIcon.classList.add("fa-eye");
-                document.getElementById('eyeButton').setAttribute('aria-label', 'Esconder senha');
-            }
+        if(!input || !button || !icon) return;
 
-        });
+        button.addEventListener('click', () => {
 
-    }
+            const isPassword = input.type === "password";
 
-    const passwordConfirmation = document.getElementById('passwordConfirmation');
-    const eyeIconConfirmation = document.getElementById('eyeIconConfirmation');
+            input.type = isPassword ? "text" : "password";
 
-    if(passwordInput && eyeIcon) {
+            icon.classList.toggle("fa-eye", !isPassword);
+            icon.classList.toggle("fa-eye-slash", isPassword);
 
-        document.getElementById('eyeButtonConfirmation').addEventListener('click', () => {
-
-            if(passwordConfirmation.type === "password") {
-                passwordConfirmation.type = "text";
-                eyeIconConfirmation.classList.remove("fa-eye");
-                eyeIconConfirmation.classList.add("fa-eye-slash");
-            } else {
-                passwordConfirmation.type = "password";
-                eyeIconConfirmation.classList.remove("fa-eye-slash");
-                eyeIconConfirmation.classList.add("fa-eye");
-            }
+            button.setAttribute(
+                "aria-label",
+                isPassword ? "Esconder senha" : "Mostrar senha"
+            );
 
         });
 
     }
 
+    // senha principal
+    togglePassword("password", "eyeButton", "eyeIcon");
+
+    // confirmação de senha
+    togglePassword("passwordConfirmation", "eyeButtonConfirmation", "eyeIconConfirmation");
+
+    // confirmação de senha
+    togglePassword("current_password", "eyeButtonCurrent", "eyeIconCurrent");
 
 });

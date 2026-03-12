@@ -15,25 +15,57 @@
                 <ol class="breadcrumb mb-0 small">
 
                     <li class="breadcrumb-item">
-                        <a href="{{ route('dashboard') }}" class="text-light text-decoration-none">
+                        <a href="{{ route('dashboard.index') }}" class="text-light text-decoration-none">
                             Dashboard
                         </a>
                     </li>
 
-                    <li class="breadcrumb-item active text-white" aria-current="page">
+                    <li class="breadcrumb-item active text-white opacity-75" aria-current="page">
                         Meu Perfil
                     </li>
 
                 </ol>
             </nav>
+
+
+            {{-- Mensagens do servidor --}}
+            @if($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <ul class="mb-0">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                </div>
+            @endif
+
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                </div>
+            @endif
+
+            @if(session('info'))
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    {{ session('info') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                </div>
+            @endif
+
+
             
             <div class="card shadow-lg border-0">
 
                 <!-- Header -->
-                <div class="card-header bg-dark text-white d-flex align-items-center justify-content-between">
-                    <span class="fs-5">Meu Perfil</span>
-                    <span class="badge bg-primary">{{ $user->privilege }}</span>
-                </div>
 
                 <div class="card-body">
 
@@ -47,10 +79,11 @@
                                 style="width:120px;height:120px;object-fit:cover;">
 
                             <!-- Badge -->
+                                                        
                             <div class="mb-3">
-                                <span class="badge bg-primary fs-6 rounded-pill">
-                                    Administrador
-                                </span>
+                                    <span class="badge bg-{{ $user->privilege->badge_color }} fs-6 rounded-pill" >
+                                        {{ ucfirst($user->privilege->name) }}
+                                    </span>
                             </div>
 
                             <h5 class="mb-0">{{ $user->name }} {{ $user->surname }}</h5>
@@ -139,15 +172,12 @@
                 <!-- Footer -->
                 <div class="card-footer bg-light d-flex justify-content-end gap-2 flex-wrap">
 
-                    <a href="{{ route('dashboard.change-password') }}" class="btn btn-outline-primary btn-sm">
+                    <a href="{{ route('dashboard.password.edit') }}" class="btn btn-outline-dark btn-sm">
                         Alterar Senha
                     </a>
                     
-                    <a href="{{ route('profile.edit') }}" class="btn btn-outline-dark btn-sm">
+                    <a href="{{ route('dashboard.profile.edit') }}" class="btn btn-outline-primary btn-sm">
                         Editar Perfil
-                    </a>
-                    <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
-                        Excluir Conta
                     </a>
                 </div>
 
@@ -156,6 +186,7 @@
         </div>
 
         <!-- Card guia rápido -->
+
         <div class="col-lg-4 col-md-5">
             <div class="card shadow-lg border-0">
 
@@ -172,7 +203,15 @@
 
                     <div class="list-group">
 
-                        <a href="{{ route('profile') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
+                        <a href="{{ route('dashboard.index') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
+                            <i class="fa-solid fa-gauge me-3 mt-1"></i>
+                            <div>
+                                <strong>Dashboard</strong><br>
+                                <small class="text-muted">Volte para a página principal do painel.</small>
+                            </div>
+                        </a>
+
+                        <a href="{{ route('dashboard.profile') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
                             <i class="fa-solid fa-user me-3 mt-1"></i>
                             <div>
                                 <strong>Visualizar perfil</strong><br>
@@ -180,7 +219,15 @@
                             </div>
                         </a>
 
-                        <a href="{{ route('dashboard.change-password') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
+                        <a href="{{ route('dashboard.profile.edit') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
+                            <i class="fa-solid fa-user-pen me-3 mt-1"></i>
+                            <div>
+                                <strong>Editar perfil</strong><br>
+                                <small class="text-muted">Atualize seus dados pessoais.</small>
+                            </div>
+                        </a>
+
+                        <a href="{{ route('dashboard.password.edit') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
                             <i class="fa-solid fa-key me-3 mt-1"></i>
                             <div>
                                 <strong>Alterar senha</strong><br>
@@ -196,55 +243,17 @@
                             </div>
                         </a>
 
-                        <a href="/dashboard/help" class="list-group-item list-group-item-action d-flex align-items-start py-3">
-                            <i class="fa-solid fa-question-circle me-3 mt-1"></i>
-                            <div>
-                                <strong>Ajuda / FAQ</strong><br>
-                                <small class="text-muted">Tire dúvidas sobre o uso do sistema.</small>
-                            </div>
-                        </a>
-
                     </div>
 
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
 
-<!-- Modal de confirmação -->
-<div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
 
-      <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title" id="deleteAccountLabel">
-            <i class="fa-solid fa-triangle-exclamation me-2"></i>
-            Confirmar Exclusão
-        </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
-      </div>
-
-      <div class="modal-body">
-        Tem certeza que deseja excluir sua conta? <br>
-        Essa ação <strong>não poderá ser desfeita</strong>.
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-
-        <form action="{{ route('profile.destroy') }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger">Excluir Conta</button>
-        </form>
-      </div>
+        
 
     </div>
-  </div>
 </div>
-
-
 
 @endsection

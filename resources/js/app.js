@@ -1,51 +1,43 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+/** Load bootstrap and base dependencies */
 
 import './bootstrap';
 
+/** Vue */
 
 import { createApp } from 'vue';
 
-import '@fortawesome/fontawesome-free/css/all.min.css';
+/** jQuery (required for DataTables) */
+
+import $ from 'jquery';
+window.$ = $;
+window.jQuery = $;
+
+/** DataTables Bootstrap 5 */
+
+import 'datatables.net-bs5';
+
+/** Bootstrap JS Components */
 
 import { Tooltip } from 'bootstrap';
 
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+/** Initialize Bootstrap Tooltips */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+
+    tooltipTriggerList.forEach(el => {
         new Tooltip(el);
     });
+
 });
 
-/**
- * Next, we will create a fresh Vue application instance. You may then begin
- * registering components with the application instance so they are ready
- * to use in your application's views. An example is included for you.
- */
 
-const app = createApp({});
+/** DataTables */
 
-import ExampleComponent from './components/ExampleComponent.vue';
-app.component('example-component', ExampleComponent);
+$(document).ready(function () {
+    $('#usersTable').DataTable({
+        pageLength: 10,
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
-//     app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
-// });
-
-/**
- * Finally, we will attach the application instance to a HTML element with
- * an "id" attribute of "app". This element is included with the "auth"
- * scaffolding. Otherwise, you will need to add an element yourself.
- */
-
-app.mount('#app');
+    });
+});
