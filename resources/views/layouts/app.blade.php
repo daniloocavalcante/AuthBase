@@ -53,44 +53,56 @@
                                     </a>
                                 </li>
                             @endif
-                        @else
+                        @endguest
+
+                        @auth  
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('dashboard.index') }}">
+                                    Início
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('dashboard.users') }}">
+                                    <i class="fa-solid fa-users me-1"></i>Usuários
+                                </a>
+                            </li>
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <i class="fa-regular fa-user me-1"></i> {{ ucfirst(Auth::user()->name) }} {{ ucfirst(Auth::user()->surname) }}
+                                    <i class="fa-regular fa-user me-1"></i> {{ Str::title(Auth::user()->name) }} {{ Str::title(Auth::user()->surname) }}
                                 </a>
 
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                                <!-- Dashboard -->
-                                <a class="dropdown-item" href="{{ route('dashboard.index') }}">
-                                    <i class="fa-solid fa-compass me-2"></i> Dashboard
-                                </a>
 
-                                <!-- Perfil -->
-                                <a class="dropdown-item" href="{{ route('dashboard.profile') }}">
-                                    <i class="fa-solid fa-user me-2"></i> Perfil
-                                </a> 
+                                    <!-- Perfil -->
+                                    <a class="dropdown-item" href="{{ route('dashboard.profile') }}">
+                                        <i class="fa-solid fa-user me-2"></i> Perfil
+                                    </a> 
 
-                                <!-- Alterar senha -->
-                                <a class="dropdown-item" href="{{ route('dashboard.password.edit') }}">
-                                    <i class="fa-solid fa-key me-2"></i> Alterar senha
-                                </a>
+                                    <!-- Perfil -->
+                                    <a class="dropdown-item" href="{{ route('dashboard.profile.edit') }}">
+                                        <i class="fa-solid fa-user-pen me-2"></i> Editar Perfil
+                                    </a> 
 
-                                <!-- Usuários -->
-                                <a class="dropdown-item" href="{{ route('dashboard.users') }}">
-                                    <i class="fa-solid fa-table me-2"></i> Usuários
-                                </a>
+                                    <!-- Alterar senha -->
+                                    <a class="dropdown-item" href="{{ route('dashboard.password.edit') }}">
+                                        <i class="fa-solid fa-key me-2"></i> Alterar senha
+                                    </a>
 
-                                <div class="dropdown-divider"></div>
 
-                                <!-- Logout -->
-                                <a href="#" class="dropdown-item text-black" data-bs-toggle="modal" data-bs-target="#logoutModal">
-                                    <i class="fa-solid fa-right-from-bracket me-2"></i> Sair
-                                </a>
 
-                            </div>
+                                    <div class="dropdown-divider"></div>
+
+                                    <!-- Logout -->
+                                    <a href="#" class="dropdown-item text-black" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                                        <i class="fa-solid fa-right-from-bracket me-2"></i> Sair
+                                    </a>
+
+                                </div>
                             </li>
-                        @endguest
+                        @endauth
                     </ul>
                 </div>
             </div>

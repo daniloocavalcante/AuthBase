@@ -62,10 +62,6 @@
 
                     <!-- Botões -->
                     <div class="d-flex gap-2">
-                        <!-- Adicionar Usuário -->
-                        <a href="{{ route('dashboard.users') }}" class="btn btn-sm btn-primary">
-                            <i class="fa-solid fa-plus me-1"></i> Adicionar Usuário
-                        </a>
 
                         <!-- Exportar -->
                         <a class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exportCsvModal">
@@ -79,7 +75,7 @@
                     </div>
                     
                 <!-- BUSCA -->
-                    <form method="GET" class="d-flex" style="flex:1; max-width:300px;">
+                    <form method="GET" class="d-flex m-2" style="flex:1; max-width:300px;">
 
                         <div class="input-group input-group w-100">
 
@@ -193,9 +189,9 @@
                                 {{ $user->id }}
                             </td>
 
-                            <td>
+                            <td>   
 
-                                <div class="d-flex align-items-center">
+                                <a href="{{ route('dashboard.users.show', $user->id) }}" class="d-flex align-items-center text-decoration-none text-dark">
 
                                     <div class="me-2 text-secondary fs-5">
                                         <i class="fa-solid fa-circle-user"></i>
@@ -206,8 +202,7 @@
                                             {{ ucfirst($user->name) }} {{ ucfirst($user->surname) }}
                                         </div>
                                     </div>
-
-                                </div>
+                                </a>       
 
                             </td>
 
@@ -271,6 +266,16 @@
                         </tr>
 
                         @endforeach
+
+                        @for ($i = $users->count(); $i < 10; $i++)
+                            <tr class="text-muted">
+                                <td>—</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td>—</td>
+                            </tr>
+                        @endfor
 
                         </tbody>
 

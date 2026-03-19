@@ -29,12 +29,12 @@ class DashboardController extends Controller
 
     public function profile()
     {
-        return $this->viewWithUser('dashboard.profile');
+        return $this->viewWithUser('dashboard.profile.show');
     }
 
     public function edit()
     {
-        return $this->viewWithUser('dashboard.edit');
+        return $this->viewWithUser('dashboard.profile.edit');
     }
 
 
@@ -88,7 +88,7 @@ class DashboardController extends Controller
                 $user->sendEmailVerificationNotification();
             }
 
-            return redirect()->route('dashboard.profile')
+            return redirect()->route('dashboard.profile.show')
                             ->with('success', 'Perfil atualizado com sucesso!');
         }
 
@@ -96,14 +96,12 @@ class DashboardController extends Controller
     }
 
 
-
-
-    public function showChangePasswordForm(){        
+    public function password(){        
         $user = Auth::user();
-        return view('dashboard.password', compact('user'));
+        return view('dashboard.profile.password', compact('user'));
     }
 
-    public function changePassword(Request $request){
+    public function password_update(Request $request){
 
         $user = Auth::user();
 
@@ -128,7 +126,7 @@ class DashboardController extends Controller
             $user->password = Hash::make($request->password);
             $user->save();
 
-            return redirect()->route('dashboard.password.edit')
+            return redirect()->route('dashboard.profile.edit')
                             ->with('success', 'Senha alterada com sucesso!');
         }
 
@@ -148,6 +146,13 @@ class DashboardController extends Controller
 
         // redirecionar para a página inicial com mensagem
         return redirect('/')->with('warning', 'Conta excluída com sucesso.');
+    }
+
+
+ 
+    public function show($id){        
+        $user = User::findOrFail($id);
+        return view('dashboard.users.show', compact('user'));
     }
 
     public function users(Request $request){ 
@@ -188,9 +193,10 @@ class DashboardController extends Controller
         $todayUsers  = User::whereDate('created_at', now())->count();
 
         // RETORNA PARA A VIEW
-        return view('dashboard.users', compact('users', 'usersCount', 'adminsCount', 'todayUsers'));  
+        return view('dashboard.users.index', compact('users', 'usersCount', 'adminsCount', 'todayUsers'));  
 
     }
+    
 
 
     public function export(){

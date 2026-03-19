@@ -56,3 +56,10 @@
         visibility: hidden !important;
     }
 }
+
+
+.dropdown-item:hover {
+    background-color: #e2e6ea;;
+    padding-left: 20px;
+    transition: 0.2s;
+}

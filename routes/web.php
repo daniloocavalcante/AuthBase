@@ -75,12 +75,22 @@ Route::middleware('auth')
         Route::delete('/profile', [DashboardController::class, 'destroy'])->name('profile.destroy');
 
         // Senha
-        Route::get('/password', [DashboardController::class, 'showChangePasswordForm'])->name('password.edit');
-        Route::put('/password', [DashboardController::class, 'changePassword'])->name('password.update');
+        Route::get('/password', [DashboardController::class, 'password'])->name('password.edit');
+        Route::put('/password', [DashboardController::class, 'password_update'])->name('password.update');
 
         // Usuários
-        Route::get('/table/users', [DashboardController::class, 'users'])->name('users');
-        Route::get('/table/users/exportar', [DashboardController::class, 'export'])->name('users.export');
+        Route::get('/users', [DashboardController::class, 'users'])->name('users');
+        Route::get('/users/exportar', [DashboardController::class, 'export'])->name('users.export');
+
+        Route::get('/users/{id}', [DashboardController::class, 'show'])->name('users.show');
+
+
+        //Route::get('/admin/permissions', [DashboardController::class, 'permissions'])->name('admin.permissions');
+        //Route::get('/admin/permissions', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
+        //Route::get('/admin/logs', [DashboardController::class, 'dashboard'])->name('admin.logs');
+
+
+
 
 
 });
