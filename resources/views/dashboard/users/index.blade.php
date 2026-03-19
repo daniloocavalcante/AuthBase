@@ -27,6 +27,9 @@
             </ol>
         </nav>
 
+        {{-- Mensagens do servidor --}}
+        @include('layouts.messages')
+
 
         <!-- Card -->
         <div class="card shadow-lg border-0 printable" id="card-users">

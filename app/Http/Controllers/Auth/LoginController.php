@@ -49,5 +49,8 @@ class LoginController extends Controller
             $user->save();
 
             session(['previous_login' => $previousLogin]);
+
+            return redirect()->route('dashboard.index')->with('success_name', Auth::user()->name);
+
     }
 }

@@ -9,11 +9,8 @@
     <div class="row justify-content-center g-3">
         <div class="col-md-7">
 
-            <!-- Alert de login -->
-            <div class="alert alert-success alert-dismissible fade show">
-                <p class="mb-0">Olá, <strong>{{ ucfirst(Auth::user()->name) }}</strong> ! Você foi logado com sucesso!</p>
-                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>                  
-            </div>                     
+            {{-- Mensagens do servidor --}}
+            @include('layouts.messages')               
 
             <!-- Card de boas-vindas / resumo -->
             <div class="card text-center shadow-lg border-0 mb-3">

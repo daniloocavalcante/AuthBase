@@ -29,43 +29,33 @@
 
 
             {{-- Mensagens do servidor --}}
-            @if($errors->any())
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <ul class="mb-0">
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
-                </div>
-            @endif
-
-            @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
-                </div>
-            @endif
-
-            @if(session('error'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{ session('error') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
-                </div>
-            @endif
-
-            @if(session('info'))
-                <div class="alert alert-info alert-dismissible fade show" role="alert">
-                    {{ session('info') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
-                </div>
-            @endif
-
-
+            @include('layouts.messages')
             
             <div class="card shadow-lg border-0">
 
+
                 <!-- Header -->
+
+                <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="me-3 text-primary fs-4">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+
+                        <div>
+                            <h6 class="mb-0 fw-semibold">
+                                Meu Perfil
+                            </h6>
+
+                            <small class="text-muted d-block">
+                                Informações sobre meu perfil
+                            </small>
+
+                        </div>
+                    </div>
+                </div>
 
                 <div class="card-body">
 
