@@ -258,7 +258,7 @@
 </div>
 
 
-<!-- Modal de confirmação -->
+<!-- Modal de confirmação: Exclusão de Conta -->
 
 <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountLabel" aria-hidden="true">
   <div class="modal-dialog">

@@ -7,6 +7,7 @@
         </ul>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
     </div>
+    
 @endif
 
 @if(session('success'))
@@ -32,10 +33,51 @@
 
 
 
-
+<!-- Mensagens Automáticas -->
 @if(session('success_name'))
 <div class="alert alert-success alert-dismissible fade show">
     <p class="mb-0">Olá, <strong>{{ ucfirst(session('success_name')) }}</strong> ! Você foi logado com sucesso!</p>
     <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>                  
 </div>    
 @endif
+
+
+
+<!-- E-mail verificado -->
+
+@if(request('verified'))
+    <div class="alert alert-success">
+        E-mail verificado com sucesso!
+    </div>
+@endif
+
+
+<!-- Verifique seu E-mail -->
+@auth
+
+    @if (!auth()->user()->hasVerifiedEmail() && 
+        in_array(Route::currentRouteName(), ['dashboard.index', 'dashboard.profile']))
+    <div class="alert border-warning bg-warning-subtle d-flex align-items-center justify-content-between">
+
+        <div class="d-flex align-items-center gap-2">
+            <i class="fa-solid fa-envelope fs-5 text-black"></i>        
+
+            <div>
+                <span class="fw-semibold">E-mail não verificado. </span>
+                <span class="small text-muted">
+                    Verifique sua conta.
+                </span>
+            </div>
+        </div>
+
+        <a href="#" 
+        class="fw-semibold text-primary text-decoration-none d-flex align-items-center gap-1"
+        data-bs-toggle="modal" 
+        data-bs-target="#verifyEmail">
+            <i class="bi bi-envelope-check fs-6"></i>
+            Verificar
+        </a>
+    </div>
+
+    @endif
+@endauth

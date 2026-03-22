@@ -246,43 +246,7 @@
             </div>
         </div>
 
-
-
-
     </div>
-</div>
-
-
-<!-- Modal de confirmação -->
-<div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title" id="deleteAccountLabel">
-            <i class="fa-solid fa-triangle-exclamation me-2"></i>
-            Confirmar Exclusão
-        </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
-      </div>
-
-      <div class="modal-body">
-        Tem certeza que deseja excluir sua conta? <br>
-        Essa ação <strong>não poderá ser desfeita</strong>.
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-
-        <form action="{{ route('dashboard.profile.destroy') }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger">Excluir Conta</button>
-        </form>
-      </div>
-
-    </div>
-  </div>
 </div>
 
 

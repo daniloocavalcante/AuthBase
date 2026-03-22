@@ -112,27 +112,7 @@
                                 <div class="col-7 fw-semibold">{{ $user->surname }}</div>
                             </div>
 
-                            <div class="row mb-3">
 
-                                <label class="col-5 col-form-label text-muted">
-                                    <i class="fa-solid fa-envelope me-1"></i>
-                                    E-mail
-                                </label>
-                                <div class="col-7 fw-semibold">
-                                    {{ $user->email }}
-
-                                    @if($user->email_verified_at)
-                                        <i class="fa-solid fa-circle-check text-success ms-2"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-title="Email verificado"></i>
-                                    @else
-                                        <i class="fa-regular fa-circle-check text-secondary ms-2"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-title="Email não verificado"></i>
-                                    @endif
-
-                                </div>
-                            </div>
                             <div class="row mb-3">                                
                                 <label class="col-5 col-form-label text-muted">
                                     <i class="fa-solid fa-calendar-days me-1"></i>

@@ -47,11 +47,18 @@ Route::controller(ResetPasswordController::class)->group(function () {
     Route::post('/password/reset', 'reset')->name('password.update');
 });
 
+
 // Verificação de Email 
 Route::controller(VerificationController::class)->group(function () {
-    Route::get('email/verify', 'show')->name('verification.notice');
-    Route::get('email/verify/{id}/{hash}', 'verify')->name('verification.verify');
-    Route::get('email/resend', 'resend')->name('verification.resend');
+    Route::get('email/verify', 'show')->name('verification.notice');  
+
+    Route::get('email/verify/{id}/{hash}', 'verify')
+        ->middleware(['signed'])
+        ->name('verification.verify');
+    
+    Route::post('email/verification-notification', 'resend')
+        ->middleware(['auth', 'throttle:6,1'])
+        ->name('verification.resend');
 });
 
 
@@ -65,7 +72,7 @@ Route::middleware('auth')
     ->name('dashboard.')
     ->group(function () {
 
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
+        Route::get('/home', [DashboardController::class, 'index'])->name('index');
 
         // Perfil
         Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
@@ -88,9 +95,6 @@ Route::middleware('auth')
         //Route::get('/admin/permissions', [DashboardController::class, 'permissions'])->name('admin.permissions');
         //Route::get('/admin/permissions', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
         //Route::get('/admin/logs', [DashboardController::class, 'dashboard'])->name('admin.logs');
-
-
-
 
 
 });

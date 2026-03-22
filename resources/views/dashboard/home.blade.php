@@ -10,7 +10,7 @@
         <div class="col-md-7">
 
             {{-- Mensagens do servidor --}}
-            @include('layouts.messages')               
+            @include('layouts.messages')         
 
             <!-- Card de boas-vindas / resumo -->
             <div class="card text-center shadow-lg border-0 mb-3">
@@ -115,4 +115,93 @@
 
     </div>
 </div>
+
+
+
+<!-- Modal de confirmação -->
+
+<div class="modal fade" id="verifyEmail" tabindex="-1" aria-labelledby="verifyEmailLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content border-0 shadow">
+
+      <!-- HEADER -->
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title d-flex align-items-center gap-2" id="verifyEmailLabel">
+          <i class="fa-solid fa-envelope-circle-check"></i>
+          Verifique seu e-mail
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- BODY -->
+      <div class="modal-body text-center py-4">
+
+        @if (session('resent'))
+
+            <div class="mb-3">
+                <i class="fa-solid fa-circle-check text-success fs-2"></i>
+            </div>
+
+            <p class="fw-semibold mb-1 text-success">
+                Link reenviado com sucesso
+            </p>
+
+            <p class="text-muted small mb-0">
+                Enviamos um novo link de verificação para o seu e-mail.
+                Verifique sua caixa de entrada para continuar.
+            </p>
+
+        @else
+
+            <div class="mb-3">
+                <i class="fa-solid fa-envelope-open-text text-primary fs-2"></i>
+            </div>
+
+            <p class="fw-semibold mb-1">
+                Confirme seu e-mail
+            </p>
+
+            <p class="text-muted small mb-0">
+                Enviamos um link de verificação quando você se cadastrou.
+                Acesse sua caixa de entrada e clique no link para ativar sua conta.
+            </p>
+
+        @endif
+
+      </div>
+
+      <!-- FOOTER -->
+      <div class="modal-footer justify-content-center border-0 pb-4">
+        @if (!session('resent'))
+
+            <form method="POST" action="{{ route('verification.resend') }}">
+              @csrf
+              <button type="submit" class="btn btn-outline-primary btn-sm">
+                <i class="fa-solid fa-paper-plane me-1"></i>
+                Reenviar e-mail
+              </button>
+            </form>        
+
+        @endif
+
+        <button type="button" class="btn btn-sm btn-outline-dark" data-bs-dismiss="modal">
+          Fechar
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const resent = "{{ session('resent') }}";
+
+        if (resent) {
+            const modal = new bootstrap.Modal(document.getElementById('verifyEmail'));
+            modal.show();
+        }
+    });
+</script>
+
 @endsection

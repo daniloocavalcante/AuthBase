@@ -26,7 +26,7 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        @include('layouts.validations-forms')
+                        @include('layouts.messages')
 
                         <!-- Email -->
                         <div class="mb-3">

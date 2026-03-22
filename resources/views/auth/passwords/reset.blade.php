@@ -2,65 +2,142 @@
 
 @section('content')
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
 
-                <div class="card-body">
+
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="min-height:70vh">
+
+        <div class="col-lg-5 col-md-7">
+
+            <div class="card shadow-lg border-0">
+
+                <div class="card-body p-4">
+
+                    <!-- Título -->
+                    <div class="text-center mb-3">
+                        <h2 class="fw-bold">Redefinir senha</h2>
+                        <p class="text-muted">
+                            Crie uma nova senha para sua conta.
+                        </p>
+                    </div>
+
                     <form method="POST" action="{{ route('password.update') }}">
                         @csrf
 
                         <input type="hidden" name="token" value="{{ $token }}">
 
+                        @include('layouts.messages')
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">
+                                E-mail
+                            </label>
+
+                            <input id="email"
+                                   type="email"
+                                   class="form-control form-control-md @error('email') is-invalid @enderror text-muted"
+                                   name="email"
+                                   value="{{ $email ?? old('email') }}"
+                                   readonly
+                                   placeholder="Digite seu e-mail">
+                        </div>
+
+                        <!-- Senhas -->
                         <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <label class="form-label fw-semibold">Senha</label>
+
+                                <div class="input-group">
+                                    <input
+                                        id="password"
+                                        type="password"
+                                        class="form-control"
+                                        name="password"
+                                        placeholder="Digite sua senha"
+                                        autofocus
+                                        required>
+
+                                    <button class="btn btn-outline-secondary"
+                                            type="button"
+                                            id="eyeButton"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            title="Mostrar senha"
+                                            aria-label="Mostrar senha">
+                                        <i id="eyeIcon" class="fa-solid fa-eye"></i>
+
+                                    </button>
+                                </div>
+
                             </div>
-                        </div>
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <label class="form-label fw-semibold">Confirmar senha</label>
+
+                                <div class="input-group">
+                                    <input
+                                        id="passwordConfirmation"
+                                        type="password"
+                                        class="form-control"
+                                        name="password_confirmation"
+                                        placeholder="Repita sua senha"
+                                        required>
+
+                                    <button class="btn btn-outline-secondary"
+                                            type="button"
+                                            id="eyeButtonConfirmation"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            title="Mostrar senha"
+                                            aria-label="Mostrar senha">
+                                        <i id="eyeIconConfirmation" class="fa-solid fa-eye"></i>
+
+                                    </button>
+                                </div>
+
                             </div>
+
+                        </div>
+                        
+                        
+
+
+                        <!-- Botão -->
+                        <div class="mb-3 text-center">
+                            <button type="submit" class="btn btn-dark">
+                                Salvar nova senha
+                            </button>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                        <!-- login -->
+                        @if (Route::has('login'))
+                            <div class="text-center">
 
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
+                                <span class="text-muted">
+                                    Já possui uma conta?
+                                </span>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
+                                <a href="{{ route('login') }}"
+                                   class="fw-semibold text-decoration-none ms-1">
+                                    Entrar
+                                </a>
+
                             </div>
-                        </div>
+                        @endif
+
                     </form>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
 </div>
 @endsection
