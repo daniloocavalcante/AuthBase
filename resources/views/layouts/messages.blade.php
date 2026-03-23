@@ -42,16 +42,6 @@
 @endif
 
 
-
-<!-- E-mail verificado -->
-
-@if(request('verified'))
-    <div class="alert alert-success">
-        E-mail verificado com sucesso!
-    </div>
-@endif
-
-
 <!-- Verifique seu E-mail -->
 @auth
 

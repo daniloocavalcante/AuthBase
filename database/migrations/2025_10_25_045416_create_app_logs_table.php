@@ -6,29 +6,33 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('app_logs', function (Blueprint $table) {
-            $table->id(); // id BIGINT PRIMARY KEY AUTO_INCREMENT
+            $table->id();
             
-            // Chave estrangeira para users
-            $table->unsignedBigInteger('user_id')->nullable(); // user_id BIGINT
-            $table->foreign('user_id')->references('id')->on('users');
+            // Relacionamento com o usuário que fez a ação
+            $table->foreignId('user_id')
+                  ->nullable()
+                  ->constrained()
+                  ->onDelete('set null');
+
+            // O que foi feito: Created, Updated, Deleted, etc.
+            $table->string('action', 50)->index();
+
+            $table->string('ip_address', 45)->nullable(); // 45 caracteres para suportar IPv6
             
-            $table->timestamp('logged_at')->useCurrent(); // logged_at TIMESTAMP NOT NULL (Assumindo que você quer a hora atual)
-            $table->string('level', 20); // level VARCHAR(20) NOT NULL
-            $table->string('source', 100); // source VARCHAR(100) NOT NULL
-            $table->text('message'); // message TEXT NOT NULL
-            // Não há 'updated_at' ou 'created_at' aqui, pois a coluna 'logged_at' serve a este propósito
+            // Descrição legível: "Editou o pet Totó"
+            $table->string('description');
+
+            // Polimorfismo simples: Qual Model e qual ID foi afetado
+            $table->string('model_type')->nullable()->index();
+            $table->unsignedBigInteger('model_id')->nullable()->index();
+
+            $table->timestamp('created_at')->useCurrent()->index();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('app_logs');

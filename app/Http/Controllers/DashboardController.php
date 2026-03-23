@@ -42,58 +42,60 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        // Validação
         $data = $request->validate([
             'name' => 'required|string|max:50',
             'surname' => 'required|string|max:50',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'email_confirmation' => 'required|same:email',
+            'email' => 'required|email|confirmed|unique:users,email,' . $user->id,
             'birth' => 'required|date|before:today',
             'gender' => 'required|in:Masculino,Feminino,Outro',
         ]);
 
-        // Remove email_confirmation
-        unset($data['email_confirmation']);
+        // Opcional (evita sujeira)
+        $data = array_map(fn($v) => is_string($v) ? trim($v) : $v, $data);
 
-        $hasChanges = false;
-        $emailChanged = false;
+        $user->fill($data);
 
-        foreach ($data as $key => $value) {
-            if ($key === 'birth') {
-                // Compara datas como string
-                if ($user->birth->format('Y-m-d') != $value) {
-                    $hasChanges = true;
-                }
-            } else {
-                if (trim($user->$key) != trim($value)) {
-                    $hasChanges = true;
-                }
-            }
-
-        }
-
-        if (!$hasChanges) {
+        if (!$user->isDirty()) {
             return back()->with('info', 'Nenhuma alteração foi realizada.');
         }
 
-        // Se o email mudou, reseta email_verified_at e envia notificação
-        if ($user->email !== $data['email']) {
-            $data['email_verified_at'] = null;
-            $emailChanged = true;
-        }   
-        
-        if ($user->update($data)) {
-            // Aqui  dispara o email de confirmação 
-            if ($emailChanged) {
-                $user->sendEmailVerificationNotification();
-            }
+        $emailChanged = $user->isDirty('email');
+        $oldName = $user->getOriginal('name');
 
-            return redirect()->route('dashboard.profile.show')
-                            ->with('success', 'Perfil atualizado com sucesso!');
+        if ($emailChanged) {
+            $oldEmail = $user->getOriginal('email');
+            $user->email_verified_at = null;
         }
 
-        return back()->with('error', 'Não foi possível atualizar o perfil. Tente novamente.');
+        try {
+            $user->save();
+
+            if ($emailChanged) {
+                $user->sendEmailVerificationNotification();
+
+                app_log(
+                    'Email_Change',
+                    $user,
+                    "Usuário {$oldName} (#{$user->id}) alterou e-mail de ({$oldEmail}) para ({$user->email})"
+                );
+            }
+            app_log('Updated', $user, "Usuário {$oldName} (#{$user->id}) atualizado com sucesso.");
+
+            return redirect()->route('dashboard.profile')
+                ->with('success', 'Perfil atualizado com sucesso!');
+
+        } catch (\Exception $e) {
+
+            app_log(
+                'Error',
+                $user,
+                "Falha ao atualizar usuário {$oldName} (#{$user->id}). Motivo: " . $e->getMessage()
+            );
+
+            return back()->with('error', 'Não foi possível atualizar o perfil. Tente novamente.');
+        }
     }
+
 
 
     public function password(){        
@@ -129,25 +131,25 @@ class DashboardController extends Controller
             return redirect()->route('dashboard.profile.edit')
                             ->with('success', 'Senha alterada com sucesso!');
         }
-
+        
+        app_log('Password_Change', $user, "Alterou a própria senha.");
+        
         return back()->with('error', 'Erro inesperado ao atualizar a senha. Tente novamente.');
-
 
     }
 
     public function destroy(Request $request)
     {
-        $user = Auth::user();
-        // opcional: deslogar antes de deletar
+        $user = Auth::user();        
+        app_log('Account_Closed', $user, "O usuário encerrou a própria conta permanentemente.");
+
         Auth::logout();
 
         // deletar usuário
-        $user->delete();
+        $user->delete();        
 
-        // redirecionar para a página inicial com mensagem
         return redirect('/')->with('warning', 'Conta excluída com sucesso.');
     }
-
 
  
     public function show($id){        
@@ -207,7 +209,7 @@ class DashboardController extends Controller
         $headers = ['ID', 'Nome', 'Sobrenome', 'Email', 'Criado em'];
 
         // Obter usuários
-        $users = \App\Models\User::all();
+        $users = User::all();
 
         // Criar conteúdo CSV
         $callback = function() use ($users, $headers) {
@@ -224,6 +226,9 @@ class DashboardController extends Controller
                 ]);
             }
 
+            app_log('Export', $users, "Gerou exportação de dados em formato CSV");
+
+            
             fclose($file);
         };
 

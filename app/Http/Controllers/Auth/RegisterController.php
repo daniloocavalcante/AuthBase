@@ -120,18 +120,23 @@ class RegisterController extends Controller
                 break;
             
             default:
-                $data['gender'] = "Não Informar";
+                $data['gender'] = "Não Informado";
                 break;
         }
 
-        return User::create([
-            'name' => $data['name'],
-            'surname' => $data['surname'],
-            'email' => $data['email'],
-            'birth' => $data['birth'],
-            'gender' => $data['gender'],
-            'password' => Hash::make($data['password']),
+        $user = User::create([
+            'name'       => $data['name'],
+            'surname'    => $data['surname'],
+            'email'      => $data['email'],
+            'birth'      => $data['birth'],
+            'gender'     => $data['gender'],
+            'password'   => Hash::make($data['password']),
             'last_login' => Carbon::now(),
         ]);
+
+        app_log('Created', $user, "Novo usuário registrado: {$user->name} {$user->surname} #$user->id");
+
+        return $user;
+
     }
 }

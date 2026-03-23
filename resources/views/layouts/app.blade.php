@@ -139,30 +139,34 @@
 
 <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content border-0 shadow">
 
       <!-- Cabeçalho -->
-      <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title" id="logoutModalLabel">
-            <i class="fa-solid fa-right-from-bracket me-2"></i>
-            Confirmar Logout
+      <div class="modal-header bg-light">
+        <h5 class="modal-title fw-semibold" id="logoutModalLabel">
+            <i class="fa-solid fa-right-from-bracket me-2 text-danger"></i>
+            Sair da conta
         </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
 
       <!-- Corpo -->
-      <div class="modal-body">
-        Tem certeza que deseja sair da sua conta? <br>
+      <div class="modal-body text-muted">
+        Tem certeza que deseja sair da sua conta?<br>
         Você poderá entrar novamente a qualquer momento.
       </div>
 
       <!-- Rodapé -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+            Cancelar
+        </button>
 
-        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+        <form action="{{ route('logout') }}" method="POST">
             @csrf
-            <button type="submit" class="btn btn-primary">Sair</button>
+            <button type="submit" class="btn btn-danger">
+                Sair
+            </button>
         </form>
       </div>
 

@@ -50,12 +50,15 @@ Route::controller(ResetPasswordController::class)->group(function () {
 
 // Verificação de Email 
 Route::controller(VerificationController::class)->group(function () {
-    Route::get('email/verify', 'show')->name('verification.notice');  
+    Route::get('email/verify', 'show')->name('verification.notice');      
 
     Route::get('email/verify/{id}/{hash}', 'verify')
         ->middleware(['signed'])
         ->name('verification.verify');
-    
+
+    Route::get('email/verification', 'success')
+        ->name('verification.success');
+   
     Route::post('email/verification-notification', 'resend')
         ->middleware(['auth', 'throttle:6,1'])
         ->name('verification.resend');
@@ -90,7 +93,6 @@ Route::middleware('auth')
         Route::get('/users/exportar', [DashboardController::class, 'export'])->name('users.export');
 
         Route::get('/users/{id}', [DashboardController::class, 'show'])->name('users.show');
-
 
         //Route::get('/admin/permissions', [DashboardController::class, 'permissions'])->name('admin.permissions');
         //Route::get('/admin/permissions', [DashboardController::class, 'dashboard'])->name('admin.dashboard');

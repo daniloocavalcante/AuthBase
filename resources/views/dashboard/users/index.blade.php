@@ -233,31 +233,14 @@
 
                                     </button>
 
-                                    <ul class="dropdown-menu dropdown-menu-end">
+                                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-3">
 
+                                        <!-- Visualizar -->
                                         <li>
-                                            <a class="dropdown-item" href="#">
-                                                <i class="fa-solid fa-eye me-2"></i>
-                                                Visualizar
+                                            <a class="dropdown-item d-flex align-items-center" href="{{ route('dashboard.users.show', $user->id) }}">
+                                                <i class="fa-solid fa-eye me-2 text-secondary"></i>
+                                                <span>Visualizar</span>
                                             </a>
-                                        </li>
-
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <i class="fa-solid fa-pen me-2"></i>
-                                                Editar
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-
-                                        <li>
-                                            <button class="dropdown-item text-danger">
-                                                <i class="fa-solid fa-trash me-2"></i>
-                                                Excluir
-                                            </button>
                                         </li>
 
                                     </ul>

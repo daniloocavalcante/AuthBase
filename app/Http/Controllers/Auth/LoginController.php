@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;           
@@ -39,18 +39,42 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
+    }    
+
+    protected function authenticated(Request $request, $user){
+        // Salva a última vez que o usuário logou em uma variável
+        $previousLogin = $user->last_login;
+
+        $user->last_login = Carbon::now();
+        $user->save();
+
+        session(['previous_login' => $previousLogin]);
+        app_log('Login', Auth::user(), "Usuário conectou ao sistema: {$user->name} {$user->surname} #$user->id");
+
+        return redirect()->route('dashboard.index')->with('success_name', Auth::user()->name);
+
     }
 
-        protected function authenticated(Request $request, $user){
-            // Salva a última vez que o usuário logou em uma variável
-            $previousLogin = $user->last_login;
+    public function logout(Request $request)
+    {
+        // 1. Captura o usuário antes de deslogar
+        $user = Auth::user();
 
-            $user->last_login = Carbon::now();
-            $user->save();
+        if ($user) {
+            app_log('Logout', $user, "Logout realizado: {$user->name} {$user->surname} #$user->id");
+        }
 
-            session(['previous_login' => $previousLogin]);
+        $this->guard()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-            return redirect()->route('dashboard.index')->with('success_name', Auth::user()->name);
-
+        // 4. Chama o método que redireciona o usuário
+        return $request->wantsJson()
+                    ? new JsonResponse([], 204)
+                    : redirect('/');
     }
+
+
+
+
 }
