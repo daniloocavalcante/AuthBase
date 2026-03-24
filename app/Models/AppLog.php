@@ -4,6 +4,28 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int|null $user_id
+ * @property string $action
+ * @property string|null $ip_address
+ * @property string $description
+ * @property string|null $model_type
+ * @property int|null $model_id
+ * @property \Illuminate\Support\Carbon $created_at
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppLog newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppLog newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppLog query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppLog whereAction($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppLog whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppLog whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppLog whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppLog whereIpAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppLog whereModelId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppLog whereModelType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppLog whereUserId($value)
+ * @mixin \Eloquent
+ */
 class AppLog extends Model
 {
     // Como a tabela chama 'app_logs', o Laravel já identifica sozinho.
