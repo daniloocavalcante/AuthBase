@@ -79,16 +79,16 @@
 
                                 <select class="form-select form-select-md" name="gender">
 
-                                    <option value="1" {{ old('gender')=="1" ? "selected" : "" }}>
+                                    <option value="Masculino" {{ old('gender')=="Masculino" ? "selected" : "" }}>
                                         Masculino
                                     </option>
 
-                                    <option value="2" {{ old('gender')=="2" ? "selected" : "" }}>
+                                    <option value="Feminino" {{ old('gender')=="Feminino" ? "selected" : "" }}>
                                         Feminino
                                     </option>
 
-                                    <option value="3" {{ old('gender')=="3" ? "selected" : "" }}>
-                                        Prefiro não informar
+                                    <option value="Outro" {{ old('gender')=="Outro" ? "selected" : "" }}>
+                                        Outro
                                     </option>
 
                                 </select>

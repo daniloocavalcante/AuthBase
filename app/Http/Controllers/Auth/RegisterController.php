@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use App\Http\Requests\RegisterUserRequest;
 
 class RegisterController extends Controller
 {
@@ -49,57 +50,9 @@ class RegisterController extends Controller
      */
 
 
-    protected function validator(array $data)
+    public function store(RegisterUserRequest $request)
     {
-        // As regras de validação
-        $rules = [
-            'name' => ['required', 'string', 'max:255', 'min:3'],
-            'surname' => ['required', 'string', 'max:255', 'min:3'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'birth' => ['required', 'date'],
-            'gender' => ['required', 'string','max:50'],
-            'password' => ['required', 'string', 'min:8', 'max:255','confirmed'],
-        ];
-
-        // As mensagens de erro personalizadas
-        $messages = [
-
-            // Mensagens genérica =>        required' => 'O campo [:attribute] é obrigatório.',             
-            // Mensagens específicas para .required
-            'name' => 'O campo [nome] é obrigatório.', 
-            'surname' => 'O campo [sobrenome] é obrigatório.', 
-            'email' => 'O campo [e-mail] é obrigatório.', 
-            'birth' => 'O campo [data_de_aniversario] é obrigatório.', 
-            'gender' => 'O campo [gênero] é obrigatório.', 
-            'password' => 'O campo [senha] é obrigatório.', 
-
-            // Mensagens específicas para .max
-            'name.max' => 'O campo [nome] deve ter no máximo :max caracteres.',
-            'surname.max' => 'O campo [sobrenome] deve ter no máximo :max caracteres.',
-            'email.max' => 'O campo [e-mail] deve ter no máximo :max caracteres.',
-            'password.max' => 'A senha deve ter no máximo :max caracteres.',
-            'gender.max' => 'O campo [gênero] deve ter no máximo :max caracteres.',
-            
-            // Mensagens específicas para .min
-            'name.min' => 'O campo [nome] deve ter no mínimo :min caracteres.',
-            'surname.min' => 'O campo [sobrenome] deve ter no mínimo :min caracteres.',
-            'password.min' => 'A senha deve ter no mínimo :min caracteres.',
-
-             // Mensagens específicas para .unique
-            'email.unique' => 'E-mail indisponível no momento.',
-
-             // Mensagens específicas para .confirmed
-            'password.confirmed' => 'A confirmação de senha não corresponde.',
-
-             // Mensagens específicas para .date
-            'birth.date' => 'O campo [data de nascimento] deve ser uma data válida.',
-
-            // Mensagens específicas para .date
-            'email.email' => 'O campo [e-mail] deve ser um e-mail válido.',
-        ];
-
-        // Retorna o validador com as regras e as mensagens
-        return Validator::make($data, $rules, $messages);
+        return $this->create($request->validated());
     }
 
     /**
@@ -110,20 +63,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        switch ($data['gender']) {
-            case '1':
-                $data['gender'] = "Masculino";
-                break;
-
-            case '2':
-                $data['gender'] = "Feminino";
-                break;
-            
-            default:
-                $data['gender'] = "Não Informado";
-                break;
-        }
-
+        
         $user = User::create([
             'name'       => $data['name'],
             'surname'    => $data['surname'],

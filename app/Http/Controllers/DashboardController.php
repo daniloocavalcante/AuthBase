@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\Auth; 
@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 
 use App\Models\User;       // <— Importa o modelo User
-use App\Models\Privilege;  // <— Importa o modelo Privilege
 
 
 class DashboardController extends Controller
@@ -38,17 +37,11 @@ class DashboardController extends Controller
     }
 
 
-    public function update(Request $request)
+    public function update(UpdateUserRequest $request)
     {
         $user = Auth::user();
 
-        $data = $request->validate([
-            'name' => 'required|string|max:50',
-            'surname' => 'required|string|max:50',
-            'email' => 'required|email|confirmed|unique:users,email,' . $user->id,
-            'birth' => 'required|date|before:today',
-            'gender' => 'required|in:Masculino,Feminino,Outro',
-        ]);
+        $data = $request->validated(); 
 
         // Opcional (evita sujeira)
         $data = array_map(fn($v) => is_string($v) ? trim($v) : $v, $data);
