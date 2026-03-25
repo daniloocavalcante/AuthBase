@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
+use Carbon\Carbon;
+
 
 use App\Models\User;       // <— Importa o modelo User
+use App\Models\AppLog;
 
 
 class DashboardController extends Controller
@@ -91,9 +94,8 @@ class DashboardController extends Controller
 
 
 
-    public function password(){        
-        $user = Auth::user();
-        return view('dashboard.profile.password', compact('user'));
+    public function password(){    
+        return $this->viewWithUser('dashboard.profile.password');    
     }
 
     public function password_update(Request $request){
@@ -179,7 +181,7 @@ class DashboardController extends Controller
         }
 
         // PAGINAÇÃO
-        $perPage = 10; // ou $request->get('perPage', 10) se quiser permitir alterar
+        $perPage = 10; 
         $users = $query->paginate($perPage)->withQueryString();
 
         // CONTADORES DINÂMICOS
@@ -219,9 +221,7 @@ class DashboardController extends Controller
                 ]);
             }
 
-            app_log('Export', $users, "Gerou exportação de dados em formato CSV");
-
-            
+            app_log('Export', $users, "Gerou exportação de dados em formato CSV");            
             fclose($file);
         };
 
@@ -233,7 +233,36 @@ class DashboardController extends Controller
     }
 
 
+    public function logs(){ 
+        
+         // 🔹 Tabela de logs (com usuário)
+        $logs = AppLog::with('user')
+            ->latest()
+            ->paginate(2);
 
+        // 🔹 Total de logs
+        $totalLogs = AppLog::count();
+
+        // 🔹 Logs de hoje
+        $logsHoje = AppLog::whereDate('created_at', Carbon::today())->count();
+
+        // 🔹 Logs de erro (se tiver coluna 'level')
+        $logsErro = AppLog::where('action', 'error')->count();
+
+        // 🔹 Logs recentes (para o card lateral)
+        $recentLogs = AppLog::with('user')
+            ->latest()
+            ->take(5)
+            ->get();
+
+        return view('dashboard.admin.logs', compact(
+            'logs',
+            'totalLogs',
+            'logsHoje',
+            'logsErro',
+            'recentLogs'
+        ));
+    }
 
 }
 

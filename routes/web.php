@@ -94,6 +94,9 @@ Route::middleware('auth')
 
         Route::get('/users/{id}', [DashboardController::class, 'show'])->name('users.show');
 
+        //Logs
+        Route::get('/logs', [DashboardController::class, 'logs'])->name('logs');
+
         //Route::get('/admin/permissions', [DashboardController::class, 'permissions'])->name('admin.permissions');
         //Route::get('/admin/permissions', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
         //Route::get('/admin/logs', [DashboardController::class, 'dashboard'])->name('admin.logs');

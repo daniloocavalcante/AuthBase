@@ -31,6 +31,20 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
+                        @auth  
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-gear"></i> Administração
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('dashboard.logs') }}">
+                                            <i class="fa-solid fa-file-lines"></i> Logs
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>       
+                        @endauth                
 
                     </ul>
 
