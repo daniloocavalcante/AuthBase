@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-    <div class="row">
+    <div class="row g-3">
         <div class="col-md-9">
             
             <!-- Breadcrumb -->
@@ -33,89 +33,166 @@
 
             <div class="card shadow-lg border-0 printable">
 
-                <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
-                <h2 class="mb-4">
-                    <i class="fa-solid fa-file-lines"></i> Logs do Sistema
-                </h2>
-                
+
+
+            <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
+
+                <div class="d-flex align-items-center">
+
+                    <div class="me-3 text-primary fs-2">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+
+                    <div>
+                        <h6 class="mb-0 fw-semibold fs-5">
+                            Logs do Sistema
+                        </h6>
+
+                        <small class="text-muted d-block">
+                            Gerenciamento de logs do sistema
+                        </small>
+
+                    </div>
                 </div>
 
+
+            </div>
+
                 <div class="card-body pt-0">
-<div class="table-responsive">
-    <table class="table table-hover align-middle">
-        <thead class="table-dark">
-            <tr>
-                <th style="width: 50px;">#</th>
-                <th>Usuário</th>
-                <th>Ação</th>
-                <th style="max-width: 250px;">Descrição</th>
-                <th style="width: 140px;">Data</th>
-                <th style="width: 80px;" class="text-center">Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($logs as $log)
-                <tr>
+                                    <!-- TOOLBAR -->
+                <div class="d-flex justify-content-between align-items-center py-3" id="toolbar-users">
 
-                    {{-- ID --}}
-                    <td>{{ $log->id }}</td>
+                    <!-- Botões -->
+                    <div class="d-flex gap-2">
 
-                    {{-- Usuário --}}
-                    <td>
-                        <div class="fw-semibold">
-                            {{ $log->user->name ?? 'Sistema' }}
-                        </div>
-                        <small class="text-muted">
-                            #{{ $log->user_id ?? '-' }}
-                        </small>
-                    </td>
-
-                    {{-- Ação --}}
-                    <td>
-                        <span class="badge 
-                            @if($log->action == 'login') bg-primary
-                            @elseif($log->action == 'logout') bg-secondary
-                            @elseif($log->action == 'error') bg-danger
-                            @else bg-dark
-                            @endif">
-                            {{ ucfirst($log->action) }}
-                        </span>
-                    </td>
-
-                    {{-- Descrição --}}
-                    <td>
-                        <div class="text-truncate" style="max-width: 250px;" title="{{ $log->description }}">
-                            {{ $log->description }}
-                        </div>
-                    </td>
-
-                    {{-- Data --}}
-                    <td>
-                        <div>{{ $log->created_at->format('d/m/Y') }}</div>
-                        <small class="text-muted">
-                            {{ $log->created_at->format('H:i') }}
-                        </small>
-                    </td>
-
-                    {{-- Ação (ver detalhes) --}}
-                    <td class="text-center">
-                        <a href="#"
-                           class="btn btn-sm btn-outline-dark"
-                           title="Ver detalhes">
-                            <i class="fa fa-eye"></i>
+                        <!-- Exportar -->
+                        <a class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exportCsvModal">
+                            <i class="fa-solid fa-download me-1"></i> Exportar
                         </a>
-                    </td>
 
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
+                        <!-- Imprimir -->
+                        <button onclick="window.print()" class="btn btn-sm btn-outline-dark">
+                            <i class="fa-solid fa-print me-1"></i> Imprimir
+                        </button>
+                    </div>
+                    
+                    <!-- BUSCA -->
+                    <form method="GET" class="d-flex m-2" style="flex:1; max-width:300px;">
 
-{{-- Paginação --}}
-<div class="mt-3">
-    {{ $logs->links() }}
-</div>
+                        <div class="input-group input-group w-100">
+
+                            <!-- Ícone de lupa -->
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="fa-solid fa-search text-muted"></i>
+                            </span>
+
+                            <!-- Input de busca -->
+                            <input 
+                                type="text"
+                                name="search"
+                                class="form-control border-start-0"
+                                placeholder="Buscar por nome ou e-mail..."
+                                value="{{ request('search') }}"
+                            >
+
+                            <!-- Botão limpar -->
+                            <a href="{{ route('dashboard.users') }}" 
+                            class="btn btn-outline-secondary"
+                            style="border-top-left-radius:0; border-bottom-left-radius:0;">
+                            <i class="fa-solid fa-xmark"></i>
+                            </a>
+
+                        </div>
+
+                    </form>
+
+
+                </div>
+
+
+
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th style="width: 50px;">#</th>
+                                    <th>Usuário</th>
+                                    <th>Ação</th>
+                                    <th style="">Descrição</th>
+                                    <th style="width: 140px;">Data</th>
+                                    <th style="width: 80px;" class="text-center">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($logs as $log)
+                                    <tr>
+
+                                        {{-- ID --}}
+                                        <td>{{ $log->id }}</td>
+
+                                        {{-- Usuário --}}
+                                        <td>
+                                            <div class="fw-semibold">
+                                                {{ $log->user->name ?? 'Sistema' }}
+                                            </div>
+                                            <small class="text-muted">
+                                                #{{ $log->user_id ?? '-' }}
+                                            </small>
+                                        </td>
+
+                                        {{-- Ação --}}
+                                        <td>
+                                            <span class="badge 
+                                                @if($log->action == 'login') bg-primary
+                                                @elseif($log->action == 'logout') bg-secondary
+                                                @elseif($log->action == 'error') bg-danger
+                                                @else bg-dark
+                                                @endif">
+                                                {{ ucfirst($log->action) }}
+                                            </span>
+                                        </td>
+
+                                        {{-- Descrição --}}
+                                        <td>
+                                            <div class="text-truncate" style="max-width: 300px;" title="{{ $log->description }}">
+                                                {{ $log->description }}
+                                            </div>
+                                        </td>
+
+                                        {{-- Data --}}
+                                        <td>
+                                            <div>{{ $log->created_at->format('d/m/Y') }}</div>
+                                            <small class="text-muted">
+                                                {{ $log->created_at->format('H:i') }}
+                                            </small>
+                                        </td>
+
+                                        {{-- Ação (ver detalhes) --}}
+                                        <td class="text-center">
+                                            <a href="#"
+                                            class="btn btn-sm btn-outline-dark"
+                                            title="Ver detalhes">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {{-- Paginação --}}
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+
+                        <small class="text-muted">
+                            Mostrando {{ $logs->firstItem() }} até {{ $logs->lastItem() }}
+                            de {{ $totalLogs }} usuários
+                        </small>
+
+
+                        {{ $logs->links() }}
+                    </div>
                 </div>
             </div>
 
@@ -124,42 +201,36 @@
         <div class="col-md-3">
 
             {{-- 🔹 CARD RESUMO --}}
-            <div class="card shadow-lg border-0 mb-4">
+
+            <div class="card shadow-lg border-0 mb-3">
                 <div class="card-header bg-dark text-white d-flex align-items-center justify-content-between">
-                    <span class="fs-5">Resumo do Sistema</span>
+                    <span class="fs-5 fw-semibold">📊 Resumo do Sistema</span>
                 </div>
-                <div class="card-body">        
+                <div class="card-body d-flex justify-content-around text-center py-3 fs-5">
 
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div>
-                            <small class="text-muted">Total de Logs</small>
-                            <h4 class="mb-0 fw-bold">{{ $totalLogs }}</h4>
-                        </div>
-                        <i class="bi bi-list-ul fs-3 text-primary"></i>
+                    <div>
+                        <small class="text-muted">Total</small>
+                        <div class="fw-bold">{{ $totalLogs }}</div>
                     </div>
 
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div>
-                            <small class="text-muted">Hoje</small>
-                            <h4 class="mb-0 fw-bold">{{ $logsHoje }}</h4>
-                        </div>
-                        <i class="bi bi-calendar-day fs-3 text-success"></i>
+                    <div>
+                        <small class="text-muted">Hoje</small>
+                        <div class="fw-bold">{{ $logsHoje }}</div>
                     </div>
 
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <small class="text-muted">Erros</small>
-                            <h4 class="mb-0 fw-bold text-danger">{{ $logsErro }}</h4>
-                        </div>
-                        <i class="bi bi-exclamation-triangle fs-3 text-danger"></i>
+                    <div>
+                        <small class="text-muted">Erros</small>
+                        <div class="fw-bold text-danger">{{ $logsErro }}</div>
                     </div>
+
                 </div>
             </div>
 
             {{-- 🔹 CARD ATIVIDADES --}}
             <div class="card shadow-lg border-0">        
                 <div class="card-header bg-dark text-white d-flex align-items-center justify-content-between">
-                    <span class="fs-5">Atividades Recentes</span>
+                    
+                    <span class="fs-5"><i class="fa-solid fa-clock-rotate-left"></i> Atividades Recentes</span>
                 </div>
                 
                 <div class="card-body">
@@ -185,8 +256,36 @@
             </div>
 
         </div>
-    </div>
-
-    
+    </div>    
 </div>
+
+
+
+
+<!-- Modal de confirmação -->
+<div class="modal fade" id="exportCsvModal" tabindex="-1" aria-labelledby="exportCsvModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exportCsvModalLabel">Confirmar Exportação</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+
+      <div class="modal-body">
+        Você tem certeza que deseja exportar os dados dos usuários para CSV?
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <a href="{{ route('dashboard.users.export') }}" id="confirmExportBtn"  class="btn btn-primary">Confirmar Exportar</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
 @endsection

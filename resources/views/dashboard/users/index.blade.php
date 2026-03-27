@@ -77,7 +77,7 @@
                         </button>
                     </div>
                     
-                <!-- BUSCA -->
+                    <!-- BUSCA -->
                     <form method="GET" class="d-flex m-2" style="flex:1; max-width:300px;">
 
                         <div class="input-group input-group w-100">
