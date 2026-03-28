@@ -28,7 +28,7 @@
         </nav>
 
         {{-- Mensagens do servidor --}}
-        @include('layouts.messages')
+        <x-alerts.messages />
 
 
         <!-- Card -->
@@ -174,7 +174,7 @@
                                 </a>
                             </th>
 
-                            <th class="text-end">
+                            <th class="text-end d-print-none">
                                 Ações
                             </th>
 
@@ -222,7 +222,7 @@
 
                             </td>
 
-                            <td class="text-end">
+                            <td class="text-end d-print-none">
 
                                 <div class="dropdown">
 
@@ -320,72 +320,12 @@
         </div>
 
         <!-- Card guia rápido -->
-        <div class="card shadow border-0">
-
-            <div class="card-header bg-light fw-semibold">
-                <i class="fa-solid fa-compass me-2"></i>
-                Guia rápido
-            </div>
-
-            <div class="card-body">
-
-                <p class="text-muted small">
-                    Acesse rapidamente as principais funções do seu dashboard.
-                </p>
-
-                <div class="list-group">
-
-                    <a href="{{ route('dashboard.index') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
-                        <i class="fa-solid fa-gauge me-3 mt-1"></i>
-                        <div>
-                            <strong>Dashboard</strong><br>
-                            <small class="text-muted">Volte para a página principal do painel.</small>
-                        </div>
-                    </a>
-
-                    <a href="{{ route('dashboard.profile') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
-                        <i class="fa-solid fa-user me-3 mt-1"></i>
-                        <div>
-                            <strong>Visualizar perfil</strong><br>
-                            <small class="text-muted">Confira suas informações de conta.</small>
-                        </div>
-                    </a>
-
-                    <a href="{{ route('dashboard.profile.edit') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
-                        <i class="fa-solid fa-user-pen me-3 mt-1"></i>
-                        <div>
-                            <strong>Editar perfil</strong><br>
-                            <small class="text-muted">Atualize seus dados pessoais.</small>
-                        </div>
-                    </a>
-
-                    <a href="{{ route('dashboard.password.edit') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
-                        <i class="fa-solid fa-key me-3 mt-1"></i>
-                        <div>
-                            <strong>Alterar senha</strong><br>
-                            <small class="text-muted">Atualize sua senha de forma segura.</small>
-                        </div>
-                    </a>
-
-                    <a href="{{ route('dashboard.users') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
-                        <i class="fa-solid fa-table me-3 mt-1"></i>
-                        <div>
-                            <strong>Tabela de usuários</strong><br>
-                            <small class="text-muted">Visualize todos os usuários cadastrados.</small>
-                        </div>
-                    </a>
-
-                </div>
-
-            </div>
-        </div>
-
-
+        <x-dashboard.quick-guide-card />
+        
     </div>
 
     </div>
 </div>
-
 
 
 

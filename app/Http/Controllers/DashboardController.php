@@ -220,8 +220,7 @@ class DashboardController extends Controller
                     $user->created_at->format('d/m/Y H:i')
                 ]);
             }
-
-            app_log('Export', $users, "Gerou exportação de dados em formato CSV");            
+            app_log('Export', null, "Exportou a tabela usuários em formato CSV");
             fclose($file);
         };
 
@@ -233,23 +232,43 @@ class DashboardController extends Controller
     }
 
 
-    public function logs(){ 
+    public function logs(Request $request)
+    {
+        // 🔹 Query base com relação
+        $query = AppLog::with('user');
+
+        // 🔎 BUSCA (compacta e eficiente)
+        if ($request->search) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('description', 'like', "%$search%")
+                ->orWhere('action', 'like', "%$search%")
+                ->orWhere('ip_address', 'like', "%$search%")
+                ->orWhereHas('user', function ($q2) use ($search) {
+                    $q2->where('name', 'like', "%$search%")
+                        ->orWhere('email', 'like', "%$search%");
+                });
+            });
+
+            $query->orderByRaw("description LIKE ? DESC", ["$search%"])
+                ->orderByDesc('created_at');
+
+        } else {
+            // 🔃 ORDENAÇÃO SEGURA
+            $allowedSorts = ['created_at', 'action'];
+            $sort = in_array($request->get('sort'), $allowedSorts) ? $request->get('sort') : 'created_at';
+            $direction = $request->get('direction') === 'asc' ? 'asc' : 'desc';
+
+            $query->orderBy($sort, $direction);
+        }
+
+        $logs = $query->paginate(10)->withQueryString();
         
-         // 🔹 Tabela de logs (com usuário)
-        $logs = AppLog::with('user')
-            ->latest()
-            ->paginate(2);
-
-        // 🔹 Total de logs
         $totalLogs = AppLog::count();
+        $logsHoje  = AppLog::whereDate('created_at', now())->count();
+        $logsErro  = AppLog::where('action', 'error')->count();
 
-        // 🔹 Logs de hoje
-        $logsHoje = AppLog::whereDate('created_at', Carbon::today())->count();
-
-        // 🔹 Logs de erro (se tiver coluna 'level')
-        $logsErro = AppLog::where('action', 'error')->count();
-
-        // 🔹 Logs recentes (para o card lateral)
         $recentLogs = AppLog::with('user')
             ->latest()
             ->take(5)
@@ -263,6 +282,51 @@ class DashboardController extends Controller
             'recentLogs'
         ));
     }
+
+
+    public function export_logs(){
+
+        $fileName = 'table_logs_' . now()->format('Y-m-d_H-i-s') . '.csv';
+
+        // Cabeçalhos do CSV
+        $headers = ['ID', 'Gerado em', 'IP', 'User_ID', 'Ação', 'Descrição', 'Model_ID', 'Model_Type'];
+
+        // Obter usuários
+        $logs = AppLog::all();
+
+        // Criar conteúdo CSV
+        $callback = function() use ($logs, $headers) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $headers);
+
+            foreach ($logs as $log) {
+                fputcsv($file, [
+                    $log->id,
+                    $log->created_at->format('d/m/Y H:i:s'),
+                    $log->ip_address,
+                    $log->user_id,
+                    $log->action,
+                    $log->description,
+                    $log->model_id,
+                    $log->model_type,
+                ]);
+            }
+
+            app_log('Export', null, "Gerou exportação da tabela logs em formato CSV");            
+            fclose($file);
+        };
+
+        // Retornar CSV como download
+        return Response::stream($callback, 200, [
+            "Content-Type" => "text/csv",
+            "Content-Disposition" => "attachment; filename={$fileName}",
+        ]);
+    }
+
+
+
+
+
 
 }
 

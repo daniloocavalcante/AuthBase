@@ -10,7 +10,7 @@
         <div class="col-md-7">
 
             {{-- Mensagens do servidor --}}
-            @include('layouts.messages')         
+            <x-alerts.messages />        
 
             <!-- Card de boas-vindas / resumo -->
             <div class="card text-center shadow-lg border-0 mb-3">
@@ -49,66 +49,8 @@
         </div>
 
         <!-- Card guia rápido -->
-        <div class="col-lg-4 col-md-5">
-            <div class="card shadow-lg border-0">
-
-                <div class="card-header bg-light fw-semibold">
-                    <i class="fa-solid fa-compass me-2"></i>
-                    Guia rápido
-                </div>
-
-                <div class="card-body">
-
-                    <p class="text-muted small">
-                        Acesse rapidamente as principais funções do seu dashboard.
-                    </p>
-
-                    <div class="list-group">
-
-                        <a href="{{ route('dashboard.index') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
-                            <i class="fa-solid fa-gauge me-3 mt-1"></i>
-                            <div>
-                                <strong>Dashboard</strong><br>
-                                <small class="text-muted">Volte para a página principal do painel.</small>
-                            </div>
-                        </a>
-
-                        <a href="{{ route('dashboard.profile') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
-                            <i class="fa-solid fa-user me-3 mt-1"></i>
-                            <div>
-                                <strong>Visualizar perfil</strong><br>
-                                <small class="text-muted">Confira suas informações de conta.</small>
-                            </div>
-                        </a>
-
-                        <a href="{{ route('dashboard.profile.edit') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
-                            <i class="fa-solid fa-user-pen me-3 mt-1"></i>
-                            <div>
-                                <strong>Editar perfil</strong><br>
-                                <small class="text-muted">Atualize seus dados pessoais.</small>
-                            </div>
-                        </a>
-
-                        <a href="{{ route('dashboard.password.edit') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
-                            <i class="fa-solid fa-key me-3 mt-1"></i>
-                            <div>
-                                <strong>Alterar senha</strong><br>
-                                <small class="text-muted">Atualize sua senha de forma segura.</small>
-                            </div>
-                        </a>
-
-                        <a href="{{ route('dashboard.users') }}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
-                            <i class="fa-solid fa-table me-3 mt-1"></i>
-                            <div>
-                                <strong>Tabela de usuários</strong><br>
-                                <small class="text-muted">Visualize todos os usuários cadastrados.</small>
-                            </div>
-                        </a>
-
-                    </div>
-
-                </div>
-            </div>
+        <div class="col-lg-4 col-md-5">                  
+            <x-dashboard.quick-guide-card />            
         </div>
 
 

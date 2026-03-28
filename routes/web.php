@@ -96,6 +96,7 @@ Route::middleware('auth')
 
         //Logs
         Route::get('/logs', [DashboardController::class, 'logs'])->name('logs');
+        Route::get('/logs/exportar', [DashboardController::class, 'export_logs'])->name('logs.export');
 
         //Route::get('/admin/permissions', [DashboardController::class, 'permissions'])->name('admin.permissions');
         //Route::get('/admin/permissions', [DashboardController::class, 'dashboard'])->name('admin.dashboard');

@@ -113,42 +113,50 @@
 
                     <div class="table-responsive">
                         <table class="table table-hover align-middle">
-                            <thead class="table-dark">
+                            <thead class="table-light">
                                 <tr>
-                                    <th style="width: 50px;">#</th>
-                                    <th>Usuário</th>
-                                    <th>Ação</th>
-                                    <th style="">Descrição</th>
-                                    <th style="width: 140px;">Data</th>
-                                    <th style="width: 80px;" class="text-center">Ações</th>
+                                    <th>
+                                        <i class="fa-solid fa-calendar me-1 text-muted"></i>
+                                        Gerado em
+                                    </th>
+                                    <th>
+                                        <i class="fa-solid fa-user me-1 text-muted"></i>
+                                        Usuário
+                                    </th>
+                                    <th class="d-print-none">
+                                        <i class="fa-solid fa-bolt me-1 text-muted"></i>
+                                        Action</th>
+                                    <th>
+                                        <i class="fa-solid fa-align-left me-1 text-muted"></i>
+                                        Descrição
+                                    </th>
+                                    <th class="text-center d-print-none">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($logs as $log)
-                                    <tr>
+                                    <tr>             
+                                        
+                                        
+                                        {{-- Data --}}
+                                        <td>
+                                            {{ $log->created_at->format('d/m/Y - H:i:s') }}                                           
+                                        </td>
 
-                                        {{-- ID --}}
-                                        <td>{{ $log->id }}</td>
 
                                         {{-- Usuário --}}
-                                        <td>
-                                            <div class="fw-semibold">
-                                                {{ $log->user->name ?? 'Sistema' }}
-                                            </div>
-                                            <small class="text-muted">
+                                        <td> 
+                                            <span class="fw-semibold">{{ $log->user->name ?? 'Sistema' }}</span>
+                                            <small class="text-muted ">
                                                 #{{ $log->user_id ?? '-' }}
                                             </small>
                                         </td>
 
                                         {{-- Ação --}}
-                                        <td>
-                                            <span class="badge 
-                                                @if($log->action == 'login') bg-primary
-                                                @elseif($log->action == 'logout') bg-secondary
-                                                @elseif($log->action == 'error') bg-danger
-                                                @else bg-dark
-                                                @endif">
-                                                {{ ucfirst($log->action) }}
+                                        <td class="d-print-none">
+                                            <span class="badge {{ getLogBadge($log->action)['class'] }}"> 
+                                                <i class="{{ getLogBadge($log->action)['icon'] }} me-1"></i>
+                                                {{ getLogBadge($log->action)['text'] }}
                                             </span>
                                         </td>
 
@@ -159,16 +167,9 @@
                                             </div>
                                         </td>
 
-                                        {{-- Data --}}
-                                        <td>
-                                            <div>{{ $log->created_at->format('d/m/Y') }}</div>
-                                            <small class="text-muted">
-                                                {{ $log->created_at->format('H:i') }}
-                                            </small>
-                                        </td>
 
                                         {{-- Ação (ver detalhes) --}}
-                                        <td class="text-center">
+                                        <td class="text-center d-print-none">
                                             <a href="#"
                                             class="btn btn-sm btn-outline-dark"
                                             title="Ver detalhes">
@@ -187,7 +188,7 @@
 
                         <small class="text-muted">
                             Mostrando {{ $logs->firstItem() }} até {{ $logs->lastItem() }}
-                            de {{ $totalLogs }} usuários
+                            de {{ $totalLogs }} logs
                         </small>
 
 
@@ -227,7 +228,7 @@
             </div>
 
             {{-- 🔹 CARD ATIVIDADES --}}
-            <div class="card shadow-lg border-0">        
+            <div class="card shadow-lg border-0 mb-3">        
                 <div class="card-header bg-dark text-white d-flex align-items-center justify-content-between">
                     
                     <span class="fs-5"><i class="fa-solid fa-clock-rotate-left"></i> Atividades Recentes</span>
@@ -236,25 +237,39 @@
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
                         @foreach($recentLogs as $log)
+                            @php
+                                $badge = getLogBadge($log->action);
+                            @endphp
+
                             <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
                                 
                                 <div>
-                                    <strong>{{ $log->user->name ?? 'Sistema' }}</strong>
-                                    <br>
-                                    <small class="text-muted">{{ $log->action }}</small>
+                                    <strong class="me-2">
+                                        {{ $log->user->name ?? 'Sistema' }}
+                                    </strong>
+
+                                    <span class="badge {{ $badge['class'] }}">
+
+                                        {{ $badge['text'] }}
+                                    </span>
                                 </div>
 
                                 <small class="text-muted">
+                                    <i class="fas fa-clock me-1"></i>
                                     {{ $log->created_at->diffForHumans() }}
                                 </small>
 
                             </li>
                         @endforeach
-                    </ul>
 
+                        <li class="list-group-item text-center text-muted small">
+                            Exibindo as 5 atividades mais recentes
+                        </li>
+                    </ul>
                 </div>
             </div>
-
+            
+            <x-dashboard.quick-guide-card /> 
         </div>
     </div>    
 </div>
@@ -273,12 +288,12 @@
       </div>
 
       <div class="modal-body">
-        Você tem certeza que deseja exportar os dados dos usuários para CSV?
+        Tem certeza de que deseja exportar os registros de logs para um arquivo CSV?
       </div>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <a href="{{ route('dashboard.users.export') }}" id="confirmExportBtn"  class="btn btn-primary">Confirmar Exportar</a>
+        <a href="{{ route('dashboard.logs.export') }}" id="confirmExportBtn"  class="btn btn-primary">Confirmar Exportar</a>
       </div>
 
     </div>

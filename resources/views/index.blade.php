@@ -39,77 +39,7 @@
 
         <!-- Card guia rápido -->
         <div class="col-lg-4 col-md-5">
-            <div class="card shadow-lg  border-0">
-
-                <div class="card-header bg-light fw-semibold">
-                    <i class="fa-solid fa-compass me-2"></i>
-                    Guia rápido
-                </div>
-
-                <div class="card-body">
-
-                    <p class="text-muted small">
-                        Utilize os atalhos abaixo para acessar rapidamente
-                        as principais funções do sistema.
-                    </p>
-
-                    <div class="list-group">
-
-                        <a href="{{route('login')}}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
-                            <i class="fa-solid fa-right-to-bracket me-3 mt-1"></i>
-
-                            <div>
-                                <strong>Entrar no sistema</strong><br>
-
-                                <small class="text-muted">
-                                    Acesse sua conta utilizando e-mail e senha.
-                                </small>
-                            </div>
-                        </a>
-
-
-                        <a href="{{route('register')}}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
-                            <i class="fa-solid fa-user-plus me-3 mt-1"></i>
-
-                            <div>
-                                <strong>Criar uma conta</strong><br>
-
-                                <small class="text-muted">
-                                    Realize seu cadastro para utilizar o sistema.
-                                </small>
-                            </div>
-                        </a>
-
-
-                        <a href="{{route('password.request')}}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
-                            <i class="fa-solid fa-key me-3 mt-1"></i>
-
-                            <div>
-                                <strong>Recuperar senha</strong><br>
-
-                                <small class="text-muted">
-                                    Solicite a redefinição da sua senha.
-                                </small>
-                            </div>
-                        </a>
-
-
-                        <a href="{{route('about')}}" class="list-group-item list-group-item-action d-flex align-items-start py-3">
-                            <i class="fa-solid fa-circle-info me-3 mt-1"></i>
-
-                            <div>
-                                <strong>Sobre o projeto</strong><br>
-
-                                <small class="text-muted">
-                                    Informações sobre o objetivo educacional do site.
-                                </small>
-                            </div>
-                        </a>
-
-                    </div>
-
-                </div>
-            </div>
+            <x-auth.quick-guide-card />
         </div>
 
     </div>
