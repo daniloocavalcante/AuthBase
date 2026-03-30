@@ -26,7 +26,7 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        @include('layouts.messages')
+                        <x-alerts.messages />  
 
                         <!-- Email -->
                         <div class="mb-3">

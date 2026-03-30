@@ -65,6 +65,15 @@ Route::controller(VerificationController::class)->group(function () {
 });
 
 
+Route::get('/teste-email', function () {
+    Mail::raw('Teste de e-mail funcionando!', function ($message) {
+        $message->to('teste@email.com')
+                ->subject('Teste Laravel Mailpit');
+    });
+
+    return 'Email enviado!';
+});
+
 /*
 |--------------------------------------------------------------------------
 | Dashboard (Área autenticada)

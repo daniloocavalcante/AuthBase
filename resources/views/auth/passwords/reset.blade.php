@@ -26,7 +26,7 @@
 
                         <input type="hidden" name="token" value="{{ $token }}">
 
-                        @include('layouts.messages')
+                        <x-alerts.messages />  
 
                         <!-- Email -->
                         <div class="mb-3">

@@ -96,7 +96,7 @@
                             >
 
                             <!-- Botão limpar -->
-                            <a href="{{ route('dashboard.users') }}" 
+                            <a href="{{ route('dashboard.logs') }}" 
                             class="btn btn-outline-secondary"
                             style="border-top-left-radius:0; border-bottom-left-radius:0;">
                             <i class="fa-solid fa-xmark"></i>
@@ -170,11 +170,24 @@
 
                                         {{-- Ação (ver detalhes) --}}
                                         <td class="text-center d-print-none">
-                                            <a href="#"
-                                            class="btn btn-sm btn-outline-dark"
-                                            title="Ver detalhes">
+                                            <button 
+                                                class="btn btn-sm btn-outline-dark"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#logModal"
+                                                onclick="setLog(this)"
+                                        
+                                                data-date="{{ $log->created_at }}"
+                                                data-action="{{ $log->action }}"
+                                                data-user="{{ $log->user->name ?? 'Sistema' }}"
+                                                data-surname="{{ $log->user->surname ?? 'Sistema' }}"
+                                                data-ip="{{ $log->ip_address }}"
+                                                data-model="{{ $log->model_type }}"
+                                                data-model-id="{{ $log->model_id }}"
+                                                data-date="{{ $log->created_at }}"
+                                                data-desc="{{ $log->description }}"
+                                            >
                                                 <i class="fa fa-eye"></i>
-                                            </a>
+                                            </button>
                                         </td>
 
                                     </tr>
@@ -301,6 +314,39 @@
 </div>
 
 
+
+<div class="modal fade" id="logModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <h5 class="modal-title">Log</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <pre id="logDump" style="white-space: pre-wrap;"></pre>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function setLog(el) {
+    let dump = `
+Action: ${el.dataset.action}
+User: ${el.dataset.user}
+IP: ${el.dataset.ip}
+Date: ${el.dataset.date}
+
+Description:
+${el.dataset.desc}
+    `;
+
+    document.getElementById('logDump').innerText = dump;
+}
+</script>
 
 
 @endsection

@@ -69,26 +69,19 @@ class DashboardController extends Controller
             if ($emailChanged) {
                 $user->sendEmailVerificationNotification();
 
-                app_log(
-                    'Email_Change',
-                    $user,
-                    "Usuário {$oldName} (#{$user->id}) alterou e-mail de ({$oldEmail}) para ({$user->email})"
-                );
             }
-            app_log('Updated', $user, "Usuário {$oldName} (#{$user->id}) atualizado com sucesso.");
-
             return redirect()->route('dashboard.profile')
                 ->with('success', 'Perfil atualizado com sucesso!');
 
         } catch (\Exception $e) {
 
             app_log(
-                'Error',
+                'ERROR',
                 $user,
                 "Falha ao atualizar usuário {$oldName} (#{$user->id}). Motivo: " . $e->getMessage()
             );
 
-            return back()->with('error', 'Não foi possível atualizar o perfil. Tente novamente.');
+            return back()->with('ERROR', 'Não foi possível atualizar o perfil. Tente novamente.');
         }
     }
 
@@ -98,45 +91,51 @@ class DashboardController extends Controller
         return $this->viewWithUser('dashboard.profile.password');    
     }
 
-    public function password_update(Request $request){
 
+    public function password_update(Request $request)
+    {
         $user = Auth::user();
 
-        // Validação básica
         $request->validate([
             'current_password' => 'required|string',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        // Verifica se a senha atual está correta
         if (!Hash::check($request->current_password, $user->password)) {
             return back()->with('error', 'Senha atual incorreta.');
         }
 
-        // Verifica se a nova senha é diferente da atual
         if (Hash::check($request->password, $user->password)) {
             return back()->with('error', 'A nova senha deve ser diferente da senha atual.');
         }
 
-        // Atualiza a senha somente se passou nas verificações
-        if ($request->password && !Hash::check($request->password, $user->password)) {
+        try {
             $user->password = Hash::make($request->password);
             $user->save();
 
-            return redirect()->route('dashboard.profile.edit')
-                            ->with('success', 'Senha alterada com sucesso!');
-        }
-        
-        app_log('Password_Change', $user, "Alterou a própria senha.");
-        
-        return back()->with('error', 'Erro inesperado ao atualizar a senha. Tente novamente.');
+            // ✅ log no lugar certo
+            app_log('PASSWORD_CHANGE', $user, 'Usuário alterou a própria senha.');
 
+            return redirect()
+                ->route('dashboard.profile.edit')
+                ->with('success', 'Senha alterada com sucesso!');
+
+        } catch (\Exception $e) {
+
+            // log de erro (top)
+            app_log('ERROR', $user, 'Erro ao alterar senha.'. $e->getMessage());
+
+            return back()->with('error', 'Erro inesperado ao atualizar a senha.');
+        }
     }
+            
+
+      
+    
 
     public function destroy(Request $request)
     {
         $user = Auth::user();        
-        app_log('Account_Closed', $user, "O usuário encerrou a própria conta permanentemente.");
 
         Auth::logout();
 
@@ -220,7 +219,7 @@ class DashboardController extends Controller
                     $user->created_at->format('d/m/Y H:i')
                 ]);
             }
-            app_log('Export', null, "Exportou a tabela usuários em formato CSV");
+            app_log('EXPORT', null, "Exportou a tabela usuários em formato CSV");
             fclose($file);
         };
 
@@ -312,7 +311,7 @@ class DashboardController extends Controller
                 ]);
             }
 
-            app_log('Export', null, "Gerou exportação da tabela logs em formato CSV");            
+            app_log('EXPORT', null, "Gerou exportação da tabela logs em formato CSV");            
             fclose($file);
         };
 

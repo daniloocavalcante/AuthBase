@@ -25,7 +25,7 @@
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
-                        @include('layouts.messages')
+                        <x-alerts.messages />  
 
                         <!-- Nome / Sobrenome -->
                         <div class="row mb-3">

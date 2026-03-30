@@ -74,8 +74,6 @@ class RegisterController extends Controller
             'last_login' => Carbon::now(),
         ]);
 
-        app_log('Created', $user, "Novo usuário registrado: {$user->name} {$user->surname} #$user->id");
-
         return $user;
 
     }

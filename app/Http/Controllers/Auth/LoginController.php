@@ -49,7 +49,6 @@ class LoginController extends Controller
         $user->save();
 
         session(['previous_login' => $previousLogin]);
-        app_log('Login', Auth::user(), "Usuário conectou ao sistema: {$user->name} {$user->surname} #$user->id");
 
         return redirect()->route('dashboard.index')->with('success_name', Auth::user()->name);
 
@@ -59,10 +58,6 @@ class LoginController extends Controller
     {
         // 1. Captura o usuário antes de deslogar
         $user = Auth::user();
-
-        if ($user) {
-            app_log('Logout', $user, "Logout realizado: {$user->name} {$user->surname} #$user->id");
-        }
 
         $this->guard()->logout();
         $request->session()->invalidate();
