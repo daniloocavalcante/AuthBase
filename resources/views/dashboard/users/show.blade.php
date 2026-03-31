@@ -39,7 +39,7 @@
 
 
             
-            <div class="card shadow-lg border-0">
+            <div class="card shadow-lg border-0 printable">
 
                 <!-- Header -->
             <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
@@ -65,7 +65,7 @@
 
             </div>
 
-                <div class="card-body">
+                <div class="card-body ">
                     
 
                     <div class="row justify-content-center">
@@ -97,47 +97,47 @@
                         <div class="col-md-8">
 
                             <div class="row mb-3">                                
-                                <label class="col-5 col-form-label text-muted">
+                                <label class="col-6 col-form-label text-muted">
                                     <i class="fa-solid fa-user me-1"></i>
                                     Nome
                                 </label>
-                                <div class="col-7 fw-semibold">{{ $user->name }}</div>
+                                <div class="col-6 fw-semibold">{{ $user->name }}</div>
                             </div>
 
                             <div class="row mb-3">                                
-                                <label class="col-5 col-form-label text-muted">
+                                <label class="col-6 col-form-label text-muted">
                                     <i class="fa-solid fa-user-tag me-1"></i>
                                     Sobrenome
                                 </label>
-                                <div class="col-7 fw-semibold">{{ $user->surname }}</div>
+                                <div class="col-6 fw-semibold">{{ $user->surname }}</div>
                             </div>
 
 
                             <div class="row mb-3">                                
-                                <label class="col-5 col-form-label text-muted">
+                                <label class="col-6 col-form-label text-muted">
                                     <i class="fa-solid fa-calendar-days me-1"></i>
                                     Data de nascimento
                                 </label>
-                                <div class="col-7 fw-semibold">
+                                <div class="col-6 fw-semibold">
                                     {{ $user->birth->format('d/m/Y') }}
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label class="col-5 col-form-label text-muted">
+                                <label class="col-6 col-form-label text-muted">
                                     <i class="fa-solid fa-venus-mars me-1"></i>
                                     Gênero
                                 </label>
-                                <div class="col-7 fw-semibold">{{ $user->gender }}</div>
+                                <div class="col-6 fw-semibold">{{ $user->gender }}</div>
                             </div>
 
                             <div class="row mb-3">
-                                <label class="col-5 col-form-label text-muted">
+                                <label class="col-6 col-form-label text-muted">
                                     <i class="fa-solid fa-history me-1"></i>
                                     Último login
                                 </label>
 
-                                <div class="col-7 fw-semibold">
+                                <div class="col-6 fw-semibold">
                                     {{ $user->last_login?->diffForHumans() ?? 'Nunca acessou' }}
                                 </div>
                             </div>
@@ -151,10 +151,16 @@
                 <!-- Footer -->
 
                 <div class="card-footer bg-light d-flex justify-content-end gap-2 flex-wrap">
-                    
+
                     <a href="{{ route('dashboard.users') }}" class="btn btn-outline-primary btn-sm">
-                        Voltar
+                        Tabela Usuários
                     </a>
+
+                    <!-- Imprimir -->
+                    <button onclick="window.print()" class="btn btn-sm btn-outline-dark">
+                        <i class="fa-solid fa-print me-1"></i> Imprimir Perfil
+                    </button>
+
                 </div>
 
 

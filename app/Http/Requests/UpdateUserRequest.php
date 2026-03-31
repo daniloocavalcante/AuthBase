@@ -30,7 +30,6 @@ class UpdateUserRequest extends FormRequest
             'birth' => 'required|date|before:today',
             'gender' => 'required|max:50|in:Masculino,Feminino,Outro',
 
-
         ];
     }
 

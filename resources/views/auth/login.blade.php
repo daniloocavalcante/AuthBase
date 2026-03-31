@@ -39,8 +39,7 @@
                                    class="form-control form-control-md @error('email') is-invalid @enderror"
                                    name="email"
                                    value="{{ old('email') }}"
-                                   required
-                                   autofocus
+                                   required                                   
                                    placeholder="Digite seu e-mail">
                         </div>
 
@@ -62,6 +61,7 @@
 
                                     <button class="btn btn-outline-secondary"
                                             type="button"
+                                            tabindex="-1"
                                             id="eyeButton"
                                             data-bs-toggle="tooltip"
                                             data-bs-placement="top"
@@ -75,12 +75,13 @@
                         </div>
 
                         <!-- lembrar -->
-                        <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div  class="d-flex justify-content-between align-items-center mb-4">
 
                             <div class="form-check">
                                 <input class="form-check-input"
                                        type="checkbox"
                                        name="remember"
+                                       tabindex="-1"
                                        id="remember"
                                        {{ old('remember') ? 'checked' : '' }}>
 
@@ -90,7 +91,7 @@
                             </div>
 
                             @if (Route::has('password.request'))
-                                <a href="{{ route('password.request') }}"
+                                <a tabindex="-1" href="{{ route('password.request') }}"
                                    class="text-decoration-none small">
                                     Esqueci minha senha
                                 </a>

@@ -161,7 +161,9 @@
 
                 <!-- Footer -->
                 <div class="card-footer bg-light d-flex justify-content-end gap-2 flex-wrap">
-
+                    <a href="{{ route('dashboard.email.edit') }}" class="btn btn-outline-secondary btn-sm">
+                            Alterar E-mail
+                    </a> 
                     <a href="{{ route('dashboard.password.edit') }}" class="btn btn-outline-dark btn-sm">
                         Alterar Senha
                     </a>

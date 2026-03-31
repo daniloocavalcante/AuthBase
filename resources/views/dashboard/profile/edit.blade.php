@@ -104,26 +104,6 @@
 
                                 <div class="row mb-3">
                                     <label class="col-5 col-form-label text-muted">
-                                        <i class="fa-solid fa-envelope me-1"></i>
-                                        E-mail
-                                    </label>
-                                    <div class="col-7">
-                                        <input type="email" name="email" class="form-control form-control-sm" value="{{ $user->email }}">
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-5 col-form-label text-muted">
-                                        <i class="fa-solid fa-envelope me-1"></i>
-                                        Confirmar E-mail
-                                    </label>
-                                    <div class="col-7">
-                                        <input type="email" name="email_confirmation" class="form-control form-control-sm" placeholder="Digite novamente seu e-mail">
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-5 col-form-label text-muted">
                                         <i class="fa-solid fa-calendar-days me-1"></i>
                                         Data de nascimento
                                     </label>
@@ -162,11 +142,15 @@
                     <div class="card-footer bg-light d-flex justify-content-end gap-2 flex-wrap">
 
                         
-                        <a href="{{ route('dashboard.profile') }}" class="btn btn-outline-dark btn-sm me-auto">
+                        <a href="{{ route('dashboard.profile') }}" tabindex="-1" class="btn btn-outline-dark btn-sm me-auto">
                             Voltar
                         </a>
 
-                        <a href="{{ route('dashboard.password.edit') }}" class="btn btn-outline-primary btn-sm">
+                        <a href="{{ route('dashboard.email.edit') }}" tabindex="-1" class="btn btn-outline-secondary btn-sm">
+                            Alterar E-mail
+                        </a>
+
+                        <a href="{{ route('dashboard.password.edit') }}" tabindex="-1" class="btn btn-outline-primary btn-sm">
                             Alterar Senha
                         </a>
 

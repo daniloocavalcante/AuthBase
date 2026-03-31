@@ -6,56 +6,71 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center g-3">
-        <div class="col-md-7">
+
+    <div class="row g-4">
+
+        <!-- Área principal -->
+        <div class="col-lg-8 col-md-8">
 
             {{-- Mensagens do servidor --}}
             <x-alerts.messages />        
 
             <!-- Card de boas-vindas / resumo -->
-            <div class="card text-center shadow-lg border-0 mb-3">
-                <div class="card-header bg-secondary text-white">
-                    Bem-vindo ao seu Dashboard
+            <div class="card shadow-lg border-0 rounded-4 mb-4 text-center overflow-hidden">
+                <div class="card-header bg-gradient fs-5 text-dark fw-bold py-3" style="background: linear-gradient(135deg, #4e73df, #1cc88a);">
+                    🎉 Bem-vindo ao seu Dashboard
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title">Olá, <strong>{{ ucfirst(Auth::user()->name)}} {{ucfirst(Auth::user()->surname) }}</strong>!</h5>
-                    <p class="card-text">Aqui você pode gerenciar seu perfil, alterar sua senha e visualizar a tabela de usuários.</p>
-                    <a href="{{ route('dashboard.profile.edit') }}" class="btn btn-success me-2">
-                        <i class="fa-solid fa-user me-1"></i> Editar perfil
-                    </a>
-                    <a href="{{ route('dashboard.users') }}" class="btn btn-info">
-                        <i class="fa-solid fa-table me-1"></i> Tabela de usuários
-                    </a>
+                <div class="card-body py-4">
+                    <h4 class="card-title mb-2">Olá, <strong>{{ ucfirst(Auth::user()->name) }} {{ ucfirst(Auth::user()->surname) }}</strong>!</h4>
+                    <p class="card-text text-muted mb-4">
+                        Gerencie seu perfil, atualize sua senha e explore a tabela de usuários.
+                    </p>
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <a href="{{ route('dashboard.profile.edit') }}" class="btn btn-success fw-bold shadow-sm">
+                            <i class="fa-solid fa-user me-2"></i> Editar perfil
+                        </a>
+                        <a href="{{ route('dashboard.users') }}" class="btn btn-info text-white fw-bold shadow-sm">
+                            <i class="fa-solid fa-table me-2"></i> Tabela de usuários
+                        </a>
+                    </div>
                 </div>
-                <div class="card-footer text-body-secondary">                    
+                <div class="card-footer text-muted bg-white border-0">
                     Último login: {{ session('previous_login') ? session('previous_login')->diffForHumans() : 'Primeiro acesso' }}
                 </div>
             </div>
 
-            <!-- Card de dicas ou atalhos -->
-            <div class="card shadow-lg border-0">
-                <div class="card-header">
-                    Dicas rápidas
+            <!-- Card de dicas rápidas -->
+            <div class="card shadow-lg border-0 rounded-4 mb-4">
+                <div class="card-header bg-dark text-white fw-bold py-3">
+                    💡 Dicas rápidas
                 </div>
-                <div class="card-body">
+                <div class="card-body py-3">
                     <ul class="list-unstyled mb-0 text-start">
-                        <li><i class="fa-solid fa-circle-check text-success me-2"></i> Mantenha sua senha atualizada</li>
-                        <li><i class="fa-solid fa-circle-check text-success me-2"></i> Explore a tabela de usuários para teste</li>
-                        <li><i class="fa-solid fa-circle-check text-success me-2"></i> Use os atalhos do guia rápido para navegar mais rápido</li>
+                        <li class="mb-2">
+                            <span class="badge bg-success me-2"><i class="fa-solid fa-check"></i></span>
+                            Mantenha sua senha atualizada
+                        </li>
+                        <li class="mb-2">
+                            <span class="badge bg-success me-2"><i class="fa-solid fa-check"></i></span>
+                            Explore a tabela de usuários para testes
+                        </li>
+                        <li class="mb-2">
+                            <span class="badge bg-success me-2"><i class="fa-solid fa-check"></i></span>
+                            Use os atalhos do guia rápido para navegar mais rápido
+                        </li>
                     </ul>
                 </div>
             </div>
 
         </div>
 
-        <!-- Card guia rápido -->
-        <div class="col-lg-4 col-md-5">                  
+        <!-- Coluna lateral / guia rápido -->
+        <div class="col-lg-4 col-md-4">
             <x-dashboard.quick-guide-card />            
         </div>
 
-
-
     </div>
+
 </div>
 
 

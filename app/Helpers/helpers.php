@@ -67,10 +67,16 @@ if (!function_exists('getLogBadge')) {
                 'text' => 'Reset de Senha',
             ],
 
+            'EMAIL_CONFIRMATION' => [
+                'class' => 'bg-info',
+                'icon' => 'fas fa-envelope',
+                'text' => 'Confirmação',
+            ],
+
             'EMAIL_VERIFIED' => [
                 'class' => 'bg-success',
-                'icon' => 'fas fa-envelope-check',
-                'text' => 'Email Verificado',
+                'icon' => 'fas fa-envelope-open-text',
+                'text' => 'Verificado',
             ],
 
             'USER_CREATED' => [
@@ -85,9 +91,14 @@ if (!function_exists('getLogBadge')) {
                 'text' => 'Usuário Atualizado',
             ],
             'PASSWORD_UPDATED' => [
-                'class' => 'bg-info text-dark',
-                'icon' => 'fas fa-user-edit',
-                'text' => 'Senha Atualizado',
+                'class' => 'bg-warning text-dark',
+                'icon' => 'fas fa-user-lock',
+                'text' => 'Senha Alterada',
+            ],
+            'EMAIL_UPDATED' => [
+                'class' => 'bg-warning text-dark',
+                'icon' => 'fas fa-envelope',
+                'text' => 'E-mail Atualizado',
             ],
 
             'USER_DELETED' => [

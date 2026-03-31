@@ -22,10 +22,8 @@
                         </a>
                     </li>
 
-                    <li class="breadcrumb-item activeopacity-75" aria-current="page">
-                        <a href="#" class="text-light text-decoration-none">
-                            Logs
-                        </a>
+                    <li class="breadcrumb-item active text-light opacity-75" aria-current="page">
+                        Logs
                     </li>
                     
                 </ol>
@@ -33,34 +31,32 @@
 
             <div class="card shadow-lg border-0 printable">
 
+                <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
 
+                    <div class="d-flex align-items-center">
 
-            <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
+                        <div class="me-3 text-primary fs-2">
+                            <i class="fa-solid fa-file-lines"></i>
+                        </div>
 
-                <div class="d-flex align-items-center">
+                        <div>
+                            <h6 class="mb-0 fw-semibold fs-5">
+                                Logs do Sistema
+                            </h6>
 
-                    <div class="me-3 text-primary fs-2">
-                        <i class="fa-solid fa-file-lines"></i>
+                            <small class="text-muted d-block">
+                                Gerenciamento de logs do sistema
+                            </small>
+
+                        </div>
                     </div>
 
-                    <div>
-                        <h6 class="mb-0 fw-semibold fs-5">
-                            Logs do Sistema
-                        </h6>
 
-                        <small class="text-muted d-block">
-                            Gerenciamento de logs do sistema
-                        </small>
-
-                    </div>
                 </div>
-
-
-            </div>
 
                 <div class="card-body pt-0">
                                     <!-- TOOLBAR -->
-                <div class="d-flex justify-content-between align-items-center py-3" id="toolbar-users">
+                <div class="d-flex justify-content-between align-items-center py-3 d-print-none" id="toolbar-users">
 
                     <!-- Botões -->
                     <div class="d-flex gap-2">
@@ -71,13 +67,13 @@
                         </a>
 
                         <!-- Imprimir -->
-                        <button onclick="window.print()" class="btn btn-sm btn-outline-dark">
+                        <button id="btn-print" class="btn btn-sm btn-outline-dark">
                             <i class="fa-solid fa-print me-1"></i> Imprimir
                         </button>
                     </div>
                     
                     <!-- BUSCA -->
-                    <form method="GET" class="d-flex m-2" style="flex:1; max-width:300px;">
+                    <form method="GET" class="d-flex m-2" style="flex:1; max-width:350px;">
 
                         <div class="input-group input-group w-100">
 
@@ -91,7 +87,10 @@
                                 type="text"
                                 name="search"
                                 class="form-control border-start-0"
-                                placeholder="Buscar por nome ou e-mail..."
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="Buscar por nome, ação ou descrição..."
+                                placeholder="Buscar por nome, ação ou descrição..."
                                 value="{{ request('search') }}"
                             >
 
@@ -115,21 +114,67 @@
                         <table class="table table-hover align-middle">
                             <thead class="table-light">
                                 <tr>
+
                                     <th>
-                                        <i class="fa-solid fa-calendar me-1 text-muted"></i>
-                                        Gerado em
+                                        <a href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'created_at',
+                                            'direction' => request('direction') == 'asc' ? 'desc' : 'asc',
+                                            'page' => null,
+                                        ]) }}" class="text-dark text-decoration-none d-flex align-items-center">
+
+                                            <i class="fa-solid fa-calendar me-1 text-muted"></i>
+                                            <span class="me-1">Gerado em</span>
+
+                                            <span class="sort-icons ms-1">
+                                                <span class="sort-up {{ request('sort') == 'created_at' && request('direction') == 'asc' ? 'active' : '' }}">▲</span>
+                                                <span class="sort-down {{ request('sort') == 'created_at' && request('direction') == 'desc' ? 'active' : '' }}">▼</span>
+                                            </span>
+                                            
+                                        </a>
                                     </th>
+
+
                                     <th>
                                         <i class="fa-solid fa-user me-1 text-muted"></i>
                                         Usuário
                                     </th>
+
                                     <th class="d-print-none">
-                                        <i class="fa-solid fa-bolt me-1 text-muted"></i>
-                                        Action</th>
-                                    <th>
-                                        <i class="fa-solid fa-align-left me-1 text-muted"></i>
-                                        Descrição
+                                        <a href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'action',
+                                            'direction' => request('direction') == 'asc' ? 'desc' : 'asc',
+                                            'page' => null,
+                                        ]) }}" class="text-dark text-decoration-none d-flex align-items-center">
+
+                                            <i class="fa-solid fa-bolt me-1 text-muted"></i>
+                                            <span class="me-1">Action</span>
+
+                                            <span class="sort-icons ms-1">
+                                                <span class="sort-up {{ request('sort') == 'action' && request('direction') == 'asc' ? 'active' : '' }}">▲</span>
+                                                <span class="sort-down {{ request('sort') == 'action' && request('direction') == 'desc' ? 'active' : '' }}">▼</span>
+                                            </span>
+                                            
+                                        </a>
                                     </th>
+
+                                    <th class="">
+                                        <a href="{{ request()->fullUrlWithQuery([
+                                            'sort' => 'description',
+                                            'direction' => request('direction') == 'asc' ? 'desc' : 'asc',
+                                            'page' => null,
+                                        ]) }}" class="text-dark text-decoration-none d-flex align-items-center">
+
+                                            <i class="fa-solid fa-align-left me-1 text-muted"></i>
+                                            <span class="me-1">Descrição</span>
+
+                                            <span class="sort-icons ms-1">
+                                                <span class="sort-up {{ request('sort') == 'description' && request('direction') == 'asc' ? 'active' : '' }}">▲</span>
+                                                <span class="sort-down {{ request('sort') == 'description' && request('direction') == 'desc' ? 'active' : '' }}">▼</span>
+                                            </span>
+                                            
+                                        </a>
+                                    </th>
+
                                     <th class="text-center d-print-none">Ações</th>
                                 </tr>
                             </thead>
@@ -145,12 +190,26 @@
 
 
                                         {{-- Usuário --}}
-                                        <td> 
-                                            <span class="fw-semibold">{{ $log->user->name ?? 'Sistema' }}</span>
-                                            <small class="text-muted ">
-                                                #{{ $log->user_id ?? '-' }}
-                                            </small>
-                                        </td>
+
+                                                                             
+                                            <td>
+                                                @if($log->user)
+                                                <a href="{{ route('dashboard.users.show', $log->user->id) }}" class="text-decoration-none text-dark" target="_blank">
+                                                    <span class="fw-semibold">{{ $log->user->name }} </span>
+                                                    <small class="text-muted ">
+                                                        #{{ $log->user->id }}
+                                                    </small>
+                                                </a>
+                                                @else
+                                                    <span class="">{{ $log->model?->name ?? "Sistema"}}</span>
+                                                    <small class="text-muted ">
+                                                        #{{ $log->model_id }}
+                                                    </small>
+                                                @endif
+                                            </td>
+
+                                   
+                                    
 
                                         {{-- Ação --}}
                                         <td class="d-print-none">
@@ -174,16 +233,16 @@
                                                 class="btn btn-sm btn-outline-dark"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#logModal"
-                                                onclick="setLog(this)"
-                                        
+                                                id="btn-view"
+                                                
+                                                data-id="{{ $log->id }}"
                                                 data-date="{{ $log->created_at }}"
                                                 data-action="{{ $log->action }}"
                                                 data-user="{{ $log->user->name ?? 'Sistema' }}"
                                                 data-surname="{{ $log->user->surname ?? 'Sistema' }}"
                                                 data-ip="{{ $log->ip_address }}"
                                                 data-model="{{ $log->model_type }}"
-                                                data-model-id="{{ $log->model_id }}"
-                                                data-date="{{ $log->created_at }}"
+                                                data-modelid="{{ $log->model_id }}"
                                                 data-desc="{{ $log->description }}"
                                             >
                                                 <i class="fa fa-eye"></i>
@@ -192,6 +251,18 @@
 
                                     </tr>
                                 @endforeach
+
+                                @for ($i = $logs->count(); $i < $logs->perPage(); $i++)
+                                    <tr class="text-muted">
+                                        <td>—</td>
+                                        <td>—</td>
+                                        <td>—</td>
+                                        <td>—</td>
+                                        <td>—</td>
+                                    </tr>
+                                @endfor
+
+
                             </tbody>
                         </table>
                     </div>
@@ -199,7 +270,7 @@
                     {{-- Paginação --}}
                     <div class="d-flex justify-content-between align-items-center mt-3">
 
-                        <small class="text-muted">
+                        <small class="text-muted" id="print-info">
                             Mostrando {{ $logs->firstItem() }} até {{ $logs->lastItem() }}
                             de {{ $totalLogs }} logs
                         </small>
@@ -257,14 +328,14 @@
                             <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
                                 
                                 <div>
-                                    <strong class="me-2">
+                                    <strong class="me-2"     
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="right"
+                                    title="{{ $badge['text'] }}">
                                         {{ $log->user->name ?? 'Sistema' }}
+                                        <i class="ms-1 {{ $badge['icon'] }}"></i>
                                     </strong>
 
-                                    <span class="badge {{ $badge['class'] }}">
-
-                                        {{ $badge['text'] }}
-                                    </span>
                                 </div>
 
                                 <small class="text-muted">
@@ -320,7 +391,7 @@
         <div class="modal-content">
             
             <div class="modal-header">
-                <h5 class="modal-title">Log</h5>
+                <h5 class="modal-title" id="title-log">Dados do Log</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
@@ -331,22 +402,5 @@
         </div>
     </div>
 </div>
-
-<script>
-function setLog(el) {
-    let dump = `
-Action: ${el.dataset.action}
-User: ${el.dataset.user}
-IP: ${el.dataset.ip}
-Date: ${el.dataset.date}
-
-Description:
-${el.dataset.desc}
-    `;
-
-    document.getElementById('logDump').innerText = dump;
-}
-</script>
-
 
 @endsection

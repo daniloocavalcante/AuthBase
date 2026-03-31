@@ -92,6 +92,10 @@ Route::middleware('auth')
         Route::get('/profile/edit', [DashboardController::class, 'edit'])->name('profile.edit');
         Route::put('/profile', [DashboardController::class, 'update'])->name('profile.update');        
         Route::delete('/profile', [DashboardController::class, 'destroy'])->name('profile.destroy');
+        
+        // E-mail
+        Route::get('/email', [DashboardController::class, 'email'])->name('email.edit');
+        Route::put('/email', [DashboardController::class, 'email_update'])->name('email.update');
 
         // Senha
         Route::get('/password', [DashboardController::class, 'password'])->name('password.edit');

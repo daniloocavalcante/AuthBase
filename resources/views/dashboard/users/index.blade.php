@@ -61,7 +61,7 @@
             <div class="card-body pt-0">
 
                 <!-- TOOLBAR -->
-                <div class="d-flex justify-content-between align-items-center py-3" id="toolbar-users">
+                <div class="d-flex justify-content-between align-items-center py-3 d-print-none" >
 
                     <!-- Botões -->
                     <div class="d-flex gap-2">
@@ -72,7 +72,7 @@
                         </a>
 
                         <!-- Imprimir -->
-                        <button onclick="window.print()" class="btn btn-sm btn-outline-dark">
+                        <button id="btn-print" class="btn btn-sm btn-outline-dark">
                             <i class="fa-solid fa-print me-1"></i> Imprimir
                         </button>
                     </div>
@@ -273,7 +273,7 @@
 
                 <div class="d-flex justify-content-between align-items-center mt-3">
 
-                    <small class="text-muted">
+                    <small class="text-muted" id="print-info">
                         Mostrando {{ $users->firstItem() }} até {{ $users->lastItem() }}
                         de {{ $users->total() }} usuários
                     </small>

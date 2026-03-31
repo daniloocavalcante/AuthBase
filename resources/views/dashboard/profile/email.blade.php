@@ -27,7 +27,7 @@
                     </li>                 
                     
                     <li class="breadcrumb-item active text-light opacity-75" aria-current="page">
-                        Alterar Senha
+                        Alterar E-mail
                     </li>
 
                 </ol>
@@ -40,10 +40,10 @@
                 
                 <!-- Header -->
                 <div class="card-header bg-dark text-white d-flex align-items-center justify-content-between">
-                    <span class="fs-5">Alterar Senha</span>
+                    <span class="fs-5">Alterar E-mail</span>
                 </div>
 
-                <form action="{{ route('dashboard.password.update') }}" method="POST">
+                <form action="{{ route('dashboard.email.update') }}" method="POST">
                     @csrf
                     @method('PUT')
 
@@ -52,31 +52,58 @@
                         <div class="row mb-3">
 
                             <label class="col-5 col-form-label text-muted">
-                                <i class="fa-solid fa-lock me-1"></i>
-                                Senha Atual
+                                <i class="fa-solid fa-envelope me-1"></i>
+                                E-mail Atual
                             </label>
                             <div class="col-7">
 
                                 <div class="input-group">
                                     <input
-                                        id="current_password"
-                                        type="password"
+                                        id="current_email"
+                                        type="email"
+                                        class="form-control"                                        
+                                        value="{{$user->email}}"
+                                        required disabled>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-5 col-form-label text-muted">
+                                <i class="fa-solid fa-envelope  me-1"></i>
+                                Novo E-mail
+                            </label>
+                            <div class="col-7">
+
+                                <div class="input-group">
+                                    <input
+                                        id="email"
+                                        type="email"
                                         class="form-control"
-                                        name="current_password"
-                                        placeholder="Digite sua senha"
+                                        name="email"
+                                        placeholder="Digite seu novo e-mail"                                        
                                         required>
 
-                                    <button class="btn btn-outline-secondary"
-                                            type="button"
-                                            tabindex="-1"
-                                            id="eyeButtonCurrent"
-                                            data-bs-toggle="tooltip"
-                                            data-bs-placement="top"
-                                            title="Mostrar/Esconder"
-                                            aria-label="Mostrar/Esconder">
-                                        <i id="eyeIconCurrent" class="fa-solid fa-eye"></i>
+                                </div>
 
-                                    </button>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-5 col-form-label text-muted">
+                                <i class="fa-solid fa-envelope me-1"></i>
+                                Confirmar Novo E-mail
+                            </label>    
+                            <div class="col-7">
+                                
+                                <div class="input-group">
+                                    <input                                        
+                                        type="email"
+                                        class="form-control"
+                                        name="email_confirmation"
+                                        placeholder="Repita seu e-mail"
+                                        required>
                                 </div>
 
                             </div>
@@ -85,7 +112,7 @@
                         <div class="row mb-3">
                             <label class="col-5 col-form-label text-muted">
                                 <i class="fa-solid fa-lock me-1"></i>
-                                Nova Senha
+                                Informar Senha
                             </label>
                             <div class="col-7">
 
@@ -95,50 +122,17 @@
                                         type="password"
                                         class="form-control"
                                         name="password"
-                                        placeholder="Digite sua nova senha"
+                                        placeholder="Digite sua senha"
                                         required>
 
                                     <button class="btn btn-outline-secondary"
                                             type="button"
                                             id="eyeButton"
-                                            tabindex="-1"
                                             data-bs-toggle="tooltip"
                                             data-bs-placement="top"
                                             title="Mostrar/Esconder"
                                             aria-label="Mostrar/Esconder">
                                         <i id="eyeIcon" class="fa-solid fa-eye"></i>
-
-                                    </button>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-5 col-form-label text-muted">
-                                <i class="fa-solid fa-lock me-1"></i>
-                                Confirmar Nova Senha
-                            </label>    
-                            <div class="col-7">
-                                
-                                <div class="input-group">
-                                    <input
-                                        id="passwordConfirmation"
-                                        type="password"
-                                        class="form-control"
-                                        name="password_confirmation"
-                                        placeholder="Repita sua nova senha"
-                                        required>
-
-                                    <button class="btn btn-outline-secondary"
-                                            type="button"
-                                            tabindex="-1"
-                                            id="eyeButtonConfirmation"
-                                            data-bs-toggle="tooltip"
-                                            data-bs-placement="top"
-                                            title="Mostrar/Esconder"
-                                            aria-label="Mostrar/Esconder">
-                                        <i id="eyeIconConfirmation" class="fa-solid fa-eye"></i>
 
                                     </button>
                                 </div>
@@ -152,19 +146,18 @@
                     <div class="card-footer bg-light d-flex align-items-center flex-wrap gap-2">
                         
                         <div class="me-auto">
-                            <a href="#" tabindex="-1" class="btn btn-outline-danger btn-sm " data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
-                                Excluir Conta
-                            </a>  
+                            <a href="{{ route('dashboard.profile') }}" class="btn btn-outline-primary btn-sm me-auto">
+                                Meu Perfil
+                            </a>
                         </div>
-
- 
                         
-                        <a href="{{ route('dashboard.email.edit') }}" tabindex="-1" class="btn btn-outline-secondary btn-sm">
-                            Alterar E-mail
-                        </a>         
+                        <a href="{{ route('dashboard.password.edit') }}" class="btn btn-outline-dark btn-sm">
+                            Alterar Senha
+                        </a>
+          
 
                         <button type="submit" class="btn btn-success btn-sm">
-                            Alterar Senha
+                            Alterar E-mail
                         </button>
 
                     </div>
@@ -175,15 +168,15 @@
 
             <div class="card shadow-sm border-0 mt-3">
                 <div class="card-header bg-dark text-white">
-                    <i class="fa-solid fa-lightbulb me-2"></i> Dicas de Segurança
+                    <i class="fa-solid fa-envelope me-2"></i> Dicas para E-mail
                 </div>
                 <div class="card-body bg-white small">
                     <ul class="mb-0 ps-3">
-                        <li>Use pelo menos <strong>8 caracteres</strong>.</li>
-                        <li>Combine letras maiúsculas, minúsculas, números e símbolos.</li>
-                        <li>Evite senhas óbvias como <em>123456</em> ou <em>senha</em>.</li>
-                        <li>Não reutilize senhas de outros serviços.</li>
-                        <li>Atualize sua senha periodicamente.</li>
+                        <li>Use um endereço de e-mail <strong>válido e ativo</strong>.</li>
+                        <li>Evite endereços muito genéricos ou fáceis de adivinhar.</li>
+                        <li>Não compartilhe sua senha de e-mail com terceiros.</li>
+                        <li>Use e-mails diferentes para contas pessoais e serviços públicos.</li>
+                        <li>Mantenha seu provedor de e-mail atualizado e seguro.</li>
                     </ul>
                 </div>
             </div>

@@ -46,32 +46,63 @@ class UserObserver
         $changes = $user->getChanges();
         $original = $user->getOriginal();
 
-        $fields = [];
+        // ------------------------
+        // Log de e-mail específico
+        // ------------------------
+        if (isset($changes['email'])) {
+            $oldValue = $original['email'] ?? null;
+            $newValue = $changes['email'];
 
+            $fields = [];
+            $fields[] = "email: '{$oldValue}' → '{$newValue}'";
+
+            $creator = Auth::user();
+            $desc = $creator
+                ? " Usuário alterou a própria senha."
+                : "E-mail alterado automaticamente: ";
+            $desc .= implode(', ', $fields);
+
+            app_log('EMAIL_UPDATED', $user, $desc);
+
+            // remove do changes para não gerar USER_UPDATED
+            unset($changes['email']);
+        }
+
+        // ------------------------
+        // Log de senha específico
+        // ------------------------
+        if (isset($changes['password'])) {
+            $creator = Auth::user();
+            $desc = $creator
+                ? "Senha alterada por {$creator->name}"
+                : "Senha alterada automaticamente";
+
+            app_log('PASSWORD_UPDATED', $user, $desc);
+
+            unset($changes['password']);
+        }
+
+        // ------------------------
+        // Log genérico para outros campos
+        // ------------------------
+        $fields = [];
         foreach ($changes as $field => $newValue) {
-            // ignora campos que não fazem sentido logar
-            if (in_array($field, ['last_login', 'updated_at', 'password', 'remember_token'])) {
+            if (in_array($field, ['last_login', 'updated_at','email_verified_at', 'remember_token'])) {
                 continue;
             }
-
             $oldValue = $original[$field] ?? null;
-
             $fields[] = "{$field}: '{$oldValue}' → '{$newValue}'";
         }
 
-        if (empty($fields)) {
-            return;
+        if (!empty($fields)) {
+            $creator = Auth::user();
+            $desc = $creator
+                ? "Atualizado por {$creator->name}: "
+                : "Atualização automática: ";
+            $desc .= implode(', ', $fields);
+
+            app_log('USER_UPDATED', $user, $desc);
         }
-
-        $creator = Auth::user();
-
-        $desc = $creator
-            ? "Atualizado por {$creator->name}: "
-            : "Atualização automática: ";
-
-        $desc .= implode(', ', $fields);
-
-        app_log('USER_UPDATED', $user, $desc);
     }
 
     /**
@@ -105,4 +136,8 @@ class UserObserver
         }
         app_log('USER_FORCE_DELETED', $user, 'Usuário removido permanentemente.');
     }
+
+
+
+    
 }

@@ -27,9 +27,20 @@
                 </p>              
 
                 <!-- Botão -->
+                @guest
                 <a href="{{ route('login') }}" class="btn btn-success px-4 py-2">
+                    <i class="fa-solid fa-lock me-2"></i>
                     Ir para o login
-                </a>               
+                </a>      
+                @endguest
+
+                @auth
+                <a href="{{ route('dashboard.index') }}" class="btn btn-success px-4 py-2">
+                    <i class="fa-solid fa-user me-2"></i>
+                    Página inicial
+                </a>      
+
+                @endauth            
 
             </div>
         </div>

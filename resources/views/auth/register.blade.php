@@ -139,6 +139,7 @@
                                     <button class="btn btn-outline-secondary"
                                             type="button"
                                             id="eyeButton"
+                                            tabindex="-1"
                                             data-bs-toggle="tooltip"
                                             data-bs-placement="top"
                                             title="Mostrar senha"
@@ -168,6 +169,7 @@
                                             type="button"
                                             id="eyeButtonConfirmation"
                                             data-bs-toggle="tooltip"
+                                            tabindex="-1"
                                             data-bs-placement="top"
                                             title="Mostrar senha"
                                             aria-label="Mostrar senha">
@@ -184,7 +186,7 @@
                         <!-- Botões -->
                         <div class="d-flex justify-content-between align-items-center mb-3">
 
-                            <button class="btn btn-outline-secondary px-4" type="reset">
+                            <button tabindex="-1" class="btn btn-outline-secondary px-4" type="reset">
                                 Limpar
                             </button>
 

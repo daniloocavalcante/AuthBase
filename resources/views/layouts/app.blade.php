@@ -100,6 +100,11 @@
                                         <i class="fa-solid fa-user-pen me-2"></i> Editar Perfil
                                     </a> 
 
+                                    <!-- Email -->
+                                    <a class="dropdown-item" href="{{ route('dashboard.email.edit') }}">
+                                        <i class="fa-solid fa-envelope me-2"></i> Editar E-mail
+                                    </a> 
+
                                     <!-- Alterar senha -->
                                     <a class="dropdown-item" href="{{ route('dashboard.password.edit') }}">
                                         <i class="fa-solid fa-key me-2"></i> Alterar senha

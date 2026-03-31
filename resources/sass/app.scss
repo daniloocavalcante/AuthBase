@@ -33,29 +33,8 @@
 }
 
 
-// Print
-@media print {
-    body * {
-        visibility: hidden;  /* Esconde tudo */
-    }
-    
-    .printable, .printable * {
-        visibility: visible; /* Mostra apenas a tabela */
-    }
+// Print 
 
-    .printable {
-        position: absolute;
-        top: 30px;
-        right: 30px;
-        left: 30px;
-
-    }
-
-    #toolbar-users {
-        display: none !important;
-        visibility: hidden !important;
-    }
-}
 
 
 .dropdown-item:hover {

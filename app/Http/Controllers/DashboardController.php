@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UpdateEmailRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\Auth; 
@@ -46,6 +48,9 @@ class DashboardController extends Controller
 
         $data = $request->validated(); 
 
+        // remove o email do update
+        unset($data['email']);
+
         // Opcional (evita sujeira)
         $data = array_map(fn($v) => is_string($v) ? trim($v) : $v, $data);
 
@@ -55,21 +60,11 @@ class DashboardController extends Controller
             return back()->with('info', 'Nenhuma alteração foi realizada.');
         }
 
-        $emailChanged = $user->isDirty('email');
         $oldName = $user->getOriginal('name');
-
-        if ($emailChanged) {
-            $oldEmail = $user->getOriginal('email');
-            $user->email_verified_at = null;
-        }
 
         try {
             $user->save();
 
-            if ($emailChanged) {
-                $user->sendEmailVerificationNotification();
-
-            }
             return redirect()->route('dashboard.profile')
                 ->with('success', 'Perfil atualizado com sucesso!');
 
@@ -85,26 +80,16 @@ class DashboardController extends Controller
         }
     }
 
-
-
     public function password(){    
         return $this->viewWithUser('dashboard.profile.password');    
     }
 
 
-    public function password_update(Request $request)
+    public function password_update(UpdatePasswordRequest $request)
     {
         $user = Auth::user();
 
-        $request->validate([
-            'current_password' => 'required|string',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-
-        if (!Hash::check($request->current_password, $user->password)) {
-            return back()->with('error', 'Senha atual incorreta.');
-        }
-
+        // garante que a nova senha seja diferente da atual
         if (Hash::check($request->password, $user->password)) {
             return back()->with('error', 'A nova senha deve ser diferente da senha atual.');
         }
@@ -113,24 +98,64 @@ class DashboardController extends Controller
             $user->password = Hash::make($request->password);
             $user->save();
 
-            // ✅ log no lugar certo
-            app_log('PASSWORD_CHANGE', $user, 'Usuário alterou a própria senha.');
-
             return redirect()
                 ->route('dashboard.profile.edit')
                 ->with('success', 'Senha alterada com sucesso!');
 
         } catch (\Exception $e) {
-
-            // log de erro (top)
-            app_log('ERROR', $user, 'Erro ao alterar senha.'. $e->getMessage());
-
+            app_log('ERROR', $user, 'Erro ao alterar senha. ' . $e->getMessage());
             return back()->with('error', 'Erro inesperado ao atualizar a senha.');
         }
     }
-            
 
-      
+    public function email()
+    {
+        return $this->viewWithUser('dashboard.profile.email');
+    }
+
+
+    public function email_update(UpdateEmailRequest $request)
+    {
+        $user = Auth::user();
+
+        // valida e pega dados do request
+        $data = $request->validated();
+
+        // trim em strings
+        $data = array_map(fn($v) => is_string($v) ? trim($v) : $v, $data);
+
+        // só preenche email
+        $user->email = $data['email'];
+
+        // se nada mudou (provavelmente impossível aqui)
+        if (!$user->isDirty('email')) {
+            return back()->with('info', 'Nenhuma alteração foi realizada.');
+        }
+
+        // marca email como não verificado
+        $user->email_verified_at = null;
+
+        try {
+            $user->save();
+
+            // envia email de verificação
+            $user->sendEmailVerificationNotification();
+
+            return redirect()->route('dashboard.profile')
+                ->with('success', 'Email atualizado com sucesso! Verifique seu novo e-mail.');
+
+        } catch (\Exception $e) {
+
+            app_log(
+                'ERROR',
+                $user,
+                "Falha ao atualizar o e-mail do usuário {$user->name} (#{$user->id}). Motivo: " . $e->getMessage()
+            );
+
+            return back()->with('ERROR', 'Não foi possível atualizar o e-mail. Tente novamente.');
+        }
+    }
+                 
     
 
     public function destroy(Request $request)
@@ -243,26 +268,32 @@ class DashboardController extends Controller
             $query->where(function ($q) use ($search) {
                 $q->where('description', 'like', "%$search%")
                 ->orWhere('action', 'like', "%$search%")
-                ->orWhere('ip_address', 'like', "%$search%")
                 ->orWhereHas('user', function ($q2) use ($search) {
                     $q2->where('name', 'like', "%$search%")
                         ->orWhere('email', 'like', "%$search%");
                 });
             });
 
-            $query->orderByRaw("description LIKE ? DESC", ["$search%"])
-                ->orderByDesc('created_at');
+            $query->orderByRaw("
+                (description LIKE ?) DESC,
+                (action LIKE ?) DESC
+            ", [
+                "%$search%",
+                "%$search%"
+            ])
+            ->orderByDesc('created_at');
 
         } else {
             // 🔃 ORDENAÇÃO SEGURA
-            $allowedSorts = ['created_at', 'action'];
+            $allowedSorts = ['created_at', 'action', 'description'];
             $sort = in_array($request->get('sort'), $allowedSorts) ? $request->get('sort') : 'created_at';
             $direction = $request->get('direction') === 'asc' ? 'asc' : 'desc';
 
             $query->orderBy($sort, $direction);
         }
-
-        $logs = $query->paginate(10)->withQueryString();
+        
+        $perPage = 10;
+        $logs = $query->paginate($perPage)->withQueryString();
         
         $totalLogs = AppLog::count();
         $logsHoje  = AppLog::whereDate('created_at', now())->count();
@@ -278,7 +309,7 @@ class DashboardController extends Controller
             'totalLogs',
             'logsHoje',
             'logsErro',
-            'recentLogs'
+            'recentLogs',
         ));
     }
 
@@ -321,10 +352,6 @@ class DashboardController extends Controller
             "Content-Disposition" => "attachment; filename={$fileName}",
         ]);
     }
-
-
-
-
 
 
 }

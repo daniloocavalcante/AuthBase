@@ -18,7 +18,7 @@ use Illuminate\Auth\Events\{
     Failed,
     Lockout,
     Authenticated,
-    Verified
+    Verified,
 };
 
 class AppServiceProvider extends ServiceProvider

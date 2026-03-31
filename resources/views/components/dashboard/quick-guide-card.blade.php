@@ -42,6 +42,15 @@
                 <i class="fa-solid fa-chevron-right text-muted small"></i>
             </a>
 
+            <a href="{{ route('dashboard.email.edit') }}" class="list-group-item list-group-item-action d-flex align-items-center py-2">
+                <i class="fa-solid fa-envelope me-2 text-primary"></i>
+                <div class="flex-grow-1">
+                    <div class="fw-semibold small">Editar e-mail</div>
+                    <small class="text-muted">Atualizar e-mail</small>
+                </div>
+                <i class="fa-solid fa-chevron-right text-muted small"></i>
+            </a>
+
             <a href="{{ route('dashboard.password.edit') }}" class="list-group-item list-group-item-action d-flex align-items-center py-2">
                 <i class="fa-solid fa-key me-2 text-warning"></i>
                 <div class="flex-grow-1">
