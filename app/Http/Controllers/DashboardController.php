@@ -37,7 +37,7 @@ class DashboardController extends Controller
     }
 
     public function edit()
-    {
+    {        
         return $this->viewWithUser('dashboard.profile.edit');
     }
 
@@ -95,8 +95,11 @@ class DashboardController extends Controller
         }
 
         try {
-            $user->password = Hash::make($request->password);
-            $user->save();
+            Auth::logoutOtherDevices($request->current_password);
+
+            $user->update([
+                'password' => Hash::make($request->password),
+            ]);
 
             return redirect()
                 ->route('dashboard.profile.edit')
