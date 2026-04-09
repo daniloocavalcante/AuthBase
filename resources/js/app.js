@@ -63,7 +63,8 @@ document.addEventListener('DOMContentLoaded', function() {
 // Modal visualizar Log
 
 function setLog(el) {
-    let dump = `Date: ${el.dataset.date}
+    let dump = `ID: ${el.dataset.id}
+Date: ${el.dataset.date}
 Action: ${el.dataset.action}
 User: ${el.dataset.user} ${el.dataset.surname}
 IP: ${el.dataset.ip}

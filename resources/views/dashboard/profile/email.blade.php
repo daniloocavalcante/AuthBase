@@ -21,7 +21,7 @@
                     </li>
 
                     <li class="breadcrumb-item">
-                        <a href="{{ route('dashboard.profile') }}" class="text-light text-decoration-none">
+                        <a tabindex="-1" href="{{ route('dashboard.profile') }}" class="text-light text-decoration-none">
                             Meu Perfil
                         </a>
                     </li>                 
@@ -126,6 +126,7 @@
                                         required>
 
                                     <button class="btn btn-outline-secondary"
+                                            tabindex="-1"
                                             type="button"
                                             id="eyeButton"
                                             data-bs-toggle="tooltip"
@@ -146,12 +147,12 @@
                     <div class="card-footer bg-light d-flex align-items-center flex-wrap gap-2">
                         
                         <div class="me-auto">
-                            <a href="{{ route('dashboard.profile') }}" class="btn btn-outline-primary btn-sm me-auto">
+                            <a tabindex="-1" href="{{ route('dashboard.profile') }}" class="btn btn-outline-primary btn-sm me-auto">
                                 Meu Perfil
                             </a>
                         </div>
                         
-                        <a href="{{ route('dashboard.password.edit') }}" class="btn btn-outline-dark btn-sm">
+                        <a tabindex="-1" href="{{ route('dashboard.password.edit') }}" class="btn btn-outline-dark btn-sm">
                             Alterar Senha
                         </a>
           

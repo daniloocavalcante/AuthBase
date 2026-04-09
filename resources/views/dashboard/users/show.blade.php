@@ -73,7 +73,7 @@
                         <!-- Foto -->
                         <div class="col-md-4 text-center border-end">
 
-                            <img src="{{ asset('storage/photos_users/default.png') }}?v=2"
+                            <img src="{{ asset('images/default.png') }}?v=2"
                                 class="img-fluid rounded-circle shadow mb-3"
                                 style="width:120px;height:120px;object-fit:cover;">
 
@@ -170,7 +170,7 @@
 
         <!-- Card guia rápido -->
 
-        <div class="col-lg-4 col-md-5">
+        <div class="col-lg-4 col-md-5 d-print-none">
             <x-dashboard.quick-guide-card />
         </div>
 

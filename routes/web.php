@@ -117,3 +117,9 @@ Route::middleware('auth')
 
 
 });
+
+Route::fallback(function () {
+    auth()->shouldUse('web');
+
+    return response()->view('errors.404', [], 404);
+});
