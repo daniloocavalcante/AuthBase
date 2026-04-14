@@ -152,13 +152,15 @@
                     <div class="card-footer bg-light d-flex align-items-center flex-wrap gap-2">
                         
                         <div class="me-auto">
-                            <a href="#" tabindex="-1" class="btn btn-outline-danger btn-sm " data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
-                                Excluir Conta
+                            <a href="{{ route('dashboard.profile') }}" tabindex="-1" class="btn btn-primary btn-sm ">
+                                Meu Perfil
                             </a>  
                         </div>
 
  
-                        
+                        <a href="#" tabindex="-1" class="btn btn-outline-danger btn-sm " data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+                            Excluir Conta
+                        </a> 
                         <a href="{{ route('dashboard.email.edit') }}" tabindex="-1" class="btn btn-outline-secondary btn-sm">
                             Alterar E-mail
                         </a>         

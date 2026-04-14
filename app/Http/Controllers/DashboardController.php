@@ -38,7 +38,11 @@ class DashboardController extends Controller
 
     public function edit()
     {        
-        return $this->viewWithUser('dashboard.profile.edit');
+        $user = Auth::user();
+        $logs = AppLog::where('user_id', $user->id)
+                    ->latest()
+                    ->paginate(3); // pode trocar por get() se não quiser paginação
+        return view('dashboard.profile.edit', compact('logs', 'user')); 
     }
 
 

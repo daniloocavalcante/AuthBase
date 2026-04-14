@@ -33,12 +33,17 @@
                     <ul class="navbar-nav me-auto">
                         @auth  
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button"
+                                    title="Acesso administrador"
+                                    placeholder="Acesso administrador"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa-solid fa-gear"></i> Administração
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="adminDropdown">
                                     <li>
-                                        <a class="dropdown-item" href="{{ route('dashboard.logs') }}">
+                                        <a class="dropdown-item" href="{{ route('dashboard.logs') }}"
+                                            title="Logs do sistema"
+                                            placeholder="Logs do sistema">
                                             <i class="fa-solid fa-file-lines"></i> Logs
                                         </a>
                                     </li>
@@ -71,19 +76,29 @@
 
                         @auth  
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('dashboard.index') }}">
+                                <a class="nav-link" href="{{ route('dashboard.index') }}"
+                                    title="Página inicial"
+                                    placeholder="Página inicial">
                                     Início
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('dashboard.users') }}">
+                                <a  class="nav-link" href="{{ route('dashboard.users') }}"
+                                    title="Tabela usuários"
+                                    placeholder="Tabela usuários">
                                     <i class="fa-solid fa-users me-1"></i>Usuários
                                 </a>
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" 
+                                role="button"
+                                title="Olá {{ Str::title(Auth::user()->name) }}"
+                                placeholder="Olá {{ Str::title(Auth::user()->name) }}"                              
+                                data-bs-toggle="dropdown" 
+                                aria-haspopup="true" 
+                                aria-expanded="false" v-pre>
                                     <i class="fa-regular fa-user me-1"></i> {{ Str::title(Auth::user()->name) }} {{ Str::title(Auth::user()->surname) }}
                                 </a>
 
@@ -91,22 +106,30 @@
 
 
                                     <!-- Perfil -->
-                                    <a class="dropdown-item" href="{{ route('dashboard.profile') }}">
+                                    <a class="dropdown-item" href="{{ route('dashboard.profile') }}"
+                                        title="Meu perfil"
+                                        placeholder="Meu Perfil">   
                                         <i class="fa-solid fa-user me-2"></i> Perfil
                                     </a> 
 
                                     <!-- Perfil -->
-                                    <a class="dropdown-item" href="{{ route('dashboard.profile.edit') }}">
+                                    <a class="dropdown-item" href="{{ route('dashboard.profile.edit') }}"
+                                        title="Editar meu perfil"
+                                        placeholder="Editar meu perfil">  
                                         <i class="fa-solid fa-user-pen me-2"></i> Editar Perfil
                                     </a> 
 
                                     <!-- Email -->
-                                    <a class="dropdown-item" href="{{ route('dashboard.email.edit') }}">
+                                    <a class="dropdown-item" href="{{ route('dashboard.email.edit') }}"
+                                        title="Editar e-mail"
+                                        placeholder="Editar e-mail">  
                                         <i class="fa-solid fa-envelope me-2"></i> Editar E-mail
                                     </a> 
 
                                     <!-- Alterar senha -->
-                                    <a class="dropdown-item" href="{{ route('dashboard.password.edit') }}">
+                                    <a class="dropdown-item" href="{{ route('dashboard.password.edit') }}"
+                                        title="Editar minha senha"
+                                        placeholder="Editar minha senha">  
                                         <i class="fa-solid fa-key me-2"></i> Alterar senha
                                     </a>
 
@@ -115,7 +138,10 @@
                                     <div class="dropdown-divider"></div>
 
                                     <!-- Logout -->
-                                    <a href="#" class="dropdown-item text-black" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                                    <a href="#" class="dropdown-item text-black" data-bs-toggle="modal"
+                                        title="Sair do sistema"
+                                        placeholder="Sair do sistema"
+                                     data-bs-target="#logoutModal">
                                         <i class="fa-solid fa-right-from-bracket me-2"></i> Sair
                                     </a>
 
@@ -136,7 +162,7 @@
 <div class="container"> 
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <div class="col-md-4 d-flex align-items-center"> 
-            <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none " aria-label="Bootstrap"> 
+            <a href="{{ url('/') }}" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none " aria-label="Bootstrap"> 
                 <i class="fa-brands fa-bootstrap fa-2xl"></i>
             </a> 
             <span class="mb-3 mb-md-0 text-body-secondary">© 2025 {{ config('app.name', 'Laravel') }} </span>

@@ -141,18 +141,6 @@
                                 </label>
                                 <div class="col-7 fw-semibold">{{ $user->gender }}</div>
                             </div>
-
-                            <div class="row mb-3">
-                                <label class="col-5 col-form-label text-muted">
-                                    <i class="fa-solid fa-history me-1"></i>
-                                    Último login
-                                </label>
-
-                                <div class="col-7 fw-semibold">
-                                    {{ $user->last_login?->diffForHumans() ?? 'Nunca acessou' }}
-                                </div>
-                            </div>
-
                         </div>
 
                     </div>
@@ -174,6 +162,48 @@
                 </div>
 
             </div>
+
+            <div class="card shadow-sm border-0 mt-3">
+
+            <div class="card-body py-3">
+
+                <div class="row text-center">
+
+                    <!-- Conta criada -->
+                    <div class="col-md-4 mb-2 mb-md-0">
+                        <small class="text-muted d-block">Conta criada há:</small>
+                        <strong>
+                    <span   class="fw-semibold"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="right"
+                            title="Criado em: {{ $user->created_at->format('d/m/Y') }}"
+                            placeholder="Criado em: {{ $user->created_at->format('d/m/Y') }}">
+                        {{ $user->created_at->diffForHumans() }}
+                    </span>
+                        </strong>
+                    </div>
+
+                    <!-- IP atual -->
+                    <div class="col-md-4 mb-2 mb-md-0 border-start border-end">
+                        <small class="text-muted d-block">Seu IP atual</small>
+                        <strong>
+                            {{ request()->ip() }}
+                        </strong>
+                    </div>
+
+                    <!-- Último login -->
+                    <div class="col-md-4">
+                        <small class="text-muted d-block">Último login</small>
+                        <strong>
+                            {{ $user->last_login?->diffForHumans() ?? 'Agora há pouco' }}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+</div>
 
         </div>
 

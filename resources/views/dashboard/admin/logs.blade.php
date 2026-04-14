@@ -194,17 +194,30 @@
                                                                              
                                             <td>
                                                 @if($log->user)
-                                                <a href="{{ route('dashboard.users.show', $log->user->id) }}" class="text-decoration-none text-dark" target="_blank">
+                                                <a  href="{{ route('dashboard.users.show', $log->user->id) }}" 
+                                                    class="text-decoration-none text-dark" 
+                                                    target="_blank"
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="top"
+                                                    title="Feito por: {{ $log->user->name ?? "Sistema" }}"
+                                                    placeholder="Feito por: {{ $log->user->name ?? "Sistema" }}"                                                    
+                                                    >
                                                     <span class="fw-semibold">{{ $log->user->name }} </span>
                                                     <small class="text-muted ">
                                                         #{{ $log->user->id }}
                                                     </small>
                                                 </a>
                                                 @else
+                                                <a  href="#" class="text-decoration-none text-muted"
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="top"
+                                                    title="Feito por: Sistema"
+                                                    placeholder="Feito por: Sistema">
                                                     <span class="">{{ $log->model?->name ?? "Sistema"}}</span>
-                                                    <small class="text-muted ">
+                                                    <small class="text-muted">
                                                         #{{ $log->model_id }}
                                                     </small>
+                                                </a>
                                                 @endif
                                             </td>
 

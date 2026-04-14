@@ -67,12 +67,18 @@
                     <div class="d-flex gap-2">
 
                         <!-- Exportar -->
-                        <a class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exportCsvModal">
+                        <a class="btn btn-sm btn-outline-dark"
+                              data-bs-toggle="modal"
+                            data-bs-target="#exportCsvModal"
+                            title="Exportar dados .CSV"
+                            placeholder="Exportar dados .CSV">
                             <i class="fa-solid fa-download me-1"></i> Exportar
                         </a>
 
                         <!-- Imprimir -->
-                        <button id="btn-print" class="btn btn-sm btn-outline-dark">
+                        <button id="btn-print" class="btn btn-sm btn-outline-dark"
+                                title="Imprimir tabela usuários"
+                                placeholder="Imprimir tabela usuários">
                             <i class="fa-solid fa-print me-1"></i> Imprimir
                         </button>
                     </div>
@@ -91,8 +97,13 @@
                             <input 
                                 type="text"
                                 name="search"
-                                class="form-control border-start-0"
+                                class="form-control border-start-0"  
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="Buscar por nome ou e-mail..."
                                 placeholder="Buscar por nome ou e-mail..."
+
+                                
                                 value="{{ request('search') }}"
                             >
 
@@ -194,7 +205,13 @@
 
                             <td>   
 
-                                <a href="{{ route('dashboard.users.show', $user->id) }}" class="d-flex align-items-center text-decoration-none text-dark">
+                                <a href="{{ route('dashboard.users.show', $user->id) }}" 
+                                    class="d-flex align-items-center text-decoration-none text-dark"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Acessar perfil de: {{ ucfirst($user->name) }}"
+                                    placeholder="title="Acessar perfil de: {{ ucfirst($user->name) }}" >
+                                    
 
                                     <div class="me-2 text-secondary fs-5">
                                         <i class="fa-solid fa-circle-user"></i>

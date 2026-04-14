@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 
 class VerificationController extends Controller
@@ -41,49 +43,65 @@ class VerificationController extends Controller
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
-
-    public function success(Request $request)
-    {
-        if (!session('verified')) {
-
-            $user = $request->user();
-
-            if ($user) {
-                return $user->hasVerifiedEmail()
-                    ? redirect('/home')
-                    : redirect()->route('verification.notice');
-            }
-
-            return redirect('/login');
-        }
-
-        return view('auth.verification');
-    }
-
-        public function resend(Request $request)
+    public function resend(Request $request)
     {
         $user = $request->user();
 
-        if ($request->user()->hasVerifiedEmail()) {
+        if ($user->hasVerifiedEmail()) {
+            return $request->wantsJson()
+                ? new JsonResponse([], 204)
+                : redirect()->route('home');
+        }
+
+        $user->sendEmailVerificationNotification();
+
+        app_log(
+            'EMAIL_CONFIRMATION',
+            $user,
+            "Usuário solicitou reenvio de email: {$user->email}"
+        );
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 202)
+            : back()->with('resent', true);
+    }
+
+    
+    public function success(Request $request) 
+    { 
+        return view('auth.verification');
+    }
+
+    public function verify(Request $request)
+    {
+        $user = \App\Models\User::find($request->route('id'));
+
+        if (!$user) {
+            throw new AuthorizationException;
+        }
+
+        if (! hash_equals((string) $request->route('id'), (string) $user->getKey())) {
+            throw new AuthorizationException;
+        }
+
+        if (! hash_equals((string) $request->route('hash'), sha1($user->getEmailForVerification()))) {
+            throw new AuthorizationException;
+        }
+
+        if ($user->hasVerifiedEmail()) {
             return $request->wantsJson()
                         ? new JsonResponse([], 204)
                         : redirect($this->redirectPath());
         }
 
-        $request->user()->sendEmailVerificationNotification();
-        
-        app_log('EMAIL_CONFIRMATION', $user, "Usuário solicitou reenvio de email de confirmação para: {$user->email}");
+        if ($user->markEmailAsVerified()) {
+            event(new Verified($user));
+        }
 
         return $request->wantsJson()
-                    ? new JsonResponse([], 202)
-                    : back()->with('resent', true);
+            ? new JsonResponse([], 204)
+            : redirect()->route('verification.success');
     }
-    
 
-    protected function verified()
-    {
-        return redirect()
-            ->route('verification.success')
-            ->with('verified', true);
-    }
+
 }

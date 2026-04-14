@@ -39,7 +39,7 @@
             <x-alerts.messages />
 
 
-            <div class="card shadow-lg border-0">
+            <div class="card shadow-lg border-0 mb-2">
 
                 <!-- Header -->
                 <div class="card-header bg-dark text-white d-flex align-items-center justify-content-between">
@@ -141,16 +141,17 @@
                     <!-- Footer -->
                     <div class="card-footer bg-light d-flex justify-content-end gap-2 flex-wrap">
 
-                        
-                        <a href="{{ route('dashboard.profile') }}" tabindex="-1" class="btn btn-outline-dark btn-sm me-auto">
-                            Voltar
-                        </a>
+                        <div class="me-auto">
+                            <a href="{{ route('dashboard.profile') }}" tabindex="-1" class="btn btn-primary btn-sm ">
+                                Meu Perfil
+                            </a> 
+                        </div>
 
                         <a href="{{ route('dashboard.email.edit') }}" tabindex="-1" class="btn btn-outline-secondary btn-sm">
                             Alterar E-mail
                         </a>
 
-                        <a href="{{ route('dashboard.password.edit') }}" tabindex="-1" class="btn btn-outline-primary btn-sm">
+                        <a href="{{ route('dashboard.password.edit') }}" tabindex="-1" class="btn btn-outline-dark btn-sm">
                             Alterar Senha
                         </a>
 
@@ -163,6 +164,80 @@
                 </form>
 
             </div>
+
+            <div class="card shadow-lg border-0">
+
+                <!-- Header -->
+                <div class="card-header bg-dark text-white d-flex align-items-center justify-content-between">
+                    <span class="fs-5">Minhas Atividades</span>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Hora</th>
+                                    <th>Ação</th>
+                                    <th>IP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($logs as $log)
+                                    <tr>
+                                        <td>
+                                            {{ $log->created_at?->format('d/m/Y')  }}
+                                        </td>
+                                        <td>
+                                            {{ $log->created_at?->format('H:i:s')  }}
+                                        </td>                                       
+                                        
+
+                                        <td>
+                                            <span class="badge {{ getLogBadge($log->action)['class'] }}"> 
+                                                <i class="{{ getLogBadge($log->action)['icon'] }} me-1"></i>
+                                                {{ getLogBadge($log->action)['text'] }}
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            <small class="text-muted">
+                                                {{ $log->ip_address ?? '-' }}
+                                            </small>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="text-center text-muted py-3">
+                                            Nenhuma atividade encontrada.
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <!-- Footer -->
+                <div class="card-footer bg-light d-flex justify-content-between align-items-center flex-wrap">
+                    <!-- Info -->
+                    <small class="text-muted">
+                        Mostrando {{ $logs->firstItem() ?? 0 }} até {{ $logs->lastItem() ?? 0 }} de {{ $logs->total() }} logs
+                    </small>
+
+                    <!-- Paginação -->
+                    <div style="transform: scale(0.8); transform-origin: right;">
+                        {{ $logs->onEachSide(1)->links() }}
+                    </div>
+                </div>
+
+
+            </div>
+
+
 
         </div>
 
