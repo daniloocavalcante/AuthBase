@@ -71,15 +71,17 @@ class UserObserver
         // ------------------------
         // Log de senha específico
         // ------------------------
-        if (isset($changes['password'])) {
+        static $alreadyLogged = false;
+
+        if (!$alreadyLogged && $user->wasChanged('password')) {
+            $alreadyLogged = true;
+
             $creator = Auth::user();
-            $desc = $creator
-                ? "Senha alterada por {$creator->name}"
-                : "Senha alterada automaticamente";
 
-            app_log('PASSWORD_UPDATED', $user, $desc);
-
-            unset($changes['password']);
+            if ($creator) {
+                $desc = "Senha alterada por {$creator->name}";
+                app_log('PASSWORD_UPDATED', $user, $desc);
+            }
         }
 
         // ------------------------
@@ -87,7 +89,7 @@ class UserObserver
         // ------------------------
         $fields = [];
         foreach ($changes as $field => $newValue) {
-            if (in_array($field, ['last_login', 'updated_at','email_verified_at', 'remember_token'])) {
+            if (in_array($field, ['last_login', 'updated_at','email_verified_at', 'remember_token', 'password'])) {
                 continue;
             }
             $oldValue = $original[$field] ?? null;

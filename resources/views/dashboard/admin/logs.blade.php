@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+{{ config('app.name', 'Laravel') }} || {{ __('System') }}
+@endsection
+
 @section('content')
 
 <div class="container">
@@ -11,7 +15,7 @@
                 <ol class="breadcrumb mb-0 small">
 
                     <li class="breadcrumb-item">
-                        <a href="{{ route('dashboard.index') }}" class="text-light text-decoration-none">
+                        <a href="{{ route('index') }}" class="text-light text-decoration-none">
                             Dashboard
                         </a>
                     </li>
@@ -95,7 +99,7 @@
                             >
 
                             <!-- Botão limpar -->
-                            <a href="{{ route('dashboard.logs') }}" 
+                            <a href="{{ route('logs') }}" 
                             class="btn btn-outline-secondary"
                             style="border-top-left-radius:0; border-bottom-left-radius:0;">
                             <i class="fa-solid fa-xmark"></i>
@@ -194,7 +198,7 @@
                                                                              
                                             <td>
                                                 @if($log->user)
-                                                <a  href="{{ route('dashboard.users.show', $log->user->id) }}" 
+                                                <a  href="{{ route('users.show', $log->user->id) }}" 
                                                     class="text-decoration-none text-dark" 
                                                     target="_blank"
                                                     data-bs-toggle="tooltip"
@@ -252,7 +256,7 @@
                                                 data-date="{{ $log->created_at }}"
                                                 data-action="{{ $log->action }}"
                                                 data-user="{{ $log->user->name ?? 'Sistema' }}"
-                                                data-surname="{{ $log->user->surname ?? 'Sistema' }}"
+                                                data-surname="{{ $log->user->surname ?? '' }}"
                                                 data-ip="{{ $log->ip_address }}"
                                                 data-model="{{ $log->model_type }}"
                                                 data-modelid="{{ $log->model_id }}"
@@ -351,7 +355,11 @@
 
                                 </div>
 
-                                <small class="text-muted">
+                                <small class="text-muted"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="right"
+                                        title="Gerado em: {{ $log->created_at->format('d/m/Y h:m:s') }}"
+                                        placeholder="Gerado em: {{ $log->created_at->format('d/m/Y h:m:s') }}">
                                     <i class="fas fa-clock me-1"></i>
                                     {{ $log->created_at->diffForHumans() }}
                                 </small>
@@ -360,7 +368,7 @@
                         @endforeach
 
                         <li class="list-group-item text-center text-muted small">
-                            Exibindo as 5 atividades mais recentes
+                            Exibindo {{ min(count($logs), 5) }} atividades mais recentes
                         </li>
                     </ul>
                 </div>
@@ -390,7 +398,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <a href="{{ route('dashboard.logs.export') }}" id="confirmExportBtn"  class="btn btn-primary">Confirmar Exportar</a>
+        <a href="{{ route('logs.export') }}" id="confirmExportBtn"  class="btn btn-primary">Confirmar Exportar</a>
       </div>
 
     </div>

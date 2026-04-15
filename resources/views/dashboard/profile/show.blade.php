@@ -8,14 +8,14 @@
 <div class="container">
     
     <div class="row justify-content-center g-3">
-        <div class="col-md-7">
+        <div class="col-lg-8 col-md-7">
             
             <!-- Breadcrumb de Navegação -->
             <nav aria-label="breadcrumb" class="bg-dark px-3 py-2 rounded mb-2">
                 <ol class="breadcrumb mb-0 small">
 
                     <li class="breadcrumb-item">
-                        <a href="{{ route('dashboard.index') }}" class="text-light text-decoration-none">
+                        <a href="{{ route('index') }}" class="text-light text-decoration-none">
                             Dashboard
                         </a>
                     </li>
@@ -71,8 +71,8 @@
                             <!-- Badge -->
                                                         
                             <div class="mb-3">
-                                    <span class="badge bg-{{ $user->privilege->badge_color }} fs-6 rounded-pill" >
-                                        {{ ucfirst($user->privilege->name) }}
+                                    <span class="badge bg-primary fs-6 rounded-pill" >
+                                        editar isso
                                     </span>
                             </div>
 
@@ -149,61 +149,66 @@
 
                 <!-- Footer -->
                 <div class="card-footer bg-light d-flex justify-content-end gap-2 flex-wrap">
-                    <a href="{{ route('dashboard.email.edit') }}" class="btn btn-outline-secondary btn-sm">
+                    <a href="{{ route('email.edit') }}" class="btn btn-outline-secondary btn-sm">
                             Alterar E-mail
                     </a> 
-                    <a href="{{ route('dashboard.password.edit') }}" class="btn btn-outline-dark btn-sm">
+                    <a href="{{ route('password.edit') }}" class="btn btn-outline-dark btn-sm">
                         Alterar Senha
                     </a>
                     
-                    <a href="{{ route('dashboard.profile.edit') }}" class="btn btn-outline-primary btn-sm">
+                    <a href="{{ route('profile.edit') }}" class="btn btn-outline-primary btn-sm">
                         Editar Perfil
                     </a>
                 </div>
 
             </div>
 
-            <div class="card shadow-sm border-0 mt-3">
+            <div class="card shadow border-0 mt-3">
 
-            <div class="card-body py-3">
+                <div class="card-body py-3">
 
-                <div class="row text-center">
+                    <div class="row text-center">
 
-                    <!-- Conta criada -->
-                    <div class="col-md-4 mb-2 mb-md-0">
-                        <small class="text-muted d-block">Conta criada há:</small>
-                        <strong>
-                    <span   class="fw-semibold"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="right"
-                            title="Criado em: {{ $user->created_at->format('d/m/Y') }}"
-                            placeholder="Criado em: {{ $user->created_at->format('d/m/Y') }}">
-                        {{ $user->created_at->diffForHumans() }}
-                    </span>
-                        </strong>
-                    </div>
+                        <!-- Conta criada -->
+                        <div class="col-md-4 mb-2 mb-md-0">
+                            <small class="text-muted d-block">Conta criada há:</small>
+                            <strong>
+                        <span   class="fw-semibold"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="right"
+                                title="Criado em: {{ $user->created_at->format('d/m/Y') }}"
+                                placeholder="Criado em: {{ $user->created_at->format('d/m/Y') }}">
+                            {{ $user->created_at->diffForHumans() }}
+                        </span>
+                            </strong>
+                        </div>
 
-                    <!-- IP atual -->
-                    <div class="col-md-4 mb-2 mb-md-0 border-start border-end">
-                        <small class="text-muted d-block">Seu IP atual</small>
-                        <strong>
-                            {{ request()->ip() }}
-                        </strong>
-                    </div>
+                        <!-- IP atual -->
+                        <div class="col-md-4 mb-2 mb-md-0 border-start border-end">
+                            <small class="text-muted d-block">Seu IP atual</small>
+                            <strong>
+                                {{ request()->ip() }}
+                            </strong>
+                        </div>
 
-                    <!-- Último login -->
-                    <div class="col-md-4">
-                        <small class="text-muted d-block">Último login</small>
-                        <strong>
-                            {{ $user->last_login?->diffForHumans() ?? 'Agora há pouco' }}
-                        </strong>
+                        <!-- Último login -->
+                        <div class="col-md-4">
+                            <small class="text-muted d-block">Último login</small>
+                            <strong                                
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="right"
+                                title="{{ $user->last_login->format('d/m/Y h:m:s') }}"
+                                placeholder="{{ $user->last_login->format('d/m/Y h:m:s') }}">                      
+                            
+                                {{ $user->last_login?->diffForHumans() ?? 'Agora há pouco' }}
+                            </strong>
+                        </div>
+
                     </div>
 
                 </div>
 
             </div>
-
-</div>
 
         </div>
 

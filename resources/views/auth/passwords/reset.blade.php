@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+{{ config('app.name', 'Laravel') }} || {{ __('Reset Password') }}
+@endsection
+
 @section('content')
 
 
@@ -7,7 +11,7 @@
 <div class="container">
     <div class="row justify-content-center align-items-center" style="min-height:70vh">
 
-        <div class="col-lg-5 col-md-7">
+        <div class="col-lg-6 col-md-8">
 
             <div class="card shadow-lg border-0">
 
@@ -25,6 +29,7 @@
                         @csrf
 
                         <input type="hidden" name="token" value="{{ $token }}">
+                        <input type="hidden" name="email" value="{{ $email }}">
 
                         <x-alerts.messages />  
 
@@ -32,15 +37,15 @@
                         <div class="mb-3">
                             <label class="form-label fw-semibold">
                                 E-mail
-                            </label>
+                            </label>  
 
                             <input id="email"
                                    type="email"
-                                   class="form-control form-control-md @error('email') is-invalid @enderror text-muted"
+                                   class="form-control form-control-md"
                                    name="email"
                                    value="{{ $email ?? old('email') }}"
                                    readonly
-                                   placeholder="Digite seu e-mail">
+                                   placeholder="Digite seu e-mail" disabled>
                         </div>
 
                         <!-- Senhas -->
@@ -48,7 +53,7 @@
 
                             <div class="col-md-6">
 
-                                <label class="form-label fw-semibold">Senha</label>
+                                <label class="form-label fw-semibold">Nova senha</label>
 
                                 <div class="input-group">
                                     <input
@@ -65,6 +70,7 @@
                                             id="eyeButton"
                                             data-bs-toggle="tooltip"
                                             data-bs-placement="top"
+                                            tabindex="-1"
                                             title="Mostrar senha"
                                             aria-label="Mostrar senha">
                                         <i id="eyeIcon" class="fa-solid fa-eye"></i>
@@ -92,6 +98,7 @@
                                             type="button"
                                             id="eyeButtonConfirmation"
                                             data-bs-toggle="tooltip"
+                                            tabindex="-1"
                                             data-bs-placement="top"
                                             title="Mostrar senha"
                                             aria-label="Mostrar senha">

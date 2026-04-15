@@ -73,6 +73,8 @@ class RegisterController extends Controller
             'password'   => Hash::make($data['password']),
             'last_login' => Carbon::now(),
         ]);
+        
+        $user->assignRole('user');
 
         return $user;
 

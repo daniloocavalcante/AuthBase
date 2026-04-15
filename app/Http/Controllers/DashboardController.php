@@ -69,7 +69,7 @@ class DashboardController extends Controller
         try {
             $user->save();
 
-            return redirect()->route('dashboard.profile')
+            return redirect()->route('profile')
                 ->with('success', 'Perfil atualizado com sucesso!');
 
         } catch (\Exception $e) {
@@ -106,7 +106,7 @@ class DashboardController extends Controller
             ]);
 
             return redirect()
-                ->route('dashboard.profile.edit')
+                ->route('profile.edit')
                 ->with('success', 'Senha alterada com sucesso!');
 
         } catch (\Exception $e) {
@@ -148,7 +148,7 @@ class DashboardController extends Controller
             // envia email de verificação
             $user->sendEmailVerificationNotification();
 
-            return redirect()->route('dashboard.profile')
+            return redirect()->route('profile')
                 ->with('success', 'Email atualizado com sucesso! Verifique seu novo e-mail.');
 
         } catch (\Exception $e) {
@@ -217,7 +217,7 @@ class DashboardController extends Controller
 
         // CONTADORES DINÂMICOS
         $usersCount  = User::count();
-        $adminsCount = User::where('privilege_id', 1)->count();
+        $adminsCount = 2;
         $todayUsers  = User::whereDate('created_at', now())->count();
 
         // RETORNA PARA A VIEW
@@ -358,6 +358,11 @@ class DashboardController extends Controller
             "Content-Type" => "text/csv",
             "Content-Disposition" => "attachment; filename={$fileName}",
         ]);
+    }
+
+    public function dashboard()
+    {
+        return $this->viewWithUser('dashboard.admin.dashboard');
     }
 
 

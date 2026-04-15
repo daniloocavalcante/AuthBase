@@ -15,7 +15,7 @@
 
         <div class="list-group list-group-flush">
 
-            <a href="{{ route('dashboard.index') }}" class="list-group-item list-group-item-action d-flex align-items-center py-2">
+            <a href="{{ route('index') }}" class="list-group-item list-group-item-action d-flex align-items-center py-2">
                 <i class="fa-solid fa-gauge me-2 text-primary"></i>
                 <div class="flex-grow-1">
                     <div class="fw-semibold small">Dashboard</div>
@@ -24,7 +24,7 @@
                 <i class="fa-solid fa-chevron-right text-muted small"></i>
             </a>
 
-            <a href="{{ route('dashboard.profile') }}" class="list-group-item list-group-item-action d-flex align-items-center py-2">
+            <a href="{{ route('profile') }}" class="list-group-item list-group-item-action d-flex align-items-center py-2">
                 <i class="fa-solid fa-user me-2 text-secondary"></i>
                 <div class="flex-grow-1">
                     <div class="fw-semibold small">Perfil</div>
@@ -33,7 +33,7 @@
                 <i class="fa-solid fa-chevron-right text-muted small"></i>
             </a>
 
-            <a href="{{ route('dashboard.profile.edit') }}" class="list-group-item list-group-item-action d-flex align-items-center py-2">
+            <a href="{{ route('profile.edit') }}" class="list-group-item list-group-item-action d-flex align-items-center py-2">
                 <i class="fa-solid fa-user-pen me-2 text-info"></i>
                 <div class="flex-grow-1">
                     <div class="fw-semibold small">Editar perfil</div>
@@ -42,7 +42,7 @@
                 <i class="fa-solid fa-chevron-right text-muted small"></i>
             </a>
 
-            <a href="{{ route('dashboard.email.edit') }}" class="list-group-item list-group-item-action d-flex align-items-center py-2">
+            <a href="{{ route('email.edit') }}" class="list-group-item list-group-item-action d-flex align-items-center py-2">
                 <i class="fa-solid fa-envelope me-2 text-primary"></i>
                 <div class="flex-grow-1">
                     <div class="fw-semibold small">Editar e-mail</div>
@@ -51,7 +51,7 @@
                 <i class="fa-solid fa-chevron-right text-muted small"></i>
             </a>
 
-            <a href="{{ route('dashboard.password.edit') }}" class="list-group-item list-group-item-action d-flex align-items-center py-2">
+            <a href="{{ route('password.edit') }}" class="list-group-item list-group-item-action d-flex align-items-center py-2">
                 <i class="fa-solid fa-key me-2 text-warning"></i>
                 <div class="flex-grow-1">
                     <div class="fw-semibold small">Alterar senha</div>
@@ -60,7 +60,7 @@
                 <i class="fa-solid fa-chevron-right text-muted small"></i>
             </a>
 
-            <a href="{{ route('dashboard.users') }}" class="list-group-item list-group-item-action d-flex align-items-center py-2">
+            <a href="{{ route('users') }}" class="list-group-item list-group-item-action d-flex align-items-center py-2">
                 <i class="fa-solid fa-users me-2 text-success"></i>
                 <div class="flex-grow-1">
                     <div class="fw-semibold small">Usuários</div>

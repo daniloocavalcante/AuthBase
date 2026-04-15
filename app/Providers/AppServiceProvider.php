@@ -54,13 +54,13 @@ class AppServiceProvider extends ServiceProvider
             $this->log('REGISTER', $e->user, 'Novo usuário registrado.')
         );
 
-        Event::listen(PasswordReset::class, fn($e) =>
-            $this->log('PASSWORD_RESET', $e->user, 'Resetou a própria senha.')
-        );
+         Event::listen(PasswordReset::class, fn($e) =>
+            $this->log('PASSWORD_RESET', $e->user, 'Senha redefinida via recuperação por e-mail.')
+        ); 
 
-        /* Event::listen(Failed::class, fn($e) =>
+        Event::listen(Failed::class, fn($e) =>
             $this->log('LOGIN_FAILED', null, 'Tentativa de login inválida: ' . ($e->credentials['email'] ?? 'N/A'))
-        ); */
+        ); 
 
         Event::listen(Lockout::class, fn() =>
             $this->log('LOCKOUT', null, 'Muitas tentativas. IP: ' . request()->ip())

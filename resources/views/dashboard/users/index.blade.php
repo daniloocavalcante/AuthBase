@@ -8,14 +8,14 @@
 <div class="container">
     <div class="row justify-content-center g-3">
 
-    <div class="col-md-7">
+    <div class="col-lg-8 col-md-8">
 
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb" class="bg-dark px-3 py-2 rounded mb-3">
             <ol class="breadcrumb mb-0 small">
 
                 <li class="breadcrumb-item">
-                    <a href="{{ route('dashboard.index') }}" class="text-light text-decoration-none">
+                    <a href="{{ route('index') }}" class="text-light text-decoration-none">
                         Dashboard
                     </a>
                 </li>
@@ -108,7 +108,7 @@
                             >
 
                             <!-- Botão limpar -->
-                            <a href="{{ route('dashboard.users') }}" 
+                            <a href="{{ route('users') }}" 
                             class="btn btn-outline-secondary"
                             style="border-top-left-radius:0; border-bottom-left-radius:0;">
                             <i class="fa-solid fa-xmark"></i>
@@ -205,7 +205,7 @@
 
                             <td>   
 
-                                <a href="{{ route('dashboard.users.show', $user->id) }}" 
+                                <a href="{{ route('users.show', $user->id) }}" 
                                     class="d-flex align-items-center text-decoration-none text-dark"
                                     data-bs-toggle="tooltip"
                                     data-bs-placement="top"
@@ -254,7 +254,7 @@
 
                                         <!-- Visualizar -->
                                         <li>
-                                            <a class="dropdown-item d-flex align-items-center" href="{{ route('dashboard.users.show', $user->id) }}">
+                                            <a class="dropdown-item d-flex align-items-center" href="{{ route('users.show', $user->id) }}">
                                                 <i class="fa-solid fa-eye me-2 text-secondary"></i>
                                                 <span>Visualizar</span>
                                             </a>
@@ -306,7 +306,7 @@
     </div>
 
   
-    <div class="col-lg-4 col-md-5">
+    <div class="col-lg-4 col-md-4">
         <!-- Card Estatísticas -->
         <div class="card shadow border-0 mb-3">
 
@@ -362,7 +362,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <a href="{{ route('dashboard.users.export') }}" id="confirmExportBtn"  class="btn btn-primary">Confirmar Exportar</a>
+        <a href="{{ route('users.export') }}" id="confirmExportBtn"  class="btn btn-primary">Confirmar Exportar</a>
       </div>
 
     </div>

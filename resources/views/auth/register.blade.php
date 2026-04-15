@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row justify-content-center align-items-center" style="min-height:70vh">
 
-        <div class="col-lg-6 col-md-6">
+        <div class="col-lg-6 col-md-10">
 
             <div class="card shadow-lg border-0">
 
@@ -28,9 +28,9 @@
                         <x-alerts.messages />  
 
                         <!-- Nome / Sobrenome -->
-                        <div class="row mb-3">
+                        <div class="row">
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
                                 <label class="form-label fw-semibold">Nome</label>
 
                                 <input
@@ -43,7 +43,7 @@
                                 >
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
                                 <label class="form-label fw-semibold">Sobrenome</label>
 
                                 <input
@@ -59,9 +59,9 @@
                         </div>
 
                         <!-- Data / Gênero -->
-                        <div class="row mb-3">
+                        <div class="row">
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
                                 <label class="form-label fw-semibold">Data de nascimento</label>
 
                                 <input
@@ -74,7 +74,7 @@
                                 >
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
                                 <label class="form-label fw-semibold">Gênero</label>
 
                                 <select class="form-select form-select-md" name="gender">
@@ -121,9 +121,9 @@
                         </div>
 
                         <!-- Senhas -->
-                        <div class="row mb-3">
+                        <div class="row ">
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
 
                                 <label class="form-label fw-semibold">Senha</label>
 
@@ -152,7 +152,7 @@
                             </div>
 
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
 
                                 <label class="form-label fw-semibold">Confirmar senha</label>
 

@@ -1,27 +1,27 @@
 @extends('layouts.app')
 
 @section('title')
-{{ config('app.name', 'Laravel') }} || {{ __('Profile') }}
+{{ config('app.name', 'Laravel') }} || {{ __('Reset Password') }}
 @endsection
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center g-4">
 
-        <div class="col-md-7">
+        <div class="col-lg-8 col-md-7">
 
             <!-- Breadcrumb de Navegação -->
             <nav aria-label="breadcrumb" class="bg-dark px-3 py-2 rounded mb-2">
                 <ol class="breadcrumb mb-0 small">
 
                     <li class="breadcrumb-item">
-                        <a href="{{ route('dashboard.index') }}" class="text-light text-decoration-none">
+                        <a href="{{ route('index') }}" class="text-light text-decoration-none">
                             Dashboard
                         </a>
                     </li>
 
                     <li class="breadcrumb-item">
-                        <a href="{{ route('dashboard.profile') }}" class="text-light text-decoration-none">
+                        <a href="{{ route('profile') }}" class="text-light text-decoration-none">
                             Meu Perfil
                         </a>
                     </li>                 
@@ -43,7 +43,7 @@
                     <span class="fs-5">Alterar Senha</span>
                 </div>
 
-                <form action="{{ route('dashboard.password.update') }}" method="POST">
+                <form action="{{ route('password.update') }}" method="POST">
                     @csrf
                     @method('PUT')
 
@@ -152,7 +152,7 @@
                     <div class="card-footer bg-light d-flex align-items-center flex-wrap gap-2">
                         
                         <div class="me-auto">
-                            <a href="{{ route('dashboard.profile') }}" tabindex="-1" class="btn btn-primary btn-sm ">
+                            <a href="{{ route('profile') }}" tabindex="-1" class="btn btn-primary btn-sm ">
                                 Meu Perfil
                             </a>  
                         </div>
@@ -161,7 +161,7 @@
                         <a href="#" tabindex="-1" class="btn btn-outline-danger btn-sm " data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
                             Excluir Conta
                         </a> 
-                        <a href="{{ route('dashboard.email.edit') }}" tabindex="-1" class="btn btn-outline-secondary btn-sm">
+                        <a href="{{ route('email.edit') }}" tabindex="-1" class="btn btn-outline-secondary btn-sm">
                             Alterar E-mail
                         </a>         
 
@@ -229,7 +229,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
 
-        <form action="{{ route('dashboard.profile.destroy') }}" method="POST">
+        <form action="{{ route('profile.destroy') }}" method="POST">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-danger">Excluir Conta</button>

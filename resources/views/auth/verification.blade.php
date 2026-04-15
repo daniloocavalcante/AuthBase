@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+{{ config('app.name', 'Laravel') }} || {{ __('Verify Email Address') }}
+@endsection
+
 @section('content')
 
 
@@ -36,12 +40,12 @@
 
                 @auth
                 
-                <a href="{{ route('dashboard.index') }}" class="btn btn-primary px-4 py-2">
+                <a href="{{ route('home') }}" class="btn btn-primary px-4 py-2">
                     <i class="fa-solid fa-gauge me-2"></i>
                     Início
                 </a>  
 
-                <a href="{{ route('dashboard.profile') }}" class="btn btn-success px-4 py-2">
+                <a href="{{ route('profile') }}" class="btn btn-success px-4 py-2">
                     <i class="fa-solid fa-user me-2"></i>
                     Meu Perfil
                 </a>      

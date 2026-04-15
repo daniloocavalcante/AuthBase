@@ -38,7 +38,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="adminDropdown">
                                     <li>
-                                        <a class="dropdown-item" href="{{ route('dashboard.logs') }}">
+                                        <a class="dropdown-item" href="{{ route('logs') }}">
                                             <i class="fa-solid fa-file-lines"></i> Logs
                                         </a>
                                     </li>
@@ -71,13 +71,13 @@
 
                         @auth  
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('dashboard.index') }}">
+                                <a class="nav-link" href="{{ route('home') }}">
                                     Início
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('dashboard.users') }}">
+                                <a class="nav-link" href="{{ route('users') }}">
                                     <i class="fa-solid fa-users me-1"></i>Usuários
                                 </a>
                             </li>
@@ -91,22 +91,22 @@
 
 
                                     <!-- Perfil -->
-                                    <a class="dropdown-item" href="{{ route('dashboard.profile') }}">
+                                    <a class="dropdown-item" href="{{ route('profile') }}">
                                         <i class="fa-solid fa-user me-2"></i> Perfil
                                     </a> 
 
                                     <!-- Perfil -->
-                                    <a class="dropdown-item" href="{{ route('dashboard.profile.edit') }}">
+                                    <a class="dropdown-item" href="{{ route('profile.edit') }}">
                                         <i class="fa-solid fa-user-pen me-2"></i> Editar Perfil
                                     </a> 
 
                                     <!-- Email -->
-                                    <a class="dropdown-item" href="{{ route('dashboard.email.edit') }}">
+                                    <a class="dropdown-item" href="{{ route('email.edit') }}">
                                         <i class="fa-solid fa-envelope me-2"></i> Editar E-mail
                                     </a> 
 
                                     <!-- Alterar senha -->
-                                    <a class="dropdown-item" href="{{ route('dashboard.password.edit') }}">
+                                    <a class="dropdown-item" href="{{ route('password.edit') }}">
                                         <i class="fa-solid fa-key me-2"></i> Alterar senha
                                     </a>
 

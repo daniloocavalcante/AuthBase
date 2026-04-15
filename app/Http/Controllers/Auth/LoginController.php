@@ -48,9 +48,9 @@ class LoginController extends Controller
         $user->last_login = Carbon::now();
         $user->save();
 
-        session(['previous_login' => $previousLogin]);
+        //session(['previous_login' => $previousLogin]);
 
-        return redirect()->route('dashboard.index')->with('success_name', Auth::user()->name);
+        return redirect()->route('home')->with('success_name', Auth::user()->name);
 
     }
 

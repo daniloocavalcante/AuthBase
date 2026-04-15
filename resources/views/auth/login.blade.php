@@ -9,7 +9,7 @@
 <div class="container">
     <div class="row justify-content-center align-items-center" style="min-height:70vh">
 
-        <div class="col-lg-4 col-md-5">
+        <div class="col-lg-4 col-md-7">
 
             <div class="card shadow-lg border-0">
 
@@ -36,7 +36,7 @@
 
                             <input id="email"
                                    type="email"
-                                   class="form-control form-control-md @error('email') is-invalid @enderror"
+                                   class="form-control form-control-md"
                                    name="email"
                                    value="{{ old('email') }}"
                                    required                                   

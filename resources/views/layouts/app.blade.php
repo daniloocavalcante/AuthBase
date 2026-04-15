@@ -31,7 +31,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        @auth  
+                        @can('admin') 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button"
                                     title="Acesso administrador"
@@ -40,16 +40,28 @@
                                     <i class="fa-solid fa-gear"></i> Administração
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                                    @can('admin.dashboard') 
                                     <li>
-                                        <a class="dropdown-item" href="{{ route('dashboard.logs') }}"
+                                        <a class="dropdown-item" href="{{ route('admin.dashboard') }}"
+                                            title="Painel administativo"
+                                            placeholder="Painel administativo">
+                                            <i class="fa-solid fa-tools"></i> Dashboard
+                                        </a>
+                                    </li>
+                                    @endcan
+
+                                    @can('logs.show') 
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('logs') }}"
                                             title="Logs do sistema"
                                             placeholder="Logs do sistema">
                                             <i class="fa-solid fa-file-lines"></i> Logs
                                         </a>
                                     </li>
+                                    @endcan
                                 </ul>
                             </li>       
-                        @endauth                
+                        @endcan                
 
                     </ul>
 
@@ -76,7 +88,7 @@
 
                         @auth  
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('dashboard.index') }}"
+                                <a class="nav-link" href="{{ route('home') }}"
                                     title="Página inicial"
                                     placeholder="Página inicial">
                                     Início
@@ -84,7 +96,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a  class="nav-link" href="{{ route('dashboard.users') }}"
+                                <a  class="nav-link" href="{{ route('users') }}"
                                     title="Tabela usuários"
                                     placeholder="Tabela usuários">
                                     <i class="fa-solid fa-users me-1"></i>Usuários
@@ -106,28 +118,28 @@
 
 
                                     <!-- Perfil -->
-                                    <a class="dropdown-item" href="{{ route('dashboard.profile') }}"
+                                    <a class="dropdown-item" href="{{ route('profile') }}"
                                         title="Meu perfil"
                                         placeholder="Meu Perfil">   
                                         <i class="fa-solid fa-user me-2"></i> Perfil
                                     </a> 
 
                                     <!-- Perfil -->
-                                    <a class="dropdown-item" href="{{ route('dashboard.profile.edit') }}"
+                                    <a class="dropdown-item" href="{{ route('profile.edit') }}"
                                         title="Editar meu perfil"
                                         placeholder="Editar meu perfil">  
                                         <i class="fa-solid fa-user-pen me-2"></i> Editar Perfil
                                     </a> 
 
                                     <!-- Email -->
-                                    <a class="dropdown-item" href="{{ route('dashboard.email.edit') }}"
+                                    <a class="dropdown-item" href="{{ route('email.edit') }}"
                                         title="Editar e-mail"
                                         placeholder="Editar e-mail">  
                                         <i class="fa-solid fa-envelope me-2"></i> Editar E-mail
                                     </a> 
 
                                     <!-- Alterar senha -->
-                                    <a class="dropdown-item" href="{{ route('dashboard.password.edit') }}"
+                                    <a class="dropdown-item" href="{{ route('password.edit') }}"
                                         title="Editar minha senha"
                                         placeholder="Editar minha senha">  
                                         <i class="fa-solid fa-key me-2"></i> Alterar senha

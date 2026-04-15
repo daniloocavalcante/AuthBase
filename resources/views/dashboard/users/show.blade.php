@@ -8,20 +8,20 @@
 <div class="container">
     
     <div class="row justify-content-center g-3">
-        <div class="col-md-7">
+        <div class="col-lg-8 col-md-8">
             
             <!-- Breadcrumb de Navegação -->
             <nav aria-label="breadcrumb" class="bg-dark px-3 py-2 rounded mb-2">
                 <ol class="breadcrumb mb-0 small">
 
                     <li class="breadcrumb-item">
-                        <a href="{{ route('dashboard.index') }}" class="text-light text-decoration-none">
+                        <a href="{{ route('index') }}" class="text-light text-decoration-none">
                             Dashboard
                         </a>
                     </li>
 
                     <li class="breadcrumb-item">
-                        <a href="{{ route('dashboard.users') }}" class="text-light text-decoration-none">
+                        <a href="{{ route('users') }}" class="text-light text-decoration-none">
                             Usuários
                         </a>
                     </li>
@@ -80,8 +80,8 @@
                             <!-- Badge -->
                                                         
                             <div class="mb-3">
-                                    <span class="badge bg-{{ $user->privilege->badge_color }} fs-6 rounded-pill" >
-                                        {{ ucfirst($user->privilege->name) }}
+                                    <span class="badge bg-primary fs-6 rounded-pill" >
+                                        editar isso
                                     </span>
                             </div>
 
@@ -152,7 +152,7 @@
 
                 <div class="card-footer bg-light d-flex justify-content-end gap-2 flex-wrap">
 
-                    <a href="{{ route('dashboard.users') }}" class="btn btn-outline-primary btn-sm">
+                    <a href="{{ route('users') }}" class="btn btn-outline-primary btn-sm">
                         Tabela Usuários
                     </a>
 
@@ -170,7 +170,7 @@
 
         <!-- Card guia rápido -->
 
-        <div class="col-lg-4 col-md-5 d-print-none">
+        <div class="col-lg-4 col-md-4 d-print-none">
             <x-dashboard.quick-guide-card />
         </div>
 

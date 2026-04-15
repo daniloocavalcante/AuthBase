@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-{{ config('app.name', 'Laravel') }} || {{ __('Profile') }}
+{{ config('app.name', 'Laravel') }} || {{ __('Edit Profile') }}
 @endsection
 
 @section('content')
@@ -9,20 +9,20 @@
     
     <div class="row justify-content-center g-3">
 
-        <div class="col-md-7">            
+        <div class="col-lg-8 col-md-7">            
 
             <!-- Breadcrumb de Navegação -->
             <nav aria-label="breadcrumb" class="bg-dark px-3 py-2 rounded mb-2">
                 <ol class="breadcrumb mb-0 small">
 
                     <li class="breadcrumb-item">
-                        <a href="{{ route('dashboard.index') }}" class="text-light text-decoration-none">
+                        <a href="{{ route('index') }}" class="text-light text-decoration-none">
                             Dashboard
                         </a>
                     </li>
 
                     <li class="breadcrumb-item">
-                        <a href="{{ route('dashboard.profile') }}" class="text-light text-decoration-none">
+                        <a href="{{ route('profile') }}" class="text-light text-decoration-none">
                             Meu Perfil
                         </a>
                     </li>
@@ -39,14 +39,14 @@
             <x-alerts.messages />
 
 
-            <div class="card shadow-lg border-0 mb-2">
+            <div class="card shadow-lg border-0 mb-3">
 
                 <!-- Header -->
                 <div class="card-header bg-dark text-white d-flex align-items-center justify-content-between">
                     <span class="fs-5">Editar Perfil</span>
                 </div>
 
-                <form action="{{ route('dashboard.profile.update') }}" method="POST">
+                <form action="{{ route('profile.update') }}" method="POST">
                     @csrf
                     @method('PUT')                    
 
@@ -64,8 +64,8 @@
                                 <!-- Badge -->
                                                             
                                 <div class="mb-3">
-                                        <span class="badge bg-{{ $user->privilege->badge_color }} fs-6 rounded-pill" >
-                                            {{ ucfirst($user->privilege->name) }}
+                                        <span class="badge bg-primary fs-6 rounded-pill" >
+                                            editar isso
                                         </span>
                                 </div>
 
@@ -142,16 +142,16 @@
                     <div class="card-footer bg-light d-flex justify-content-end gap-2 flex-wrap">
 
                         <div class="me-auto">
-                            <a href="{{ route('dashboard.profile') }}" tabindex="-1" class="btn btn-primary btn-sm ">
+                            <a href="{{ route('profile') }}" tabindex="-1" class="btn btn-primary btn-sm ">
                                 Meu Perfil
                             </a> 
                         </div>
 
-                        <a href="{{ route('dashboard.email.edit') }}" tabindex="-1" class="btn btn-outline-secondary btn-sm">
+                        <a href="{{ route('email.edit') }}" tabindex="-1" class="btn btn-outline-secondary btn-sm">
                             Alterar E-mail
                         </a>
 
-                        <a href="{{ route('dashboard.password.edit') }}" tabindex="-1" class="btn btn-outline-dark btn-sm">
+                        <a href="{{ route('password.edit') }}" tabindex="-1" class="btn btn-outline-dark btn-sm">
                             Alterar Senha
                         </a>
 
@@ -172,7 +172,7 @@
                     <span class="fs-5">Minhas Atividades</span>
                 </div>
 
-                <div class="card-body">
+                <div class="card-body p-1">
 
                     <div class="table-responsive">
                         <table class="table table-sm table-hover align-middle">
@@ -223,6 +223,7 @@
 
                 <!-- Footer -->
                 <div class="card-footer bg-light d-flex justify-content-between align-items-center flex-wrap">
+                    
                     <!-- Info -->
                     <small class="text-muted">
                         Mostrando {{ $logs->firstItem() ?? 0 }} até {{ $logs->lastItem() ?? 0 }} de {{ $logs->total() }} logs

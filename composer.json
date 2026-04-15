@@ -11,7 +11,7 @@
         "laravel/tinker": "^2.10.1",
         "laravel/ui": "^4.6",
         "lucascudo/laravel-pt-br-localization": "^3.0",
-        "spatie/laravel-permission": "^6.21"
+        "spatie/laravel-permission": "^6.25"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.7",

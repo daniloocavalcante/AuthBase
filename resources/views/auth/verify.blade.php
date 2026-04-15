@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+{{ config('app.name', 'Laravel') }} || {{ __('Email Verified') }}
+@endsection
+
 @section('content')
 
 <div class="container d-flex align-items-center justify-content-center p-5">

@@ -26,16 +26,16 @@
                         Gerencie seu perfil, atualize sua senha e explore a tabela de usuários.
                     </p>
                     <div class="d-flex justify-content-center gap-3 flex-wrap">
-                        <a href="{{ route('dashboard.profile.edit') }}" class="btn btn-success fw-bold shadow-sm">
+                        <a href="{{ route('profile.edit') }}" class="btn btn-success fw-bold shadow-sm">
                             <i class="fa-solid fa-user me-2"></i> Editar perfil
                         </a>
-                        <a href="{{ route('dashboard.users') }}" class="btn btn-info text-white fw-bold shadow-sm">
+                        <a href="{{ route('users') }}" class="btn btn-info text-white fw-bold shadow-sm">
                             <i class="fa-solid fa-table me-2"></i> Tabela de usuários
                         </a>
                     </div>
                 </div>
                 <div class="card-footer text-muted bg-white border-0">
-                    Último login: {{ session('previous_login') ? session('previous_login')->diffForHumans() : 'Primeiro acesso' }}
+                    Último login: {{ $user->last_login?->diffForHumans() ?? 'Agora há pouco' }}
                 </div>
             </div>
 

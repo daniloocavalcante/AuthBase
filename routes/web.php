@@ -81,42 +81,72 @@ Route::get('/teste-email', function () {
 */
 
 Route::middleware('auth')
-    ->name('dashboard.')
     ->group(function () {
-
-        Route::get('/home', [DashboardController::class, 'index'])->name('index');
+        Route::get('/home', [DashboardController::class, 'index'])
+            ->name('home');
 
         // Perfil
-        Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
+        Route::get('/profile', [DashboardController::class, 'profile'])
+            ->middleware('permission:profile')
+            ->name('profile');
 
-        Route::get('/profile/edit', [DashboardController::class, 'edit'])->name('profile.edit');
-        Route::put('/profile', [DashboardController::class, 'update'])->name('profile.update');        
-        Route::delete('/profile', [DashboardController::class, 'destroy'])->name('profile.destroy');
-        
-        // E-mail
-        Route::get('/email', [DashboardController::class, 'email'])->name('email.edit');
-        Route::put('/email', [DashboardController::class, 'email_update'])->name('email.update');
+        Route::get('/profile/edit', [DashboardController::class, 'edit'])
+            ->middleware('permission:profile.edit')
+            ->name('profile.edit');
+
+        Route::put('/profile', [DashboardController::class, 'update'])
+            ->middleware('permission:profile.edit')
+            ->name('profile.update');
+
+        Route::delete('/profile', [DashboardController::class, 'destroy'])
+            ->middleware('permission:profile.delete')
+            ->name('profile.destroy');
+
+        // Email
+        Route::get('/email', [DashboardController::class, 'email'])
+            ->middleware('permission:profile.email')
+            ->name('email.edit');
+
+        Route::put('/email', [DashboardController::class, 'email_update'])
+            ->middleware('permission:profile.email')
+            ->name('email.update');
 
         // Senha
-        Route::get('/password', [DashboardController::class, 'password'])->name('password.edit');
-        Route::put('/password', [DashboardController::class, 'password_update'])->name('password.update');
+        Route::get('/password', [DashboardController::class, 'password'])
+            ->middleware('permission:profile.password')
+            ->name('password.edit');
+
+        Route::put('/password', [DashboardController::class, 'password_update'])
+            ->middleware('permission:profile.password')
+            ->name('password.update');
 
         // Usuários
-        Route::get('/users', [DashboardController::class, 'users'])->name('users');
-        Route::get('/users/exportar', [DashboardController::class, 'export'])->name('users.export');
+        Route::get('/users', [DashboardController::class, 'users'])
+            ->middleware('permission:users')
+            ->name('users');
 
-        Route::get('/users/{id}', [DashboardController::class, 'show'])->name('users.show');
+        Route::get('/users/exportar', [DashboardController::class, 'export'])
+            ->middleware('permission:users.export')
+            ->name('users.export');
 
-        //Logs
-        Route::get('/logs', [DashboardController::class, 'logs'])->name('logs');
-        Route::get('/logs/exportar', [DashboardController::class, 'export_logs'])->name('logs.export');
+        Route::get('/users/{id}', [DashboardController::class, 'show'])
+            ->middleware('permission:users.show')
+            ->name('users.show');
 
-        //Route::get('/admin/permissions', [DashboardController::class, 'permissions'])->name('admin.permissions');
-        //Route::get('/admin/permissions', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
-        //Route::get('/admin/logs', [DashboardController::class, 'dashboard'])->name('admin.logs');
+        Route::get('/admin/dashboard', [DashboardController::class, 'dashboard'])
+            ->middleware('permission:logs.show')
+            ->name('admin.dashboard');
 
+        // Logs (admin)
+        Route::get('/admin/logs', [DashboardController::class, 'logs'])
+            ->middleware('permission:admin.dashboard')
+            ->name('logs');
 
-});
+        Route::get('/admin/logs/exportar', [DashboardController::class, 'export_logs'])
+            ->middleware('permission:logs.export')
+            ->name('logs.export');
+
+    });
 
 Route::fallback(function () {
     auth()->shouldUse('web');

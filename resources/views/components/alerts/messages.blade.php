@@ -1,10 +1,10 @@
 @if($errors->any())
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <ul class="mb-0">
+
             @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
+                {{ $error }}
             @endforeach
-        </ul>
+
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
     </div>
     
@@ -31,6 +31,15 @@
     </div>
 @endif
 
+@if(session('status'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('status') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+    </div>
+@endif
+
+
+
 
 
 <!-- Mensagens Automáticas -->
@@ -46,7 +55,7 @@
 @auth
 
     @if (!auth()->user()->hasVerifiedEmail() && 
-        in_array(Route::currentRouteName(), ['dashboard.index', 'dashboard.profile']))
+        in_array(Route::currentRouteName(), ['index', 'profile']))
     <div class="alert border-warning bg-warning-subtle d-flex align-items-center justify-content-between">
 
         <div class="d-flex align-items-center gap-2">

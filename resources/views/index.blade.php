@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+{{ config('app.name', 'Laravel') }} || {{ __('Home') }}
+@endsection
+
 @section('content')
 
 <div class="container mt-4">
