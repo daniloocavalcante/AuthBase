@@ -4,6 +4,12 @@ Projeto base para **controle de acesso e gerenciamento de usuários** usando Lar
 
 ---
 
+## Preview   
+
+![Logo](./public/images/image.png)
+
+---
+
 ## Requisitos
 
 - PHP 8.0+ (verifique a versão compatível com sua versão do Laravel)
@@ -28,12 +34,6 @@ cd nome-do-repositorio
 Veja as instruções completas no arquivo:
 
 [INSTALL.md](./INSTALL.md)
-
----
-
-## Preview   
-
-![Logo](./public/images/image.png)
 
 ---
 
