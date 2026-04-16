@@ -11,7 +11,11 @@ class UserObserver
      * Handle the User "created" event.
      */
     public function created(User $user): void
-    {
+    { /*    
+
+        DISPARANDO JUNTO COM REGISTRED
+
+        
         if (
             app()->runningInConsole() ||
             (request()->route() && request()->routeIs('register'))
@@ -25,7 +29,7 @@ class UserObserver
             ? "Usuário criado por {$creator->name}."
             : "Usuário criado via sistema.";
 
-        app_log('USER_CREATED', $user, $desc);
+        app_log('USER_CREATED', $user, $desc); */ 
     }
 
 

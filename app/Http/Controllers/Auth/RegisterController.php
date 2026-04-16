@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Support\Facades\Auth; 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Auth\Events\Registered;
 use Carbon\Carbon;
 use App\Http\Requests\RegisterUserRequest;
 
@@ -22,8 +22,7 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
-    use RegistersUsers;
+use RegistersUsers;
 
     /**
      * Where to redirect users after registration.
@@ -52,7 +51,14 @@ class RegisterController extends Controller
 
     public function store(RegisterUserRequest $request)
     {
-        return $this->create($request->validated());
+        $user = $this->create($request->validated()); 
+        
+        event(new Registered($user));
+        
+        Auth::login($user);
+
+        return redirect($this->redirectPath())->with('success_name', Auth::user()->name);
+
     }
 
     /**
@@ -62,8 +68,8 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {
-        
+    {       
+
         $user = User::create([
             'name'       => $data['name'],
             'surname'    => $data['surname'],

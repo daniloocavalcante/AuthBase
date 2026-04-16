@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +36,7 @@ Route::middleware('guest')->group(function () {
     // Registro
     Route::controller(RegisterController::class)->group(function () {
         Route::get('/register', 'showRegistrationForm')->name('register');
-        Route::post('/register', 'register');
+        Route::post('/register', 'store');
     });
 
     // Recuperação de senha
@@ -129,16 +131,18 @@ Route::middleware('auth')
             ->middleware('permission:users.show')
             ->name('users.show');
 
-        Route::get('/admin/dashboard', [DashboardController::class, 'dashboard'])
+        //Acesso Administrativo
+
+        Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
             ->middleware('permission:logs.show')
             ->name('admin.dashboard');
 
         // Logs (admin)
-        Route::get('/admin/logs', [DashboardController::class, 'logs'])
+        Route::get('/admin/logs', [AdminController::class, 'logs'])
             ->middleware('permission:admin.dashboard')
             ->name('logs');
 
-        Route::get('/admin/logs/exportar', [DashboardController::class, 'export_logs'])
+        Route::get('/admin/logs/exportar', [AdminController::class, 'export_logs'])
             ->middleware('permission:logs.export')
             ->name('logs.export');
 

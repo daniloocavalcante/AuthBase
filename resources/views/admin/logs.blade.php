@@ -21,8 +21,8 @@
                     </li>
 
                     <li class="breadcrumb-item">
-                        <a href="#" class="text-light text-decoration-none">
-                            Administração
+                        <a href="{{ route('admin.dashboard') }}" class="text-light text-decoration-none">
+                            Painel Administrativo
                         </a>
                     </li>
 

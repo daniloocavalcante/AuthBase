@@ -2,20 +2,21 @@
 
 import 'bootstrap';
 
+
 // Definir bootstrap globalmente
 import * as bootstrap from 'bootstrap';
 window.bootstrap = bootstrap;
 
-/** jQuery (required for DataTables) */
+/** jQuery */
 
 import $ from 'jquery';
 window.$ = $;
 window.jQuery = $;
 
 
-/** DataTables Bootstrap 5 */
+// Fontawesome-free
+import '@fortawesome/fontawesome-free/css/all.min.css'
 
-import 'datatables.net-bs5';    
 
 /** Bootstrap JS Components */
 
@@ -34,14 +35,19 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-/** DataTables */
+/** DataTables 
+import $ from 'jquery';
+window.$ = $;
+window.jQuery = $;
+
+import 'datatables.net-bs5';  
 
 $(document).ready(function () {
     $('#usersTable').DataTable({
         pageLength: 10,
 
     });
-});
+}); */
 
 
 /** Charts.js */

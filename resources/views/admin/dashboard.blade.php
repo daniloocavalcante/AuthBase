@@ -23,14 +23,8 @@
                     </a>
                 </li>
 
-                <li class="breadcrumb-item">
-                    <a href="#" class="text-light text-decoration-none">
-                        Administração
-                    </a>
-                </li>
-
                 <li class="breadcrumb-item active text-light opacity-75" aria-current="page">
-                    Logs
+                    Painel Administrativo
                 </li>
                 
             </ol>
