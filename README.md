@@ -20,15 +20,6 @@ Projeto base para **controle de acesso e gerenciamento de usuários** usando Lar
 
 ---
 
-## Clonar o repositório
-
-```bash
-# clone o repositório (cole a URL do seu repo)
-git clone <URL_DO_SEU_REPOSITORIO>
-cd nome-do-repositorio
-```
----
-
 ## Instalação 
 
 Veja as instruções completas no arquivo:
