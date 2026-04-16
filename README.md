@@ -31,6 +31,12 @@ Veja as instruções completas no arquivo:
 
 ---
 
+## Preview   
+
+![Logo](./public/images/image.png)
+
+---
+
 ## Desenvolvido por
 
 Desenvolvido por Danilo Cavalcante
