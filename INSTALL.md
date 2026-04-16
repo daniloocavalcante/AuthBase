@@ -1,3 +1,12 @@
+## Clonar o repositório
+
+```bash
+# clone o repositório (cole a URL da repo)
+git clone <URL_DO_SEU_REPOSITORIO>
+cd nome-do-repositorio
+```
+---
+
 ## Instalação (passo-a-passo)
 
 1. **Instalar dependências PHP via Composer**
