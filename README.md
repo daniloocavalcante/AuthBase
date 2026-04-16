@@ -4,6 +4,12 @@ Projeto base para **controle de acesso e gerenciamento de usuários** usando Lar
 
 ---
 
+## Preview   
+
+![Logo](./public/images/image.png)
+
+---
+
 ## Requisitos
 
 - PHP 8.0+ (verifique a versão compatível com sua versão do Laravel)
@@ -14,26 +20,11 @@ Projeto base para **controle de acesso e gerenciamento de usuários** usando Lar
 
 ---
 
-## Clonar o repositório
-
-```bash
-# clone o repositório (cole a URL do seu repo)
-git clone <URL_DO_SEU_REPOSITORIO>
-cd nome-do-repositorio
-```
----
-
 ## Instalação 
 
 Veja as instruções completas no arquivo:
 
 [INSTALL.md](./INSTALL.md)
-
----
-
-## Preview   
-
-![Logo](./public/images/image.png)
 
 ---
 
