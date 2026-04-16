@@ -55,7 +55,7 @@
 @auth
 
     @if (!auth()->user()->hasVerifiedEmail() && 
-        in_array(Route::currentRouteName(), ['index', 'profile']))
+        in_array(Route::currentRouteName(), ['home', 'profile']))
     <div class="alert border-warning bg-warning-subtle d-flex align-items-center justify-content-between">
 
         <div class="d-flex align-items-center gap-2">

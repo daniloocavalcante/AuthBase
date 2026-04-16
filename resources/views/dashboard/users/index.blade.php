@@ -67,13 +67,15 @@
                     <div class="d-flex gap-2">
 
                         <!-- Exportar -->
-                        <a class="btn btn-sm btn-outline-dark"
-                              data-bs-toggle="modal"
-                            data-bs-target="#exportCsvModal"
-                            title="Exportar dados .CSV"
-                            placeholder="Exportar dados .CSV">
-                            <i class="fa-solid fa-download me-1"></i> Exportar
-                        </a>
+                        @can('users.export')
+                            <a class="btn btn-sm btn-outline-dark"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exportCsvModal"
+                                title="Exportar dados .CSV"
+                                placeholder="Exportar dados .CSV">
+                                <i class="fa-solid fa-download me-1"></i> Exportar
+                            </a>
+                        @endcan
 
                         <!-- Imprimir -->
                         <button id="btn-print" class="btn btn-sm btn-outline-dark"
@@ -345,29 +347,30 @@
 </div>
 
 
+@can('users.export')
+    <!-- Modal de confirmação -->
+    <div class="modal fade" id="exportCsvModal" tabindex="-1" aria-labelledby="exportCsvModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
 
-<!-- Modal de confirmação -->
-<div class="modal fade" id="exportCsvModal" tabindex="-1" aria-labelledby="exportCsvModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exportCsvModalLabel">Confirmar Exportação</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
 
-      <div class="modal-header">
-        <h5 class="modal-title" id="exportCsvModalLabel">Confirmar Exportação</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-      </div>
+        <div class="modal-body">
+            Você tem certeza que deseja exportar os dados dos usuários para CSV?
+        </div>
 
-      <div class="modal-body">
-        Você tem certeza que deseja exportar os dados dos usuários para CSV?
-      </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <a href="{{ route('users.export') }}" id="confirmExportBtn"  class="btn btn-primary">Confirmar Exportar</a>
+        </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <a href="{{ route('users.export') }}" id="confirmExportBtn"  class="btn btn-primary">Confirmar Exportar</a>
-      </div>
-
+        </div>
     </div>
-  </div>
-</div>
+    </div>
+@endcan
 
 
 

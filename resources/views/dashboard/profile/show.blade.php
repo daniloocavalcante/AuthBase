@@ -68,19 +68,19 @@
                                 class="img-fluid rounded-circle shadow mb-3"
                                 style="width:120px;height:120px;object-fit:cover;">
 
-                            <!-- Badge -->
-                                                        
-                            <div class="mb-3">
-                                    <span class="badge bg-primary fs-6 rounded-pill" >
-                                        editar isso
-                                    </span>
-                            </div>
 
                             <h5 class="mb-0">{{ $user->name }} {{ $user->surname }}</h5>
 
-                            <small class="text-muted">
-                                Usuário desde {{ $user->created_at->format('d/m/Y') }}
-                            </small>
+                            <!-- Badge -->                                                        
+                            <div class="py-2">
+                                    @php
+                                        $role = $user->getRoleNames()->first();
+                                        $badge = getUserBadge($role);
+                                    @endphp
+                                    <span class="badge {{ $badge['class'] }} fs-6 rounded-pill" >
+                                        {{ $badge['text'] }}
+                                    </span>
+                            </div>
 
                         </div>
 

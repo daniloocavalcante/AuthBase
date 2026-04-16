@@ -23,28 +23,31 @@ Route::view('/about', 'about')->name('about');
 |--------------------------------------------------------------------------
 */
 
-// Login
-Route::controller(LoginController::class)->group(function () {
-    Route::get('/login', 'showLoginForm')->name('login');
-    Route::post('/login', 'login');
-    Route::post('/logout', 'logout')->name('logout');
-});
+Route::middleware('guest')->group(function () {
+    
+    // Login
+    Route::controller(LoginController::class)->group(function () {
+        Route::get('/login', 'showLoginForm')->name('login');
+        Route::post('/login', 'login');        
+    });
 
-// Registro
-Route::controller(RegisterController::class)->group(function () {
-    Route::get('/register', 'showRegistrationForm')->name('register');
-    Route::post('/register', 'register');
-});
+    // Registro
+    Route::controller(RegisterController::class)->group(function () {
+        Route::get('/register', 'showRegistrationForm')->name('register');
+        Route::post('/register', 'register');
+    });
 
-// Recuperação de senha
-Route::controller(ForgotPasswordController::class)->group(function () {
-    Route::get('/password/reset', 'showLinkRequestForm')->name('password.request');
-    Route::post('/password/email', 'sendResetLinkEmail')->name('password.email');
-});
+    // Recuperação de senha
+    Route::controller(ForgotPasswordController::class)->group(function () {
+        Route::get('/password/reset', 'showLinkRequestForm')->name('password.request');
+        Route::post('/password/email', 'sendResetLinkEmail')->name('password.email');
+    });
 
-Route::controller(ResetPasswordController::class)->group(function () {
-    Route::get('/password/reset/{token}', 'showResetForm')->name('password.reset');
-    Route::post('/password/reset', 'reset')->name('password.update');
+    Route::controller(ResetPasswordController::class)->group(function () {
+        Route::get('/password/reset/{token}', 'showResetForm')->name('password.reset');
+        Route::post('/password/reset', 'reset')->name('password.update');
+    });
+
 });
 
 
@@ -65,15 +68,6 @@ Route::controller(VerificationController::class)->group(function () {
 });
 
 
-Route::get('/teste-email', function () {
-    Mail::raw('Teste de e-mail funcionando!', function ($message) {
-        $message->to('teste@email.com')
-                ->subject('Teste Laravel Mailpit');
-    });
-
-    return 'Email enviado!';
-});
-
 /*
 |--------------------------------------------------------------------------
 | Dashboard (Área autenticada)
@@ -86,6 +80,8 @@ Route::middleware('auth')
             ->name('home');
 
         // Perfil
+        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
         Route::get('/profile', [DashboardController::class, 'profile'])
             ->middleware('permission:profile')
             ->name('profile');

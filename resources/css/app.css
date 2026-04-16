@@ -1,12 +1,53 @@
-@import 'tailwindcss';
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
-
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+.breadcrumb-item + .breadcrumb-item::before {
+    content: " > " !important;
+    color: white;
 }
 
+
+.sort-icons {
+    display: flex;
+    flex-direction: column;   /* coloca uma em cima da outra */
+    font-size: 0.6rem;        /* tamanho pequeno */
+    line-height: 0.6rem;
+    color: #adb5bd;           /* cinza claro */
+}
+
+.sort-icons .active {
+    color: #495057;           /* cinza escuro quando ativo */
+}
+
+.dropdown-item:hover {
+    background-color: #e2e6ea;
+    padding-left: 20px;
+    transition: 0.2s;
+}
+
+
+.gradient-line {
+        width: 80px;
+        height: 4px;
+        border-radius: 2px;
+        background: linear-gradient(90deg, #000, #666);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .gradient-line {
+            background: linear-gradient(90deg, #fff, #aaa);
+        }
+    }
+
+    .animate-error {
+        animation: fadeScale 0.5s ease;
+    }
+
+    @keyframes fadeScale {
+        from {
+            opacity: 0;
+            transform: scale(0.95) translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }

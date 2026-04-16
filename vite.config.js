@@ -20,6 +20,13 @@ export default defineConfig({
             },
         }),
     ],
+    css: {
+        preprocessorOptions: {
+            scss: {
+                quietDeps: true
+            }
+        }
+    },
     resolve: {
         alias: {
             vue: 'vue/dist/vue.esm-bundler.js',

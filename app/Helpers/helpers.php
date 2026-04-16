@@ -61,6 +61,12 @@ if (!function_exists('getLogBadge')) {
                 'text' => 'Cadastro',
             ],
 
+            'PASSWORD_RESET_REQUEST' => [
+            'class' => 'bg-warning text-dark',
+            'icon' => 'fas fa-key',
+            'text' => 'Recuperação',
+            ],
+
             'PASSWORD_RESET' => [
                 'class' => 'bg-warning text-dark',
                 'icon' => 'fas fa-key',
@@ -139,3 +145,27 @@ if (!function_exists('getLogBadge')) {
         };
     }
 }
+
+
+if (!function_exists('getUserBadge')) {
+    function getUserBadge($role)
+    {
+        return match ($role) {
+            'admin' => [
+                'text' => 'Administrador',
+                'label' => 'Adm',
+                'class' => 'text-bg-dark',
+            ],
+            'user' => [
+                'text' => 'Usuário Comum',
+                'label' => 'User',
+                'class' => 'bg-primary',
+            ],
+            default => [
+                'text' => ucfirst($role),
+                'label' => strtolower(substr($role, 0, 4)),
+                'class' => 'bg-secondary',
+            ],
+        };
+    }
+}  
