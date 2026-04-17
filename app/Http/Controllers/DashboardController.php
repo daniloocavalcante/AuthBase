@@ -21,7 +21,7 @@ class DashboardController extends Controller
     protected function viewWithUser($view, $data = [])
     {
         // pega o usuário logado no momento da chamada
-        $user = Auth::user()->load('privilege'); // carrega relacionamentos que precisar
+        $user = Auth::user(); // carrega relacionamentos que precisar
         return view($view, array_merge($data, ['user' => $user]));
     }
 

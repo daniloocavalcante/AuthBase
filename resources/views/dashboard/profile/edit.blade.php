@@ -125,15 +125,11 @@
                                     </label>
                                     <div class="col-7">
                                         <select name="gender" class="form-select form-select-sm">
-                                            <option value="Masculino" {{ $user->gender == 'Masculino' ? 'selected' : '' }}>
-                                                Masculino
-                                            </option>
-                                            <option value="Feminino" {{ $user->gender == 'Feminino' ? 'selected' : '' }}>
-                                                Feminino
-                                            </option>
-                                            <option value="Outro" {{ $user->gender == 'Outro' ? 'selected' : '' }}>
-                                                Outro
-                                            </option>
+                                            @foreach(\App\Enums\Gender::options() as $value => $label)
+                                                <option value="{{ $value }}">
+                                                    {{ $label }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

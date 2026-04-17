@@ -130,7 +130,11 @@ if (!function_exists('getLogBadge')) {
                 'icon' => 'fas fa-file-export',
                 'text' => 'Exportação',
             ],
-
+            'EXPORT_LOG' => [
+                'class' => 'bg-primary',
+                'icon' => 'fa fa-save',
+                'text' => 'Exportação',
+            ],
             'ERROR' => [
                 'class' => 'bg-danger',
                 'icon' => 'fas fa-exclamation-triangle',

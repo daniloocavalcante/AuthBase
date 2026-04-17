@@ -131,7 +131,7 @@
                                     <i class="fa-solid fa-venus-mars me-1"></i>
                                     Gênero
                                 </label>
-                                <div class="col-6 fw-semibold">{{ $user->gender }}</div>
+                                <div class="col-6 fw-semibold">{{ $user->gender_label }}</div>
                             </div>
 
                             <div class="row mb-3">

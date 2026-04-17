@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Gender;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -84,15 +85,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'gender' => Gender::class,
             'birth' => 'date',
             'last_login' => 'datetime',
         ];
     }
-
-    public function privilege(){
-        return $this->belongsTo(Privilege::class);
+    
+    public function getGenderLabelAttribute(): string
+    {
+        return $this->gender?->label() ?? '-';
     }
-
         
 }
 

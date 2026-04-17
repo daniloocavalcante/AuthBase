@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Requests;
-use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum;
+use App\Enums\Gender;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateUserRequest extends FormRequest
@@ -26,7 +27,7 @@ class UpdateUserRequest extends FormRequest
             'name' => 'required|string|max:255|min:3',
             'surname' => 'required|string|max:255|min:3',            
             'birth' => 'required|date|before:today',
-            'gender' => 'required|max:50|in:Masculino,Feminino,Outro',
+            'gender' => ['required', 'string','max:50', new Enum(Gender::class)],
 
         ];
     }

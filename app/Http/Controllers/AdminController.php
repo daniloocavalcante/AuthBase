@@ -248,4 +248,18 @@ class AdminController extends Controller
             'data'     
             ));
     }
+
+    public function download()
+    {
+        $path = storage_path('logs/laravel.log');
+
+        if (!file_exists($path)) {
+            abort(404, 'Arquivo de log não encontrado.');
+        }
+
+        app_log('EXPORT_LOG', null, 'Download do arquivo de log do sistema (laravel.log)');
+        return response()->download($path, 'laravel.log');
+    }
+
+
 }

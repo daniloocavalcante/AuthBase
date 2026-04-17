@@ -137,6 +137,10 @@ Route::middleware('auth')
             ->middleware('permission:logs.show')
             ->name('admin.dashboard');
 
+        Route::get('/logs/download', [AdminController::class, 'download'])
+        ->middleware('permission:logs.show')
+        ->name('logs.download');
+
         // Logs (admin)
         Route::get('/admin/logs', [AdminController::class, 'logs'])
             ->middleware('permission:admin.dashboard')

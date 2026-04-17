@@ -38,7 +38,8 @@ class UserObserver
      */
 
     public function updated(User $user): void
-    {
+    {        
+
         if (app()->runningInConsole()) {
             return;
         }
@@ -91,12 +92,19 @@ class UserObserver
         // ------------------------
         // Log genérico para outros campos
         // ------------------------
-        $fields = [];
+        $normalize = fn($value) => $value instanceof \UnitEnum
+            ? $value->value
+            : ($value ?? '-');
+
         foreach ($changes as $field => $newValue) {
+
             if (in_array($field, ['last_login', 'updated_at','email_verified_at', 'remember_token', 'password'])) {
                 continue;
             }
-            $oldValue = $original[$field] ?? null;
+
+            $oldValue = $normalize($original[$field] ?? null);
+            $newValue = $normalize($newValue);
+
             $fields[] = "{$field}: '{$oldValue}' → '{$newValue}'";
         }
 

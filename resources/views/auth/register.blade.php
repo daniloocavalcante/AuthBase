@@ -77,19 +77,13 @@
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-semibold">Gênero</label>
 
-                                <select class="form-select form-select-md" name="gender">
-
-                                    <option value="Masculino" {{ old('gender')=="Masculino" ? "selected" : "" }}>
-                                        Masculino
-                                    </option>
-
-                                    <option value="Feminino" {{ old('gender')=="Feminino" ? "selected" : "" }}>
-                                        Feminino
-                                    </option>
-
-                                    <option value="Outro" {{ old('gender')=="Outro" ? "selected" : "" }}>
-                                        Outro
-                                    </option>
+                                <select class="form-select form-select-md" name="gender">   
+                                    
+                                    @foreach(\App\Enums\Gender::options() as $value => $label)
+                                        <option value="{{ $value }}">
+                                            {{ $label }}
+                                        </option>
+                                    @endforeach
 
                                 </select>
                             </div>
