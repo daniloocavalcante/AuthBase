@@ -195,7 +195,11 @@
                                                 </span>
                                             </td>
 
-                                            <td class="text-end text-muted">
+                                            <td class="text-end text-muted"
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="top"
+                                                    title="{{ $log->created_at ?? "" }}"
+                                                    placeholder="{{ $log->created_at ?? "" }}">
                                                 {{ $log->created_at->diffForHumans() }}
                                             </td>
                                         </tr>
@@ -270,7 +274,11 @@
                                                 </a>  
                                             </td>
                                             <td class="text-muted">{{ $user->email }}</td>
-                                            <td class="text-end text-muted">
+                                            <td class="text-end text-muted"                                                         
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-placement="top"
+                                                        title="{{ $user->created_at ?? "" }}"
+                                                        placeholder="{{ $user->created_at ?? "" }}">
                                                 {{ $user->created_at->diffForHumans() }}
                                             </td>
                                         </tr>
