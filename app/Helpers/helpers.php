@@ -159,16 +159,19 @@ if (!function_exists('getUserBadge')) {
                 'text' => 'Administrador',
                 'label' => 'Adm',
                 'class' => 'text-bg-dark',
+                'img' => asset('images/admin.png'),
             ],
             'user' => [
                 'text' => 'Usuário Comum',
                 'label' => 'User',
                 'class' => 'bg-primary',
+                'img' => asset('images/default.png'),
             ],
             default => [
                 'text' => ucfirst($role),
                 'label' => strtolower(substr($role, 0, 4)),
                 'class' => 'bg-secondary',
+                'img' => asset('images/default.png'),
             ],
         };
     }

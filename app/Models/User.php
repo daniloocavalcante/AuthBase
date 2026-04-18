@@ -85,16 +85,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'gender' => Gender::class,
             'birth' => 'date',
             'last_login' => 'datetime',
         ];
     }
     
-    public function getGenderLabelAttribute(): string
-    {
-        return $this->gender?->label() ?? '-';
-    }
+
         
 }
 

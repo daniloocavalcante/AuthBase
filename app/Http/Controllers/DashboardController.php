@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
+use App\Enums\Gender;
 
 
 use App\Models\User;       // <— Importa o modelo User
@@ -22,7 +23,13 @@ class DashboardController extends Controller
     {
         // pega o usuário logado no momento da chamada
         $user = Auth::user(); // carrega relacionamentos que precisar
-        return view($view, array_merge($data, ['user' => $user]));
+        $role = $user->getRoleNames()->first();
+        $badge = getUserBadge($role);
+        $user->gender =  Gender::fromDatabase($user->gender)->label();
+        return view($view, array_merge($data, [
+                                                'user' => $user,
+                                                'badge' => $badge,
+                                            ]));
     }
 
     public function index()
@@ -37,11 +44,13 @@ class DashboardController extends Controller
 
     public function edit()
     {        
-        $user = Auth::user();
-        $logs = AppLog::where('user_id', $user->id)
+        $logs = AppLog::where('user_id', Auth::user()->id)
                     ->latest()
                     ->paginate(3); // pode trocar por get() se não quiser paginação
-        return view('dashboard.profile.edit', compact('logs', 'user')); 
+
+        return $this->viewWithUser('dashboard.profile.edit', [
+        'logs' => $logs,
+    ]);
     }
 
 
@@ -179,7 +188,9 @@ class DashboardController extends Controller
  
     public function show($id){        
         $user = User::findOrFail($id);
-        return view('dashboard.users.show', compact('user'));
+        $badge = getUserBadge($user->getRoleNames()->first());        
+        $user->gender =  Gender::fromDatabase($user->gender)->label();
+        return view('dashboard.users.show', compact('user', 'badge'));
     }
 
     public function users(Request $request){ 

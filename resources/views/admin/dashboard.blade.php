@@ -258,8 +258,8 @@
                                                     class="d-flex align-items-center text-decoration-none text-dark"
                                                     data-bs-toggle="tooltip"
                                                     data-bs-placement="top"
-                                                    title="Acessar perfil de: {{ ucfirst($user->name) }}"
-                                                    placeholder="title="Acessar perfil de: {{ ucfirst($user->name) }}" >
+                                                    title="{{ ucfirst($user->name) }} {{ ucfirst($user->surname) }}"
+                                                    placeholder="title="{{ ucfirst($user->name) }} {{ ucfirst($user->surname) }}">
                                                     
 
                                                     <div class="me-2 text-secondary fs-5">
@@ -268,7 +268,7 @@
 
                                                     
                                                     <div class="fw-semibold">
-                                                        {{ ucfirst($user->name) }} {{ ucfirst($user->surname) }}
+                                                        {{ ucfirst($user->name) }}
                                                     </div>
                                                     
                                                 </a>  
@@ -327,9 +327,10 @@
                          {{ getUserBadge(auth()->user()?->getRoleNames()->first())['label'] ?? '' }}     
                     </div>
                 </div>
+                <h5 class="mb-1">{{ $user->name . ' ' . $user->surname }}</h5>
 
                 <h6 class="mb-0">{{ getUserBadge(auth()->user()?->getRoleNames()->first())['text'] ?? '' }}    </h6>
-                <small class="text-muted">Online</small>
+                <small class="text-muted ">Online</small>
 
             </div>
         </div>

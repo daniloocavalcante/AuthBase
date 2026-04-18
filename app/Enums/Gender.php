@@ -2,30 +2,33 @@
 
 namespace App\Enums;
 
-namespace App\Enums;
-
 enum Gender: string
 {
     case Male = 'male';
     case Female = 'female';
     case Other = 'other';
-    //case NonBinary = 'non_binary';
+
+    private const LABELS = [
+        'male'   => 'Masculino',
+        'female' => 'Feminino',
+        'other'  => 'Outro',
+    ];
 
     public function label(): string
     {
-        return match ($this) {
-            self::Male => 'Masculino',
-            self::Female => 'Feminino',
-            self::Other => 'Outro',
-            //self::NonBinary => 'Não Binário',
-        };
+        return self::LABELS[$this->value];
+    }
+
+    public static function fromDatabase(?string $value): self
+    {
+        return self::tryFrom(strtolower((string) $value)) ?? self::Other;
     }
 
     public static function options(): array
     {
         return collect(self::cases())
             ->mapWithKeys(fn ($case) => [
-                $case->value => $case->label()
+                $case->value => $case->label(),
             ])
             ->toArray();
     }

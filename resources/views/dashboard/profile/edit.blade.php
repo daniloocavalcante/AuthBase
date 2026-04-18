@@ -57,7 +57,7 @@
                             <!-- Foto -->
                             <div class="col-md-4 text-center border-end">
 
-                                <img src="{{ asset('images/default.png') }}?v=2"
+                                <img src="{{ $badge['img'] }}?v=2"
                                     class="img-fluid rounded-circle shadow mb-3"
                                     style="width:120px;height:120px;object-fit:cover;">
 
@@ -66,10 +66,7 @@
 
                                 <!-- Badge -->                                                        
                                 <div class="py-2">
-                                        @php
-                                            $role = $user->getRoleNames()->first();
-                                            $badge = getUserBadge($role);
-                                        @endphp
+
                                         <span class="badge {{ $badge['class'] }} fs-6 rounded-pill" >
                                             {{ $badge['text'] }}
                                         </span>

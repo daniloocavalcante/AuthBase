@@ -92,9 +92,6 @@ class UserObserver
         // ------------------------
         // Log genérico para outros campos
         // ------------------------
-        $normalize = fn($value) => $value instanceof \UnitEnum
-            ? $value->value
-            : ($value ?? '-');
 
         foreach ($changes as $field => $newValue) {
 
@@ -102,9 +99,7 @@ class UserObserver
                 continue;
             }
 
-            $oldValue = $normalize($original[$field] ?? null);
-            $newValue = $normalize($newValue);
-
+            $oldValue = $original[$field] ?? null;
             $fields[] = "{$field}: '{$oldValue}' → '{$newValue}'";
         }
 
