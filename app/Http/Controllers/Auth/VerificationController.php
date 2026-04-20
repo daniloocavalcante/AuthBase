@@ -58,7 +58,7 @@ class VerificationController extends Controller
         app_log(
             'EMAIL_CONFIRMATION',
             $user,
-            "Usuário solicitou reenvio de email: {$user->email}"
+            "Usuário solicitou reenvio do e-mail de confirmação: {$user->email}"
         );
 
         return $request->wantsJson()

@@ -114,10 +114,10 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        $user = Auth::user();
-        $totalUsers = User::count();
-        $totalLogs = AppLog::count();
-        $totalPermissions = Permission::count();
+        $profile = Auth::user();
+        $totalUsers = format_compact_number(User::count());
+        $totalLogs = format_compact_number(AppLog::count());
+        $totalPermissions = format_compact_number(Permission::count());
 
         // Calculando percetual de usuários (diários)      
         $today_users = User::whereDate('created_at', Carbon::today())->count();
@@ -233,7 +233,7 @@ class AdminController extends Controller
      
 
         return view('admin.dashboard', compact(
-            'user',
+            'profile',
             'totalUsers',
             'percentChangeUsers',
             'totalLogs',

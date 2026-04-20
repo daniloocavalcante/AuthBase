@@ -134,16 +134,16 @@ Route::middleware('auth')
         //Acesso Administrativo
 
         Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
-            ->middleware('permission:logs.show')
+            ->middleware('permission:admin.dashboard')
             ->name('admin.dashboard');
 
         Route::get('/logs/download', [AdminController::class, 'download'])
-        ->middleware('permission:logs.show')
+        ->middleware('permission:admin.dashboard')
         ->name('logs.download');
 
         // Logs (admin)
         Route::get('/admin/logs', [AdminController::class, 'logs'])
-            ->middleware('permission:admin.dashboard')
+            ->middleware('permission:logs.show')
             ->name('logs');
 
         Route::get('/admin/logs/exportar', [AdminController::class, 'export_logs'])

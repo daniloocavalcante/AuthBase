@@ -82,6 +82,7 @@
                                         type="email"
                                         class="form-control"
                                         name="email"
+                                        value="{{ old('email') }}"
                                         placeholder="Digite seu novo e-mail"                                        
                                         required>
 
@@ -100,7 +101,7 @@
                                 <div class="input-group">
                                     <input                                        
                                         type="email"
-                                        class="form-control"
+                                        class="form-control"                                        
                                         name="email_confirmation"
                                         placeholder="Repita seu e-mail"
                                         required>

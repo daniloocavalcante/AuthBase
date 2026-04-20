@@ -152,22 +152,22 @@ if (!function_exists('getLogBadge')) {
 
 
 if (!function_exists('getUserBadge')) {
-    function getUserBadge($role)
-    {
-        return match ($role) {
-            'admin' => [
-                'text' => 'Administrador',
-                'label' => 'Adm',
-                'class' => 'text-bg-dark',
-                'img' => asset('images/admin.png'),
-            ],
-            'user' => [
-                'text' => 'Usuário Comum',
-                'label' => 'User',
-                'class' => 'bg-primary',
-                'img' => asset('images/default.png'),
-            ],
-            default => [
+        function getUserBadge($role)
+        {
+            return match ($role) {
+                'admin' => (object) [
+                    'text' => 'Administrador',
+                    'label' => 'Adm',
+                    'class' => 'text-bg-dark',
+                    'img' => asset('images/admin.png'),
+                ],
+                'user' => (object) [
+                    'text' => 'Usuário Comum',
+                    'label' => 'User',
+                    'class' => 'bg-primary',
+                    'img' => asset('images/default.png'),
+                ],
+            default => (object) [
                 'text' => ucfirst($role),
                 'label' => strtolower(substr($role, 0, 4)),
                 'class' => 'bg-secondary',
@@ -176,3 +176,25 @@ if (!function_exists('getUserBadge')) {
         };
     }
 }  
+
+if (!function_exists('format_compact_number')) {
+    function format_compact_number(int|float $number): string
+    {
+        if ($number < 1000) {
+            return (string) $number;
+        }
+
+        if ($number < 1000000) {
+            $value = floor(($number / 1000) * 10) / 10;
+            $suffix = 'K';
+        } elseif ($number < 1000000000) {
+            $value = floor(($number / 1000000) * 10) / 10;
+            $suffix = 'M';
+        } else {
+            $value = floor(($number / 1000000000) * 10) / 10;
+            $suffix = 'B';
+        }
+
+        return rtrim(rtrim(number_format($value, 1), '0'), '.') . $suffix;
+    }
+}

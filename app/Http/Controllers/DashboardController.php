@@ -47,7 +47,6 @@ class DashboardController extends Controller
         $logs = AppLog::where('user_id', Auth::user()->id)
                     ->latest()
                     ->paginate(3); // pode trocar por get() se não quiser paginação
-
         return $this->viewWithUser('dashboard.profile.edit', [
         'logs' => $logs,
     ]);
@@ -226,9 +225,9 @@ class DashboardController extends Controller
         $users = $query->paginate($perPage)->withQueryString();
 
         // CONTADORES DINÂMICOS
-        $usersCount  = User::count();
-        $adminsCount = 2;
-        $todayUsers  = User::whereDate('created_at', now())->count();
+        $usersCount  = format_compact_number(User::count());
+        $adminsCount = format_compact_number(User::role('admin')->count());
+        $todayUsers  = format_compact_number(User::whereDate('created_at', now())->count());
 
         // RETORNA PARA A VIEW
         return view('dashboard.users.index', compact('users', 'usersCount', 'adminsCount', 'todayUsers'));  

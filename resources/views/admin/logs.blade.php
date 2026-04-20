@@ -232,9 +232,13 @@
 
                                         {{-- Ação --}}
                                         <td class="d-print-none">
-                                            <span class="badge {{ getLogBadge($log->action)['class'] }}"> 
-                                                <i class="{{ getLogBadge($log->action)['icon'] }} me-1"></i>
-                                                {{ getLogBadge($log->action)['text'] }}
+                                            <span class="badge {{ getLogBadge($log->action)['class']  }}"
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="top"
+                                                    title="{{ $log->action }}"
+                                                    placeholder="{{ $log->action }}"> 
+                                                <i class="{{ getLogBadge($log->action)['icon'] ?? '' }} me-1"></i>
+                                                {{ getLogBadge($log->action)['text'] ?? '' }}
                                             </span>
                                         </td>
 
@@ -289,7 +293,7 @@
                     {{-- Paginação --}}
                     <div class="d-flex justify-content-between align-items-center mt-3">
 
-                        <small class="text-muted" id="print-info">
+                        <small class="text-muted" id="print-info"   >
                             Mostrando {{ $logs->firstItem() }} até {{ $logs->lastItem() }}
                             de {{ $totalLogs }} logs
                         </small>
@@ -314,17 +318,32 @@
 
                     <div>
                         <small class="text-muted">Total</small>
-                        <div class="fw-bold">{{ $totalLogs }}</div>
+                        <div class="fw-bold"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"   
+                                title="{{ $totalLogs }}"
+                                placeholder="{{ $totalLogs }}" 
+                        >{{ $totalLogs }}</div>
                     </div>
 
                     <div>
                         <small class="text-muted">Hoje</small>
-                        <div class="fw-bold">{{ $logsHoje }}</div>
+                        <div class="fw-bold"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"   
+                                title="{{ $logsHoje }}"
+                                placeholder="{{ $logsHoje }}" 
+                        >{{ $logsHoje }}</div>
                     </div>
 
                     <div>
                         <small class="text-muted">Erros</small>
-                        <div class="fw-bold text-danger">{{ $logsErro }}</div>
+                        <div class="fw-bold text-danger"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"   
+                                title="{{ $logsErro }}"
+                                placeholder="{{ $logsErro }}" 
+                        >{{ $logsErro }}</div>
                     </div>
 
                 </div>
@@ -340,9 +359,6 @@
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
                         @foreach($recentLogs as $log)
-                            @php
-                                $badge = getLogBadge($log->action);
-                            @endphp
 
                             <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
                                 
@@ -350,9 +366,9 @@
                                     <strong class="me-2"     
                                     data-bs-toggle="tooltip"
                                     data-bs-placement="right"
-                                    title="{{ $badge['text'] }}">
+                                    title="{{ getLogBadge($log->action)['text'] ?? '' }}">
                                         {{ $log->user->name ?? 'Sistema' }}
-                                        <i class="ms-1 {{ $badge['icon'] }}"></i>
+                                        <i class="ms-1 {{ getLogBadge($log->action)['icon'] ?? '' }}"></i>
                                     </strong>
 
                                 </div>
@@ -370,7 +386,7 @@
                         @endforeach
 
                         <li class="list-group-item text-center text-muted small">
-                            Exibindo {{ min(count($logs), 5) }} atividades mais recentes
+                            Exibindo {{ min(count($recentLogs), 5) }} atividades mais recentes
                         </li>
                     </ul>
                 </div>

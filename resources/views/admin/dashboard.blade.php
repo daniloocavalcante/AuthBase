@@ -41,7 +41,12 @@
                             <h6 class="text-muted mb-1">
                                 <i class="fa-solid fa-users me-1"></i> Usuários
                             </h6>
-                            <h3 class="mb-0">{{ $totalUsers }}</h3>
+                            <h3 class="mb-0"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="right"
+                                title="{{ $totalUsers }}"
+                                placeholder="{{ $totalUsers }}" 
+                            >{{ $totalUsers }}</h3>
                             <small class="{{ $percentChangeUsers > 0 ? 'text-success' : ($percentChangeUsers < 0 ? 'text-danger' : 'text-muted') }}">
                                 {{ $percentChangeUsers > 0 
                                     ? '+' . $percentChangeUsers . '% hoje'
@@ -68,7 +73,13 @@
                             <h6 class="text-muted mb-1">
                                 <i class="fa-solid fa-file-lines me-1"></i> Logs
                             </h6>
-                            <h3 class="mb-0">{{ $totalLogs }}</h3>
+                            <h3 class="mb-0"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="right"
+                                title="{{ $totalLogs }}"
+                                placeholder="{{ $totalLogs }}" 
+                            
+                            >{{ $totalLogs }}</h3>
                             <small class="{{ $percentChangeLogs > 0 ? 'text-success' : ($percentChangeLogs < 0 ? 'text-danger' : 'text-muted') }}">
                                 {{ $percentChangeLogs > 0 
                                     ? '+' . $percentChangeLogs . '% semana'
@@ -95,7 +106,12 @@
                             <h6 class="text-muted mb-1">
                                 <i class="fa-solid fa-shield-halved me-1"></i> Permissões
                             </h6>
-                            <h3 class="mb-0">{{ $totalPermissions }}</h3>
+                            <h3 class="mb-0"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="right"   
+                                title="{{ $totalPermissions }}"
+                                placeholder="{{ $totalPermissions }}" 
+                            >{{ $totalPermissions }}</h3>
                             <small class="text-primary">ativas</small>
                         </div>
 
@@ -322,14 +338,14 @@
             <div class="card-body">
 
                 <div class="mb-3">
-                    <div class="rounded-circle {{ getUserBadge(auth()->user()?->getRoleNames()->first())['class'] ?? '' }} text-white d-flex align-items-center justify-content-center mx-auto"
+                    <div class="rounded-circle {{ getUserBadge($profile?->getRoleNames()->first())->class ?? '' }} text-white d-flex align-items-center justify-content-center mx-auto"
                          style="width:60px;height:60px;">
-                         {{ getUserBadge(auth()->user()?->getRoleNames()->first())['label'] ?? '' }}     
+                         {{ getUserBadge($profile?->getRoleNames()->first())->label ?? '' }}     
                     </div>
                 </div>
-                <h5 class="mb-1">{{ $user->name . ' ' . $user->surname }}</h5>
+                <h5 class="mb-1">{{ $profile->name . ' ' . $profile->surname }}</h5>
 
-                <h6 class="mb-0">{{ getUserBadge(auth()->user()?->getRoleNames()->first())['text'] ?? '' }}    </h6>
+                <h6 class="mb-0">{{ getUserBadge($profile?->getRoleNames()->first())->text ?? '' }}    </h6>
                 <small class="text-muted ">Online</small>
 
             </div>
