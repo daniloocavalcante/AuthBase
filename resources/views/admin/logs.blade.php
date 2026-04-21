@@ -321,9 +321,9 @@
                         <div class="fw-bold"
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="top"   
-                                title="{{ $totalLogs }}"
-                                placeholder="{{ $totalLogs }}" 
-                        >{{ $totalLogs }}</div>
+                                title="{{ number_format($totalLogs, 0, '', '.') }}"
+                                placeholder="{{ number_format($totalLogs, 0, '', '.') }}"
+                        >{{ format_compact_number($totalLogs) }}</div>
                     </div>
 
                     <div>
@@ -331,9 +331,9 @@
                         <div class="fw-bold"
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="top"   
-                                title="{{ $logsHoje }}"
-                                placeholder="{{ $logsHoje }}" 
-                        >{{ $logsHoje }}</div>
+                                title="{{ number_format($logsHoje, 0, '', '.') }}"
+                                placeholder="{{ number_format($logsHoje, 0, '', '.') }}"
+                        >{{ format_compact_number($logsHoje) }}</div>
                     </div>
 
                     <div>
@@ -341,9 +341,9 @@
                         <div class="fw-bold text-danger"
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="top"   
-                                title="{{ $logsErro }}"
-                                placeholder="{{ $logsErro }}" 
-                        >{{ $logsErro }}</div>
+                                title="{{ number_format($logsErro, 0, '', '.') }}"
+                                placeholder="{{ number_format($logsErro, 0, '', '.') }}"
+                        >{{ format_compact_number($logsErro) }}</div>
                     </div>
 
                 </div>

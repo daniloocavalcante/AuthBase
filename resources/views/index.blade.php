@@ -19,21 +19,29 @@
 
                 <div class="card-body">
 
-                    <div class="descricao-projeto">
+                    <div class="container my-4">
                         <p>
-                        Este site foi desenvolvido para fins de aprendizagem, com o objetivo de praticar conceitos de desenvolvimento web e organização de aplicações.
+                            Este site foi desenvolvido para fins de aprendizagem, com o objetivo de praticar conceitos de desenvolvimento web e organização de aplicações.
                         </p>
 
                         <p>
-                        Possui funcionalidades básicas de controle de acesso, como cadastro, login, recuperação de senha e gerenciamento de sessões, com validações de dados para maior consistência.
+                            A aplicação possui funcionalidades de controle de acesso de usuários, incluindo cadastro, login, recuperação de senha e gerenciamento de sessões, com validações de dados para garantir maior consistência e integridade das informações inseridas.
                         </p>
 
                         <p>
-                        Tecnologias utilizadas: <strong>Laravel</strong> (backend), <strong>Bootstrap</strong> (layout responsivo), <strong>FontAwesome Free</strong> (ícones) e <strong>jQuery</strong> (validações e interações no front-end).
-                        </p>
+                            Além disso, o sistema conta com <strong>implementação de logs de atividades</strong>, registrando eventos relevantes como autenticação de usuários, alterações de dados e ações importantes dentro da aplicação. Esses registros auxiliam no monitoramento, rastreabilidade e depuração do sistema, simulando práticas utilizadas em aplicações reais.
+                        </p>                        
 
-                        <p>
-                        O projeto é educacional, servindo para entender autenticação de usuários, validação de formulários, organização MVC e integração front-end/back-end.
+                        <h5 class="mt-4">Tecnologias utilizadas</h5>
+                        <ul>
+                            <li><strong>Laravel</strong> – Backend e estrutura MVC</li>
+                            <li><strong>Bootstrap</strong> – Layout responsivo</li>
+                            <li><strong>FontAwesome Free</strong> – Ícones</li>
+                            <li><strong>jQuery</strong> – Validações e interações no front-end</li>
+                        </ul>
+
+                        <p class="mt-3">
+                            O projeto possui caráter educacional, servindo como base para compreensão de conceitos como autenticação de usuários, controle de acesso, validação de formulários, arquitetura MVC, registro de logs e integração entre front-end e back-end.
                         </p>
                     </div>
                 </div>

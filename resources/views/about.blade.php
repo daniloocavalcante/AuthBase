@@ -63,6 +63,10 @@
                                 <strong>jQuery</strong> – Biblioteca JavaScript utilizada para facilitar
                                 manipulações no front-end e validações dinâmicas.
                             </li>
+                            <li>
+                                <strong>Spatie Laravel Permission</strong> – Utilizado para gerenciamento
+                                 de papéis e permissões de usuários, permitindo controle de acesso mais granular.
+                            </li>
                         </ul>
 
                         <p>
