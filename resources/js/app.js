@@ -57,3 +57,34 @@ import initLogsChart from './logsChart';
 document.addEventListener('DOMContentLoaded', function () {
     initLogsChart();
 });
+
+
+
+/**  Roles */
+
+window.toggleUsers = function (el) {
+    const container = el.closest('div');
+    const extraUsers = container.querySelectorAll('.extra-user');
+
+    if (!extraUsers.length) return;
+
+    const isHidden = extraUsers[0].classList.contains('d-none');
+
+    extraUsers.forEach(user => {
+        user.classList.toggle('d-none');
+    });
+
+    if (isHidden) {
+        el.textContent = 'Ver menos';
+        el.setAttribute('title', 'Ver menos');
+    } else {
+        el.textContent = '+' + extraUsers.length;
+        el.setAttribute('title', 'Ver mais...');
+    }
+};
+
+document.getElementById('toggleUsers')?.addEventListener('click', function () {
+    document.querySelectorAll('.extra-user-role').forEach(el => el.classList.toggle('d-none'));
+
+    this.textContent = this.textContent === 'Ver mais' ? 'Ver menos' : 'Ver mais';
+});

@@ -31,8 +31,8 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'logs.show']);         // listar logs
         Permission::firstOrCreate(['name' => 'logs.export']);       // exportar .csv logs
 
-        //Permission::create(['name' => 'users.delete']);      // deletar usuários
-        //Permission::create(['name' => 'users.create']);      // criar
+        Permission::firstOrCreate(['name' => 'roles']);         // listar logs
+        Permission::firstOrCreate(['name' => 'roles.management']);       // exportar .csv logs
 
         // ------------------------
         // 2. Criar roles

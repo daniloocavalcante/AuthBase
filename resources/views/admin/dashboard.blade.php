@@ -34,7 +34,7 @@
             <div class="row g-3"> 
 
                 <div class="col-md-4">
-                    <div class="card shadow-lg border-0">
+                    <div class="card shadow-lg border-0 h-100">
                         <div class="card-body d-flex justify-content-between align-items-center">
 
                             <div>
@@ -66,7 +66,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    <div class="card shadow-lg border-0">
+                    <div class="card shadow-lg border-0 h-100">
                         <div class="card-body d-flex justify-content-between align-items-center">
 
                             <div>
@@ -99,19 +99,19 @@
                 </div>
 
                 <div class="col-md-4">
-                    <div class="card shadow-lg border-0">
+                    <div class="card shadow-lg border-0 h-100">
                         <div class="card-body d-flex justify-content-between align-items-center">
 
                             <div>
                                 <h6 class="text-muted mb-1">
-                                    <i class="fa-solid fa-shield-halved me-1"></i> Permissões
+                                    <i class="fa-solid fa-shield-halved me-1"></i> Funções
                                 </h6>
                                 <h3 class="mb-0 d-inline-block"
                                     data-bs-toggle="tooltip"
                                     data-bs-placement="right"   
-                                    title="{{ number_format($totalPermissions, 0, '', '.') }}"
-                                    placeholder="{{ number_format($totalPermissions, 0, '', '.') }}"
-                                >{{ format_compact_number($totalPermissions) }}</h3><br>
+                                    title="{{ number_format($totalRoles, 0, '', '.') }}"
+                                    placeholder="{{ number_format($totalRoles, 0, '', '.') }}"
+                                >{{ format_compact_number($totalRoles) }}</h3><br>
                                 <small class="text-primary">ativas</small>
                             </div>
 
@@ -148,7 +148,7 @@
             
             
 
-            <div class="row mt-2 g-3 d-none d-md-flex">
+            <div class="row mt-2 g-3 ">
 
                 <!-- 🟦 ATIVIDADES -->
                 <div class="col-md-6">
@@ -352,21 +352,12 @@
             </div>
 
             <!-- ATALHOS -->
-            <div class="card mt-3 shadow border-0">
-                <div class="card-body">
-
-                    <h6 class="mb-3">Atalhos rápidos</h6>
-
-                    <a href="{{ route('users') }}" class="btn btn-primary btn-sm w-100 mb-2">Ver usuários</a>
-                                    <a href="{{ route('logs.download') }}" class="btn btn-outline-dark btn-sm w-100 mb-2">Baixar laravel.log</a>
-                    <a href="{{ route('logs') }}" class="btn btn-outline-secondary btn-sm w-100">Ver logs</a>
-
-
-                </div>
+            <div>
+                <x-admin.quicks/>
             </div>
 
             <!-- STATUS SISTEMA -->
-            <div class="card mt-3 shadow border-0">
+            <div class="card mt-3 shadow border-0 d-none d-md-block">
                 <div class="card-body">
 
                     <h6>Status do sistema</h6>

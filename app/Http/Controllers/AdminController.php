@@ -5,8 +5,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
-
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use ZipArchive;
 
 use Carbon\Carbon;
 
@@ -117,7 +118,7 @@ class AdminController extends Controller
         $profile = Auth::user();
         $totalUsers = User::count();
         $totalLogs = AppLog::count();
-        $totalPermissions = Permission::count();
+        $totalRoles = Role::count();
 
         // Calculando percetual de usuários (diários)      
         $today_users = User::whereDate('created_at', Carbon::today())->count();
@@ -238,7 +239,7 @@ class AdminController extends Controller
             'percentChangeUsers',
             'totalLogs',
             'percentChangeLogs',
-            'totalPermissions',       
+            'totalRoles',       
             'databaseStatus',
             'cpuUsage',
             'memoryPercent',
@@ -251,15 +252,89 @@ class AdminController extends Controller
 
     public function download()
     {
-        $path = storage_path('logs/laravel.log');
+        $files = glob(storage_path('logs/*.log'));
 
-        if (!file_exists($path)) {
-            abort(404, 'Arquivo de log não encontrado.');
+        if (!$files || count($files) === 0) {
+            abort(404, 'Nenhum arquivo de log encontrado.');
         }
 
-        app_log('EXPORT_LOG', null, 'Download do arquivo de log do sistema (laravel.log)');
-        return response()->download($path, 'laravel.log');
+        $zip = new ZipArchive;
+        $fileName = 'logs.zip';
+        $zipPath = storage_path($fileName);
+
+        if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE)) {
+
+            foreach ($files as $file) {
+                $zip->addFile($file, basename($file));
+            }
+
+            $zip->close();
+        } else {
+            abort(500, 'Erro ao criar o arquivo ZIP.');
+        }
+        app_log('EXPORT_LOG', null, 'Download do arquivo de log do sistema (laravel.zip)');
+        return response()->download($zipPath)->deleteFileAfterSend(true);       
+
     }
 
+    
+    public function roles()
+    {
+        $profile = Auth::user();
+        $roles = Role::with(['permissions', 'users'])->get();
+
+        $permissions = Permission::all();
+        $totalUsers = $roles->pluck('users')->flatten()->unique('id')->count();
+
+        return view('admin.roles.index', compact('roles', 'permissions', 'totalUsers', 'profile'));
+    }
+
+    public function roles_show(Role $role)
+    {
+        $users = User::whereDoesntHave('roles', function ($q) use ($role) {
+            $q->where('id', $role->id);
+        })->get();
+
+        $users_paginate = $role->users()->paginate(5);
+
+        $profile = Auth::user();
+
+        $role->load(['users', 'permissions']);
+
+        return view('admin.roles.show', compact('role', 'profile', 'users', 'users_paginate'));
+    }
+
+    public function roles_add(Request $request, Role $role)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        $user = User::findOrFail($request->user_id);
+
+        // substitui todas as roles pela nova
+        $user->syncRoles([$role->name]);
+
+        return back()->with(
+            'success',
+            "Usuário [{$user->name}] agora é: " . ucfirst($role->name)
+        );
+    }
+
+    public function roles_remove($roleId, $userId)
+    {
+        $user = User::findOrFail($userId);
+
+        // pega a role "user"
+        $roleUser = Role::where('name', 'user')->firstOrFail();
+
+        // substitui todas as roles
+        $user->syncRoles([$roleUser->name]);
+
+        return back()->with(
+            'danger',
+            'Usuário [' . $user->name . '] agora é: User'
+        );
+    }
 
 }

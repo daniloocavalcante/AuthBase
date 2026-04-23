@@ -150,6 +150,25 @@ Route::middleware('auth')
             ->middleware('permission:logs.export')
             ->name('logs.export');
 
+        //Roles & Permissions
+
+        Route::get('/admin/roles', [AdminController::class, 'roles'])
+            ->middleware('permission:roles')
+            ->name('roles');
+
+        Route::get('/admin/roles/{role}', [AdminController::class, 'roles_show'])
+            ->middleware('permission:roles.management')
+            ->name('roles.show');
+
+        Route::post('/admin/roles/{role}/add-user', [AdminController::class, 'roles_add'])
+            ->middleware('permission:roles.management')
+            ->name('roles.add');
+        
+        Route::delete('/admin/roles/{role}/remove-user/{user}', [AdminController::class, 'roles_remove'])
+                ->middleware('permission:roles.management')
+                ->name('roles.remove');
+
+
     });
 
 Route::fallback(function () {

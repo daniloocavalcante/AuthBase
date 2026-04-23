@@ -50,6 +50,18 @@
                                     </li>
                                     @endcan
 
+                                   @can('roles') 
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('roles') }}"
+                                            title="Painel administativo"
+                                            placeholder="Cargos">
+                                            <i class="fa-solid fa-shield-halved"></i> Cargos
+                                        </a>
+                                    </li>
+                                    @endcan
+                                    
+
+
                                     @can('logs.show') 
                                     <li>
                                         <a class="dropdown-item" href="{{ route('logs') }}"

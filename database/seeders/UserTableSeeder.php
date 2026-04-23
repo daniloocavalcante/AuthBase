@@ -20,9 +20,9 @@ class UserTableSeeder extends Seeder
         $users_standard = [
             [   'name' => 'Danilo',
                 'surname' => 'Cavalcante',
-                'birth' => '2000-08-15',
+                'birth' => '2004-12-10',
                 'gender' => 'male',
-                'email' => 'danilo.cs10@icloud.com',
+                'email' => 'danilo@email.com',
                 'password' => Hash::make('danilo123'),
                 'created_at' => '2020-01-02', 
                 'updated_at' => '2020-01-02',
@@ -30,9 +30,9 @@ class UserTableSeeder extends Seeder
             [
                 'name' => 'Danilo',
                 'surname' => 'Silva',
-                'birth' => '2000-08-15',
+                'birth' => '2005-10-17',
                 'gender' => 'male',
-                'email' => 'danilo.cs10@gmail.com',
+                'email' => 'danilo.silva@email.com',
                 'password' => Hash::make('danilo123'),
                 'created_at' => '2020-01-09', 
                 'updated_at' => '2020-01-09',  
