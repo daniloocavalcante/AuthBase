@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AppLog whereModelId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AppLog whereModelType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AppLog whereUserId($value)
+ * @property-read Model|\Eloquent|null $model
+ * @property-read \App\Models\User|null $user
  * @mixin \Eloquent
  */
 class AppLog extends Model
