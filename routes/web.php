@@ -116,7 +116,7 @@ Route::middleware('auth')
 
         Route::put('/password', [DashboardController::class, 'password_update'])
             ->middleware('permission:profile.password')
-            ->name('password.update');
+            ->name('profile.password.update');
 
         // Usuários
         Route::get('/users', [DashboardController::class, 'users'])
