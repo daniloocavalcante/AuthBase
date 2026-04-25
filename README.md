@@ -6,8 +6,8 @@ Projeto base para **controle de acesso e gerenciamento de usuários** usando Lar
 
 ## Preview   
 
-👉 **Apresentação do projeto:**  
-🔗 [Link](https://www.youtube.com/watch?v=t5-c4FZCs_8)
+## ▶️ Apresentação do Projeto
+🔗 [Assistir](https://www.youtube.com/watch?v=t5-c4FZCs_8)
 
 ![Logo](./public/images/image.png)
 
@@ -26,11 +26,10 @@ Projeto base para **controle de acesso e gerenciamento de usuários** usando Lar
 ## Instalação 
 
 Veja as instruções completas no arquivo:
-
 [INSTALL.md](./INSTALL.md)
 
-👉 **Guia de instalação:**  
-🔗 [Link](https://www.youtube.com/watch?v=5zXtNQmgGsU)
+## ▶️ Apresentação do Projeto
+🔗 [Assistir](https://www.youtube.com/watch?v=5zXtNQmgGsU)
 
 ---
 
