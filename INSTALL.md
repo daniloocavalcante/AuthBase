@@ -33,7 +33,7 @@ npm run build    # para produção
 
 5. **Criar o banco de dados**
 ```sql
-CREATE DATABASE authbase CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE DATABASE authbase CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
 6. **Editar o `.env` com as credenciais do banco de dados**
